@@ -14,6 +14,8 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
+import controller.IndexController;
+
 public class CommonConfig extends JFinalConfig
 {
 //	public final static String relativePath = "upload/images/"
@@ -38,6 +40,7 @@ public class CommonConfig extends JFinalConfig
 	public void configRoute(Routes me)
 	{
 		// TODO Auto-generated method stub
+		me.add("/",IndexController.class);
 		
 	}
 
