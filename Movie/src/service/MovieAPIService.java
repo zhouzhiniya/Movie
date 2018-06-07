@@ -154,6 +154,10 @@ public class MovieAPIService {
     return result;
   }
   
+  /**
+   * 向数据库保存今日上映的电影
+   * @return
+   */
   public boolean saveTodayMovies() {
     ArrayList<Movie> todayMovies = this.getTodayMovies();
     boolean saved = false;
