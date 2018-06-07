@@ -16,6 +16,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
 import controller.IndexController;
+import model._MappingKit;
 
 public class CommonConfig extends JFinalConfig
 {
@@ -55,13 +56,13 @@ public class CommonConfig extends JFinalConfig
 	@Override
 	public void configPlugin(Plugins me)
 	{
-//		// TODO Auto-generated method stub	
-//		//数据库
-//		DruidPlugin dp = new DruidPlugin(PropKit.use("prop.properties").get("url"), PropKit.get("user"), PropKit.get("password"));
-//		me.add(dp);
-//		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp); 
-//		me.add(arp);
-////		_MappingKit.mapping(arp);
+		// TODO Auto-generated method stub	
+		//数据库
+		DruidPlugin dp = new DruidPlugin(PropKit.use("prop.properties").get("url"), PropKit.get("user"), PropKit.get("password"));
+		me.add(dp);
+		ActiveRecordPlugin arp = new ActiveRecordPlugin(dp); 
+		me.add(arp);
+		_MappingKit.mapping(arp);
 	}
 
 	@Override
