@@ -2980,17 +2980,7 @@ ul#navigation a:hover {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.btn--sign:before {
-  content: '';
-  background-image: url(../images/components/wave.svg);
-  background-repeat: no-repeat;
-  background-size: 48px 4px;
-  width: 48px;
-  height: 4px;
-  position: absolute;
-  top: 24px;
-  left: 12px;
-}
+
 .btn--sign:hover,
 .btn--sign:focus {
   color: #b4b1b2;
@@ -4563,7 +4553,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .auth .btn--singin {
   position: absolute;
-  top: 9px;
+  top: 11px;
   left: 39px;
   padding-right: 20px;
   z-index: 15;
