@@ -154,4 +154,16 @@ public class MovieAPIService {
     return result;
   }
   
+  public boolean saveTodayMovies() {
+    ArrayList<Movie> todayMovies = this.getTodayMovies();
+    boolean saved = false;
+    for (Movie movie : todayMovies) {
+      saved = movie.save();
+    }
+    if(saved) {
+      return true;
+    }
+    return false;
+  }
+  
 }
