@@ -18,4 +18,5 @@ public class IndexController extends Controller{
 	  ser.getTodayMovies();
 	}
 	
+
 }

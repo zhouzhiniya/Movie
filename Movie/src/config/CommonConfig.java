@@ -11,6 +11,7 @@ import com.jfinal.core.JFinal;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
@@ -56,7 +57,10 @@ public class CommonConfig extends JFinalConfig
 	@Override
 	public void configPlugin(Plugins me)
 	{
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
+		//任务调度
+		Cron4jPlugin cron = new Cron4jPlugin("task.properties");
+		me.add(cron);
 		//数据库
 		DruidPlugin dp = new DruidPlugin(PropKit.use("prop.properties").get("url"), PropKit.get("user"), PropKit.get("password"));
 		me.add(dp);
