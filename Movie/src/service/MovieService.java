@@ -50,6 +50,11 @@ public class MovieService {
 	  return Movie.dao.findById("select * from movie where movie_id = ?", Integer.parseInt(id));
   }
   
+  //根据搜索条件搜索电影
+  public List<Movie> searchMovie(String keyword,String column) {
+	  return Movie.dao.find("select * from movie where "+column+" like '%?%'",keyword);
+  }
+  
   
   
   

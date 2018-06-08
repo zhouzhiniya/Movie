@@ -112,4 +112,43 @@ public class MovieController extends Controller
 		
 		this.renderJson(baseResponse);
 	}
+	
+	//搜索电影类型、演员、导演对应的电影
+	public void searchMovie()
+	{
+		BaseResponse baseResponse = new BaseResponse();
+		
+		try {
+			String movieType = this.getPara("movie_type");
+			String actor = this.getPara("actor");
+			String director = this.getPara("director");
+			if(StrKit.isBlank(movieType) || StrKit.isBlank(actor) || StrKit.isBlank(director)) {
+				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
+			}else {
+				List<Movie> movie = new ArrayList<Movie>();
+				if(!StrKit.isBlank(movieType)) {
+					//根据电影类型搜索
+					movie = movieService.searchMovie(movieType,"type");
+				}else if(!StrKit.isBlank(actor)) {
+					//根据演员搜索
+					movie = movieService.searchMovie(actor,"actors");
+				}else if(!StrKit.isBlank(director)) {
+					//根据导演搜索
+					movie = movieService.searchMovie(director,"director");
+				}
+				if(movie != null) {
+					baseResponse.setData(movie);
+					baseResponse.setResult(ResultCodeEnum.SUCCESS);
+				}else {
+					baseResponse.setResult(ResultCodeEnum.FAILED);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+		}
+		
+		this.renderJson(baseResponse);
+	}
 }

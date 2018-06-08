@@ -17,6 +17,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
 import controller.IndexController;
+import controller.MovieController;
 import model._MappingKit;
 
 public class CommonConfig extends JFinalConfig
@@ -44,6 +45,7 @@ public class CommonConfig extends JFinalConfig
 	{
 		// TODO Auto-generated method stub
 		me.add("/",IndexController.class);
+		me.add("/movie",MovieController.class);
 		
 	}
 
