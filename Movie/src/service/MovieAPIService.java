@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import com.alibaba.druid.pool.vendor.SybaseExceptionSorter;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.kit.StrKit;
@@ -129,6 +128,7 @@ public class MovieAPIService {
           types = types + "," + type;
         }
       }
+      movie.setType(types);
       
       movie.setImage(MTimeDetail.getJSONObject("basic").getString("img"));
       movie.setVideo(MTimeDetail.getJSONObject("basic").getJSONObject("video").getString("url"));
