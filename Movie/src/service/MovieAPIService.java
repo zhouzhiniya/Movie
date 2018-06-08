@@ -71,9 +71,10 @@ public class MovieAPIService {
   private String searchDoubanMovieID(String movieTitle) {
     String url = "http://api.douban.com/v2/movie/search?count=1&q=" + movieTitle;
     JSONObject response = requester.doGet(url);
-    if(!response.isEmpty()) {
+    if(response.getInteger("total") >= 0) {
       return response.getJSONArray("subjects").getJSONObject(0).getString("id");    
     }else {
+      System.out.println("\"" + movieTitle + "\"在豆瓣电影的查询结果为空！");
       return null;
     }
   }
@@ -96,7 +97,11 @@ public class MovieAPIService {
     
     //为每个电影创建Movie对象
     for (JSONObject MTimeDetail : details_MTime) {
-      JSONObject DoubanDetail = this.movieDetail_Douban(this.searchDoubanMovieID(MTimeDetail.getJSONObject("basic").getString("name")));
+      String DoubanMovieID = this.searchDoubanMovieID(MTimeDetail.getJSONObject("basic").getString("name"));
+      if(StrKit.isBlank(DoubanMovieID))
+        continue; //应急用：根据名称查不到豆瓣movie_id的直接跳过
+      JSONObject DoubanDetail = this.movieDetail_Douban(DoubanMovieID);
+      
       Movie movie = new Movie();
       movie.setDate(cal.getTime());
       movie.setTitle(MTimeDetail.getJSONObject("basic").getString("name"));
