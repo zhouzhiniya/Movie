@@ -12,6 +12,13 @@ import com.jfinal.kit.StrKit;
 
 import model.Movie;
 
+/**
+ * 这个类用来获取电影 API 数据，包括时光网和豆瓣电影的数据
+ * 如果只需要获取今日电影详情，【不要使用】这个类！
+ * 请使用 MovieService 类中的 getTodayMovies()
+ * @author Jiaan LIU
+ *
+ */
 public class MovieAPIService {
   
 
