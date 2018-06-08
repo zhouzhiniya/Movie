@@ -8,7 +8,7 @@ import model.Movie;
 
 /**
  * 这个类是用来【从数据库里】获取电影信息的，Movie表会每天自动更新，一般情况下电影数据只需从此类中获取
- * @author lja67
+ * @author Jiaan LIU
  *
  */
 public class MovieService {
