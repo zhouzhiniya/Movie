@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.kit.StrKit;
 
+import model.DobanComment;
 import model.Movie;
 import model.MovieTop250;
 
@@ -209,6 +211,11 @@ public class MovieAPIService {
     for (String doubanID : top250IDs) {
       JSONObject DoubanDetail = this.movieDetail_Douban(doubanID);
       
+      //竟然还有一些电影政策原因被删了所以查不到会报错
+      if(DoubanDetail == null) {
+        continue;
+      }
+      
       MovieTop250 movie = new MovieTop250();
       movie.setTitle(DoubanDetail.getString("title"));
 //      movie.setTitleEn(MTimeDetail.getJSONObject("basic").getString("nameEn"));
@@ -252,11 +259,13 @@ public class MovieAPIService {
       }
       
       //获取上映日期
-       try {
-        movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      if(StrKit.notBlank(DoubanDetail.getString("mainland_pubdate"))) {
+        try {
+          movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
+        } catch (ParseException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
        
       movie.setDoubanRating(DoubanDetail.getJSONObject("rating").getFloat("average"));
@@ -272,6 +281,80 @@ public class MovieAPIService {
     return true;
   }
   
-  
+  public ArrayList<DobanComment> getMovieContents() {
+    Calendar cal = Calendar.getInstance();
+    
+    ArrayList<String> moviesMTimeID = this.todayMoviesMTimeID(); //今日所有电影的时光网movie_id
+    ArrayList<JSONObject> details_MTime = new ArrayList<>(); //所有电影的时光网详情
+    ArrayList<Movie> result = new ArrayList<>();
+    
+    //根据id添加详情
+    for (String MTimeID : moviesMTimeID) {
+      details_MTime.add(this.movieDetail_MTime(MTimeID));
+    }
+    
+    //为每个电影创建Movie对象
+    for (JSONObject MTimeDetail : details_MTime) {
+      String DoubanMovieID = this.searchDoubanMovieID(MTimeDetail.getJSONObject("basic").getString("name"));
+      if(StrKit.isBlank(DoubanMovieID))
+        continue; //应急用：根据名称查不到豆瓣movie_id的直接跳过
+      JSONObject DoubanDetail = this.movieDetail_Douban(DoubanMovieID);
+      
+      Movie movie = new Movie();
+      movie.setDate(cal.getTime());
+      movie.setTitle(MTimeDetail.getJSONObject("basic").getString("name"));
+      movie.setTitleEn(MTimeDetail.getJSONObject("basic").getString("nameEn"));
+      movie.setMtimeId(MTimeDetail.getJSONObject("basic").getString("movieId"));
+      movie.setDoubanId(DoubanDetail.getString("id"));
+      movie.setDuration(MTimeDetail.getJSONObject("basic").getString("mins"));
+      movie.setDirector(MTimeDetail.getJSONObject("basic").getJSONObject("director").getString("name")); 
+      
+      //拼接演员字符串
+      String actors = "";
+      for (Iterator iterator = MTimeDetail.getJSONObject("basic").getJSONArray("actors").iterator(); iterator.hasNext();) { 
+        JSONObject actor = (JSONObject) iterator.next();
+        if(StrKit.isBlank(actors)) {
+          actors += actor.getString("name");
+        }else {
+          actors = actors + "," + actor.getString("name");
+        }
+      }
+      movie.setActors(actors);
+     
+      //拼接电影类型字符串
+      String types = "";
+      for (Iterator iterator = MTimeDetail.getJSONObject("basic").getJSONArray("type").iterator(); iterator.hasNext();) { 
+        String type = (String) iterator.next();
+        if(StrKit.isBlank(types)) {
+          types += type;
+        }else {
+          types = types + "," + type;
+        }
+      }
+      movie.setType(types);
+      
+      movie.setImage(MTimeDetail.getJSONObject("basic").getString("img"));
+      movie.setVideo(MTimeDetail.getJSONObject("basic").getJSONObject("video").getString("url"));
+      try {
+        movie.setReleaseDate(strDate_noSpace.parse(MTimeDetail.getJSONObject("basic").getString("releaseDate")));
+      } catch (ParseException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      movie.setDoubanRating(DoubanDetail.getJSONObject("rating").getFloat("average"));
+      movie.setWishCount(DoubanDetail.getInteger("wish_count"));
+      movie.setCollectCount(DoubanDetail.getInteger("collect_count"));
+      movie.setReviewsCount(DoubanDetail.getInteger("reviews_count"));
+      movie.setCommentsCount(DoubanDetail.getIntegesr("comments_count"));
+      movie.setSummary(DoubanDetail.getString("summary"));
+      movie.setTotalBox(MTimeDetail.getJSONObject("boxOffice").getLong("totalBox"));
+      
+      result.add(movie);
+      
+    }//end For
+
+    
+    return result;
+  }
 //  public 
 }
