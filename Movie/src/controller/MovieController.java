@@ -122,7 +122,7 @@ public class MovieController extends Controller
 			String movieType = this.getPara("movie_type");
 			String actor = this.getPara("actor");
 			String director = this.getPara("director");
-			if(StrKit.isBlank(movieType) || StrKit.isBlank(actor) || StrKit.isBlank(director)) {
+			if(StrKit.isBlank(movieType) && StrKit.isBlank(actor) && StrKit.isBlank(director)) {
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else {
 				List<Movie> movie = new ArrayList<Movie>();

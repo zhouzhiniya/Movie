@@ -47,12 +47,16 @@ public class MovieService {
   
   //根据电影id获取电影详情
   public Movie getMovieInfoById(String id) {
-	  return Movie.dao.findById("select * from movie where movie_id = ?", Integer.parseInt(id));
+	  return Movie.dao.findById(Integer.parseInt(id));
   }
   
   //根据搜索条件搜索电影
   public List<Movie> searchMovie(String keyword,String column) {
-	  return Movie.dao.find("select * from movie where "+column+" like '%?%'",keyword);
+	  Calendar cal = Calendar.getInstance();
+	  String today = strDate.format(cal.getTime());
+	  String sql = "select * from movie where date = '"+today+"' and "+column+" like '%"+keyword+"%'";
+	  System.out.println(sql);
+	  return Movie.dao.find(sql);
   }
   
   
