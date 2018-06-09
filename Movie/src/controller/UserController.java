@@ -97,10 +97,9 @@ public class UserController extends Controller{
 			String mobile = this.getPara("mobile");
 			String email = this.getPara("email");
 			String gender = this.getPara("gender");
-			java.util.Date birthday = (Date) this.getParaToDate("birthday");
-			java.util.Date register_time = new java.util.Date();//register_time!!!! 两个时间处理
+			java.util.Date birthday = this.getParaToDate("birthday");
 
-			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(name)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender)||StrKit.isBlank(birthday.toString()))
+			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(name)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
@@ -115,7 +114,7 @@ public class UserController extends Controller{
 						result = userService.validateUserByUsername(username);
 						{
 							if(result == null) {
-								boolean ifAdd = userService.addUser(username, password, name,mobile, email, gender,birthday,register_time);
+								boolean ifAdd = userService.addUser(username, password, name,mobile, email, gender,birthday);
 								if(ifAdd)
 								{
 									baseResponse.setResult(ResultCodeEnum.SUCCESS);

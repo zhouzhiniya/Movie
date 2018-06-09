@@ -8,7 +8,6 @@ import com.jfinal.plugin.activerecord.Record;
 
 import kit.BaseResponse;
 import kit.ResultCodeEnum;
-import model.Movie;
 import model.Showing;
 import model.Theater;
 import service.ShowingService;
@@ -206,7 +205,7 @@ public class TheaterController extends Controller{
 			String email = this.getPara("email");
 			String city = this.getPara("city");
 			String address = this.getPara("address");
-			java.util.Date register_time = new java.util.Date();//register_time!!!! 两个时间处理
+			
 
 			if (StrKit.isBlank(account)||StrKit.isBlank(password)||StrKit.isBlank(theater)||StrKit.isBlank(phone)||StrKit.isBlank(email)||StrKit.isBlank(city)||StrKit.isBlank(address))
 			{
@@ -223,7 +222,7 @@ public class TheaterController extends Controller{
 						result = theaterService.validateTheaterByAccount(account);
 						{
 							if(result == null) {
-								boolean ifAdd = theaterService.addTheater(account, password, email, theater, city, address, phone, register_time);
+								boolean ifAdd = theaterService.addTheater(account, password, email, theater, city, address, phone);
 								if(ifAdd)
 								{
 									baseResponse.setResult(ResultCodeEnum.SUCCESS);
