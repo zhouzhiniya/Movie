@@ -51,8 +51,7 @@ public class UserService {
 			user.setMobile(mobile);
 		if(!email.equals(""))
 			user.setEmail(email);
-		if(!birthday.equals(""))
-			user.setBirthday(birthday);
+		user.setBirthday(birthday);
 		if(!gender.equals("-1"))
 			user.setGender(Integer.parseInt(gender));
 		return user.update();
