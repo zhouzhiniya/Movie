@@ -1,39 +1,42 @@
 package controller;
 
-import com.jfinal.core.Controller;
-
 import java.sql.Date;
+
+import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Record;
 
 import kit.BaseResponse;
 import kit.ResultCodeEnum;
+import model.Theater;
 import model.UserInfo;
-import service.UserService;
+import service.TheaterService;
 
-public class UserController extends Controller{
-	UserService userService = new UserService();
+
+
+public class TheaterController extends Controller{
+	TheaterService theaterService = new TheaterService();
 	public void login()   
 	{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String username = this.getPara("username");	//获取前端传过来的参数  用户名和密码
+			String account = this.getPara("account");	//获取前端传过来的参数  用户名和密码
 			String password = this.getPara("password");
 
-			if (StrKit.isBlank(username) || StrKit.isBlank(password))
+			if (StrKit.isBlank(account) || StrKit.isBlank(password))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
 			else
 			{
-				Record result = userService.validateUserByPhone(username);
+				Record result = theaterService.validateTheaterByPhone(account);
 				if (result == null)
 				{
-					result = userService.validateUserByMail(username);
+					result = theaterService.validateTheaterByEmail(account);
 					if(result == null) {
 						
-						result = userService.validateUserByUsername(username);
+						result = theaterService.validateTheaterByAccount(account);
 						if(result == null) {
 							baseResponse.setResult(ResultCodeEnum.NO_ACCOUNT);
 						}
@@ -44,8 +47,8 @@ public class UserController extends Controller{
 							}
 							else
 							{
-								String uid = result.get("user_id").toString();
-								this.setSessionAttr("user_id", uid);
+								String theaterid = result.get("theater_id").toString();
+								this.setSessionAttr("theater_id", theaterid);
 								baseResponse.setResult(ResultCodeEnum.SUCCESS);
 							}
 						}
@@ -56,8 +59,8 @@ public class UserController extends Controller{
 						}
 						else
 						{
-							String uid = result.get("user_id").toString();
-							this.setSessionAttr("user_id", uid);
+							String theaterid = result.get("theater_id").toString();
+							this.setSessionAttr("theater_id", theaterid);
 							baseResponse.setResult(ResultCodeEnum.SUCCESS);
 						}
 					}
@@ -70,8 +73,8 @@ public class UserController extends Controller{
 					}
 					else
 					{
-						String uid = result.get("user_id").toString();
-						this.setSessionAttr("user_id", uid);
+						String theaterid = result.get("theater_id").toString();
+						this.setSessionAttr("theater_id", theaterid);
 						baseResponse.setResult(ResultCodeEnum.SUCCESS);
 					}
 				}
@@ -91,31 +94,31 @@ public class UserController extends Controller{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String username = this.getPara("username");
+			String account = this.getPara("account");
 			String password = this.getPara("password");
-			String name = this.getPara("name");
-			String mobile = this.getPara("mobile");
+			String theater = this.getPara("theater");
+			String phone = this.getPara("phone");
 			String email = this.getPara("email");
-			String gender = this.getPara("gender");
-			java.util.Date birthday = (Date) this.getParaToDate("birthday");
+			String city = this.getPara("city");
+			String address = this.getPara("address");
 			java.util.Date register_time = new java.util.Date();//register_time!!!! 两个时间处理
 
-			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(name)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender)||StrKit.isBlank(birthday.toString()))
+			if (StrKit.isBlank(account)||StrKit.isBlank(password)||StrKit.isBlank(theater)||StrKit.isBlank(phone)||StrKit.isBlank(email)||StrKit.isBlank(city)||StrKit.isBlank(address))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
 			else
 			{
-				Record result = userService.validateUserByPhone(mobile);
+				Record result = theaterService.validateTheaterByPhone(account);
 				if (result == null)
 				{
-					result = userService.validateUserByMail(email);
+					result = theaterService.validateTheaterByEmail(account);
 					if(result == null)
 					{
-						result = userService.validateUserByUsername(username);
+						result = theaterService.validateTheaterByAccount(account);
 						{
 							if(result == null) {
-								boolean ifAdd = userService.addUser(username, password, name,mobile, email, gender,birthday,register_time);
+								boolean ifAdd = theaterService.addTheater(account, password, email, theater, city, address, phone, register_time);
 								if(ifAdd)
 								{
 									baseResponse.setResult(ResultCodeEnum.SUCCESS);
@@ -147,18 +150,18 @@ public class UserController extends Controller{
 		}
 	}
 	
-	public void getUserInfo() 
+	public void getTheaterInfo() 
 	{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String uid = this.getSessionAttr("user_id");
-			if(StrKit.isBlank(uid))
+			String theaterid = this.getSessionAttr("theater_id");
+			if(StrKit.isBlank(theaterid))
 			{
 				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
 			}else
 			{
-				UserInfo result = userService.getUserInfo(Integer.parseInt(uid));
+				Theater result = theaterService.getTheaterInfo(Integer.parseInt(theaterid));
 				if(result!=null)
 				{
 					baseResponse.setData(result);
@@ -176,17 +179,16 @@ public class UserController extends Controller{
 		
 	}
 	
-	public void getInfoByUid() 
+	public void getInfoByTid() 
 	{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String uid = this.getPara("user_id");
-			UserInfo result = userService.getUserInfo(Integer.parseInt(uid));
+			String tid = this.getPara("theater_id");
+			Theater result = theaterService.getTheaterInfo(Integer.parseInt(tid));
 			if(result!=null)
 			{
 				baseResponse.setData(result);
-				baseResponse.setResult(ResultCodeEnum.SUCCESS);
 			}
 			System.out.println(baseResponse);
 			this.renderJson(baseResponse);
@@ -199,31 +201,31 @@ public class UserController extends Controller{
 		
 	}
 	
-	public void changeUserInfo() 
+	public void changeTheaterInfo() 
 	{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String name = this.getPara("name");
+			String theater = this.getPara("theater");
 			String email = this.getPara("email");
-			String mobile = this.getPara("mobile");
-			String gender = this.getPara("gender");
-			Date birthday = (Date) this.getParaToDate("birthday");
-			String user_id = this.getSessionAttr("user_id");
+			String phone = this.getPara("phone");
+			String city = this.getPara("city");
+			String address = this.getPara("address");
+			String theater_id = this.getSessionAttr("theater_id");
 
-			if (StrKit.isBlank(name) && StrKit.isBlank(email) && StrKit.isBlank(mobile) && StrKit.isBlank(gender) && StrKit.isBlank(birthday.toString()))
+			if (StrKit.isBlank(theater) && StrKit.isBlank(email) && StrKit.isBlank(phone) && StrKit.isBlank(city) && StrKit.isBlank(address))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
 			else
 			{
-				Record result = userService.validateUserByPhone(mobile);
+				Record result = theaterService.validateTheaterByPhone(phone);
 				if (result == null)
 				{
-					result = userService.validateUserByMail(email);
+					result = theaterService.validateTheaterByEmail(email);
 					if(result == null)
 					{
-						boolean ifChange = userService.changeUserInfo(name, mobile, email,birthday, gender, user_id);
+						boolean ifChange = theaterService.changeTheaterInfo(theater_id, email, theater_id, city, address, phone);
 						if(ifChange)
 						{
 							baseResponse.setResult(ResultCodeEnum.SUCCESS);
@@ -248,7 +250,6 @@ public class UserController extends Controller{
 			e.printStackTrace();
 		}
 	}
-	
 	public void changePassword()
 	{
 		BaseResponse baseResponse = new BaseResponse();
@@ -257,18 +258,18 @@ public class UserController extends Controller{
 			String oldPassword = this.getPara("oldPassword");
 			String newPassword = this.getPara("newPassword");
 			System.out.println(oldPassword+"~~"+newPassword);
-			String uid = this.getSessionAttr("user_id");
+			String tid = this.getSessionAttr("theater_id");
 			if (StrKit.isBlank(oldPassword) || StrKit.isBlank(newPassword))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
 			else
 			{
-				Record passwordResult = userService.getPassword(uid);
+				Record passwordResult = theaterService.getPassword(tid);
 				String password = passwordResult.get("password");
 				if(oldPassword.equals(password))
 				{
-					boolean ifChange = userService.changePassword(uid,newPassword);
+					boolean ifChange = theaterService.changePassword(tid,newPassword);
 					if(ifChange)
 					{
 						baseResponse.setResult(ResultCodeEnum.SUCCESS);
@@ -296,7 +297,7 @@ public class UserController extends Controller{
 	{
 		try
 		{
-			this.removeSessionAttr("user_id");
+			this.removeSessionAttr("theater_id");
 			this.redirect("/"); // 璺宠浆鍒發ogin鐣岄潰
 		}
 		catch (Exception e)
@@ -305,27 +306,5 @@ public class UserController extends Controller{
 		}
 	}
 	
-	public void checkLogin() 
-	{
-		BaseResponse baseResponse = new BaseResponse();
-		try
-		{
-			String uid = this.getSessionAttr("user_id");
-			if (StrKit.isBlank(uid))
-			{
-				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
-			}
-			else
-			{
-				baseResponse.setResult(ResultCodeEnum.ALREADY_LOGIN);
-			}
-			System.out.println(baseResponse);
-			this.renderJson(baseResponse);
-		}
-		catch (Exception e)
-		{
-			baseResponse.setResult(ResultCodeEnum.FAILED);
-			e.printStackTrace();
-		}
-	}
+	
 }
