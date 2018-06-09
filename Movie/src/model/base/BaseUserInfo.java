@@ -81,4 +81,12 @@ public abstract class BaseUserInfo<M extends BaseUserInfo<M>> extends Model<M> i
 		return get("register_time");
 	}
 
+	public void setAvatar(java.lang.String avatar) {
+		set("avatar", avatar);
+	}
+
+	public java.lang.String getAvatar() {
+		return get("avatar");
+	}
+
 }

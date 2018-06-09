@@ -49,14 +49,6 @@ public abstract class BaseBooking<M extends BaseBooking<M>> extends Model<M> imp
 		return get("purchase_time");
 	}
 
-	public void setPurchasePrice(java.math.BigDecimal purchasePrice) {
-		set("purchase_price", purchasePrice);
-	}
-
-	public java.math.BigDecimal getPurchasePrice() {
-		return get("purchase_price");
-	}
-
 	public void setToken(java.lang.String token) {
 		set("token", token);
 	}
