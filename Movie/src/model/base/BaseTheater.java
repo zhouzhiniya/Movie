@@ -17,6 +17,30 @@ public abstract class BaseTheater<M extends BaseTheater<M>> extends Model<M> imp
 		return get("theater_id");
 	}
 
+	public void setAccount(java.lang.String account) {
+		set("account", account);
+	}
+
+	public java.lang.String getAccount() {
+		return get("account");
+	}
+
+	public void setPassword(java.lang.String password) {
+		set("password", password);
+	}
+
+	public java.lang.String getPassword() {
+		return get("password");
+	}
+
+	public void setEmail(java.lang.String email) {
+		set("email", email);
+	}
+
+	public java.lang.String getEmail() {
+		return get("email");
+	}
+
 	public void setTheater(java.lang.String theater) {
 		set("theater", theater);
 	}

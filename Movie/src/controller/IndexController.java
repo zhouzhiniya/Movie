@@ -25,5 +25,10 @@ public class IndexController extends Controller{
     servvvvv.getTodayMovies();
 	}
 	
+	public void heihei() {
+    MovieAPIService ser = new MovieAPIService();
+    ser.saveTop250();
+	}
+	
 
 }
