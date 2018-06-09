@@ -15,7 +15,20 @@ public class IndexController extends Controller{
 	//这是我用来测试的，不许动！！
 	public void haha() {
 	  MovieAPIService ser = new MovieAPIService();
-	  ser.getTodayMovies();
+//	  ser.getTodayMovies();
+    ser.saveTodayMovies();
 	}
 	
+	public void xixi() {
+
+    MovieService servvvvv = new MovieService();
+    servvvvv.getTodayMovies();
+	}
+	
+	public void heihei() {
+    MovieAPIService ser = new MovieAPIService();
+    ser.saveTop250();
+	}
+	
+
 }

@@ -1,5 +1,10 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/config/CommonConfig.java=UTF-8
 encoding//src/controller=UTF-8
 encoding//src/kit=UTF-8
 encoding//src/service=UTF-8
+=======
+encoding//src/kit/ResultCodeEnum.java=UTF-8
+encoding/<project>=UTF-8
+>>>>>>> branch 'master' of https://github.com/zhouzhiniya/Movie.git

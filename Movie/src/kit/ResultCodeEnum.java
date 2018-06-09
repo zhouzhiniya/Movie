@@ -5,6 +5,7 @@ public enum ResultCodeEnum
 	SUCCESS("30000","操作成功"),
 	FAILED("30001","操作失败"),
 	UN_LOGIN("30002","未登录"),
+	ALREADY_LOGIN("30007","已有用户登录"),
 	MISS_PARA("30003","缺少参数"),
 	SERVER_EXCEPTION("30004","服务器异常"),
 	CODE_ERROR("30005","验证码错误"),
@@ -18,6 +19,8 @@ public enum ResultCodeEnum
 	ADRESS_EXIST("10006","地址已存在"),
 	ID_ERROR("10007","身份证号格式错误"),
 	OLDPHONE_ERROR("10008","旧手机号错误"),
+	MAIL_EXIST("10009","邮箱已存在"),
+	NO_ACCOUNT("10010","账号不存在"),
 	
 	IMG_UPLOAD_ERROR("50001","上传出现错误"),
 	IMG_WRITE_ERROR("50002","文件写入服务器出现错误"),
