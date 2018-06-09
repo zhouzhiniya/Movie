@@ -309,5 +309,27 @@ public class UserController extends Controller{
 			e.printStackTrace();
 		}
 	}
-	
+	public void checkLogin() 
+	{
+		BaseResponse baseResponse = new BaseResponse();
+		try
+		{
+			String uid = this.getSessionAttr("user_id");
+			if (StrKit.isBlank(uid))
+			{
+				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
+			}
+			else
+			{
+				baseResponse.setResult(ResultCodeEnum.ALREADY_LOGIN);
+			}
+			System.out.println(baseResponse);
+			this.renderJson(baseResponse);
+		}
+		catch (Exception e)
+		{
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+			e.printStackTrace();
+		}
+	}
 }

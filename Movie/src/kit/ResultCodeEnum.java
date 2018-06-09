@@ -5,6 +5,7 @@ public enum ResultCodeEnum
 	SUCCESS("30000","操作成功"),
 	FAILED("30001","操作失败"),
 	UN_LOGIN("30002","未登录"),
+	ALREADY_LOGIN("30007","已有用户登录"),
 	MISS_PARA("30003","缺少参数"),
 	SERVER_EXCEPTION("30004","服务器异常"),
 	CODE_ERROR("30005","验证码错误"),
