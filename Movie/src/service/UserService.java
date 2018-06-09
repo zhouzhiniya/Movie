@@ -24,7 +24,7 @@ public class UserService {
 		return Db.findFirst("select user_id,username,name,password from user_info where email=?", username);
 	}
 	
-	public boolean addUser(String username,String password,String name,String mobile,String email,String gender,Date birthday,Date registerTime)
+	public boolean addUser(String username,String password,String name,String mobile,String email,String gender,Date birthday)
 	{
 		UserInfo user=new UserInfo();
 		user.setUsername(username);
@@ -34,7 +34,6 @@ public class UserService {
 		user.setName(name);
 		user.setGender(Integer.parseInt(gender));
 		user.setBirthday(birthday);
-		user.setRegisterTime(registerTime);
 		return user.save();
 	}
 	

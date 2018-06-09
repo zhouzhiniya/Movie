@@ -1,6 +1,5 @@
 package service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
@@ -27,7 +26,7 @@ public Record validateTheaterByPhone(String phone)
 		return Db.findFirst("select theater_id,theater,account,password from theater where account=?", account);
 	}
 	
-	public boolean addTheater(String account,String password,String email,String theater,String city,String address,String phone,Date registerTime)
+	public boolean addTheater(String account,String password,String email,String theater,String city,String address,String phone)
 	{
 		Theater aTheater=new Theater();
 		aTheater.setAccount(account);
@@ -37,7 +36,6 @@ public Record validateTheaterByPhone(String phone)
 		aTheater.setAddress(address);
 		aTheater.setCity(city);
 		aTheater.setPhone(phone);
-		aTheater.setRegisterTime(registerTime);
 		return aTheater.save();
 	}
 	
