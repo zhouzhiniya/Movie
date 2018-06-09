@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 import java.util.Random;
 
+import com.jfinal.plugin.activerecord.Db;
+
 import model.Booking;
 
 public class BookingService {
@@ -26,4 +28,5 @@ public class BookingService {
 	{
 		return Booking.dao.find("select * from booking where user_id=?", uid);
 	}
+ 
 }
