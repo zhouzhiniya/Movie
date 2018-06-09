@@ -14,6 +14,7 @@ public enum ResultCodeEnum
 	PROPERTY_ALREADY("10002","已注册"),
 	PHONE_ERROR("10003","手机号格式错误"),
 	PHONE_EXIST("10004","手机号已存在"),
+	MAIL_EXIST("10009","邮箱已存在"),
 	ID_EXIST("10005","身份证号已存在"),
 	ADRESS_EXIST("10006","地址已存在"),
 	ID_ERROR("10007","身份证号格式错误"),
