@@ -61,7 +61,7 @@
                 
                 
                 <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
+                <div class="control-panel haslogin">
                     <div class="auth auth--home">
                       <div class="auth__show">
                         <span class="auth__image">
@@ -76,12 +76,32 @@
                             <li><a href="#" class="auth__function-item">订单记录</a></li>
                             <li><a href="#" class="auth__function-item">评论</a></li>
                             <li><a href="#" class="auth__function-item">个人设置</a></li>
+                            <li><a href="/Movie/user/exit" class="auth__function-item">退出登录</a></li>
                         </ul>
 
                     </div>
-                    <!-- <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">购票</a> -->
                     <a href="/Movie/views/pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a>
                 </div>
+
+                <!-- Main website navigation-->
+                <nav id="navigation-box" class="nologin">
+                    <!-- Toggle for mobile menu mode -->
+                    <a href="#" id="navigation-toggle">
+                        <span class="menu-icon">
+                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
+                              <span class="lines"></span>
+                            </span>
+                        </span>
+                    </a>
+                    
+                    <!-- Link navigation -->
+                
+                <!-- Additional header buttons / Auth and direct link to booking-->
+                <div class="control-panel">
+                    <a href="#" class="btn btn--sign login-window">登录</a>
+                    <a href="#" class="btn btn-md btn--warning btn--book login-window">购票</a>
+                </div>
+            </nav>
 
             </div>
         </header>
@@ -816,30 +836,45 @@ Start doing.'>
 
                 <div class="col-sm-4 col-sm-offset-4">
                     <button type="button" class="overlay-close">Close</button>
-                    <form id="login-form" class="login" method='get' novalidate=''>
-                        <p class="login__title">登录 <br><span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span></p>
+                    <div id="login-form" class="login" method='get' novalidate=''>
+                        <p class="login__title">登录 <br><br><span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span></p>
 
-                        <div class="social social--colored">
-                                <a href='#' class="social__variant fa fa-qq"></a>
-                                <a href='#' class="social__variant fa fa-weixin"></a>
-                                <a href='#' class="social__variant fa fa-weibo"></a>
-                        </div>
-
-                        <p class="login__tracker">or</p>
                         
                         <div class="field-wrap">
-                        <input type='email' placeholder='邮箱' name='user-email' class="login__input">
-                        <input type='password' placeholder='密码' name='user-password' class="login__input">
+                        <input type='text' placeholder='用户名/手机号/邮箱' id='account' class="login__input">
+                        <input type='password' placeholder='密码' id='password' class="login__input">
 
-                        <input type='checkbox' id='#informed' class='login__check styled'>
-                        <label for='#informed' class='login__check-info'>记住密码</label>
+                         </div>
+                        
+                        <div class="login__control" style="margin-top: 20px">
+                            <button class="btn btn-md btn--warning btn--wider" onclick="login()">登录</button>
+                            <a href="#" class="login__tracker form__tracker" onclick="gotoregister()">还没账号？去注册</span></a>
+                        </div>
+                    </div>
+                    <div id="register-form" class="login" method='get' style='display: none;'>
+                        <p class="login__title">注册 <br><br><span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span></p>
+
+                        
+                        <div class="field-wrap">
+                        <input type='text' placeholder='用户名' class="login__input" id="username">
+                        <input type='text' placeholder='姓名' class="login__input" id="realname">
+                        <input type='password' placeholder='密码' class="login__input" id="password">
+                        <input type='password' placeholder='确认密码' class="login__input" id="passwordagain">
+                        <input type='telephone' placeholder='手机号' class="login__input" id="mobile">
+                        <input type='email' placeholder='邮箱' class="login__input" id="email">
+                        <select class="login__input" id="gender">
+                            <option value="-1" selected="selected">---请选择性别---</option>
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
+                        <input type='text' placeholder='出生日期' class="login__input" id="birthday">
                          </div>
                         
                         <div class="login__control">
-                            <button type='submit' class="btn btn-md btn--warning btn--wider">登录</button>
-                            <a href="#" class="login__tracker form__tracker">忘记密码?</a>
+                            <button class="btn btn-md btn--warning btn--wider" onclick="register()">注册</button>
+                            <a href="#" class="login__tracker form__tracker" onclick="gotologin()" style="margin:10px 0 0 0">已有账号？去登录</span></a>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
             </section>

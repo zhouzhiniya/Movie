@@ -2,6 +2,25 @@ var _url = '/Movie'
 
 $(document).ready(function(){
 	//判断是否登录
+	$("#login-form").show();
+	$("#register-form").hide();
+	$.ajax({
+		url: _url + "/user/checkLogin",
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30002"){
+				//未登录
+				$(".haslogin").hide();
+				$(".nologin").show();
+			}else if(resp.resultCode == "30007"){
+				//已登录
+				$(".haslogin").show();
+				$(".nologin").hide();
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
 	//获取评分前6的电影信息
 	var layerindex = layer.load();
 	$.ajax({
@@ -234,6 +253,43 @@ function searchMovie(key){
 			}else{
 				layer.msg(resp.resultDesc);
 				layer.close(layerindex);
+			}
+		}
+	})
+}
+
+//显示注册框
+function gotoregister(){
+	$("#login-form").hide();
+	$("#register-form").show();
+}
+
+//显示登录框
+function gotologin(){
+	$("#login-form").show();
+	$("#register-form").hide();
+}
+
+//登录
+function login(){
+	var account = $("#account").val();
+	var password = $("#password").val();
+	if(account == "" || password == ""){
+		layer.msg("请将信息填写完整！");
+		return;
+	}
+	$.ajax({
+		url: _url + "/user/login",
+		type: 'post',
+		data: {
+			username: account,
+			password: password
+		},
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				window.location.reload();
+			}else{
+				layer.msg(resp.resultDesc);
 			}
 		}
 	})
