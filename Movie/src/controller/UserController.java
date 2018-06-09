@@ -99,7 +99,7 @@ public class UserController extends Controller{
 			String gender = this.getPara("gender");
 			java.util.Date birthday = this.getParaToDate("birthday");
 
-			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(name)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender)||StrKit.isBlank(birthday.toString()))
+			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(name)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
