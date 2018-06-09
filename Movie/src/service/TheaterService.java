@@ -6,7 +6,6 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
 import model.Theater;
-import model.UserInfo;
 
 public class TheaterService {
 	public Record validateTheaterByPhone(String phone)
