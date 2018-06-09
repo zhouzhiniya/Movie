@@ -5,16 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Set;
 
 import com.jfinal.plugin.activerecord.Db;
 
 import model.Booking;
-=======
 
 import model.DoubanComment;
->>>>>>> branch 'master' of https://github.com/zhouzhiniya/Movie.git
 import model.Movie;
 
 /**
@@ -112,7 +109,6 @@ public class MovieService {
 	  return best;
   }
   
-<<<<<<< HEAD
   //根据类型在top250搜索电影
   public List<Movie> searchMovieTop(Object keyword,String column) {
 	  Calendar cal = Calendar.getInstance();
@@ -120,7 +116,8 @@ public class MovieService {
 	  String sql = "select * from movie where date = '"+today+"' and "+column+" like '%"+keyword+"%'";
 	  System.out.println(sql);
 	  return Movie.dao.find(sql);
-=======
+  }
+  
   /**
    * 根据豆瓣 movie_id 获取对应电影的所有豆瓣评论
    * @param DoubanMovieID
@@ -129,7 +126,6 @@ public class MovieService {
   public List<DoubanComment> movieComments_Douban(String DoubanMovieID) {
     List<DoubanComment> result = DoubanComment.dao.find("select * from douban_comment where movie_id = ?", DoubanMovieID);
     return result;
->>>>>>> branch 'master' of https://github.com/zhouzhiniya/Movie.git
   }
   
 }
