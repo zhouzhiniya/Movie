@@ -177,4 +177,12 @@ public abstract class BaseMovie<M extends BaseMovie<M>> extends Model<M> impleme
 		return get("total_box");
 	}
 
+	public void setTagJson(java.lang.String tagJson) {
+		set("tag_json", tagJson);
+	}
+
+	public java.lang.String getTagJson() {
+		return get("tag_json");
+	}
+
 }

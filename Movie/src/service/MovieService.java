@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import model.DoubanComment;
 import model.Movie;
 
 /**
@@ -61,5 +63,14 @@ public class MovieService {
   
   
   
+  /**
+   * 根据豆瓣 movie_id 获取对应电影的所有豆瓣评论
+   * @param DoubanMovieID
+   * @return
+   */
+  public List<DoubanComment> movieComments_Douban(String DoubanMovieID) {
+    List<DoubanComment> result = DoubanComment.dao.find("select * from douban_comment where movie_id = ?", DoubanMovieID);
+    return result;
+  }
   
 }

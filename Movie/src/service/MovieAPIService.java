@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.kit.StrKit;
 
+import model.DoubanComment;
 import model.Movie;
 import model.MovieTop250;
 
@@ -209,6 +211,11 @@ public class MovieAPIService {
     for (String doubanID : top250IDs) {
       JSONObject DoubanDetail = this.movieDetail_Douban(doubanID);
       
+      //竟然还有一些电影政策原因被删了所以查不到会报错
+      if(DoubanDetail == null) {
+        continue;
+      }
+      
       MovieTop250 movie = new MovieTop250();
       movie.setTitle(DoubanDetail.getString("title"));
 //      movie.setTitleEn(MTimeDetail.getJSONObject("basic").getString("nameEn"));
@@ -252,11 +259,13 @@ public class MovieAPIService {
       }
       
       //获取上映日期
-       try {
-        movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      if(StrKit.notBlank(DoubanDetail.getString("mainland_pubdate"))) {
+        try {
+          movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
+        } catch (ParseException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
        
       movie.setDoubanRating(DoubanDetail.getJSONObject("rating").getFloat("average"));
@@ -271,7 +280,5 @@ public class MovieAPIService {
     
     return true;
   }
-  
-  
-//  public 
+
 }
