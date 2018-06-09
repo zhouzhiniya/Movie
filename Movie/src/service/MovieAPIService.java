@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -210,6 +211,11 @@ public class MovieAPIService {
     for (String doubanID : top250IDs) {
       JSONObject DoubanDetail = this.movieDetail_Douban(doubanID);
       
+      //竟然还有一些电影政策原因被删了所以查不到会报错
+      if(DoubanDetail == null) {
+        continue;
+      }
+      
       MovieTop250 movie = new MovieTop250();
       movie.setTitle(DoubanDetail.getString("title"));
 //      movie.setTitleEn(MTimeDetail.getJSONObject("basic").getString("nameEn"));
@@ -253,11 +259,13 @@ public class MovieAPIService {
       }
       
       //获取上映日期
-       try {
-        movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      if(StrKit.notBlank(DoubanDetail.getString("mainland_pubdate"))) {
+        try {
+          movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
+        } catch (ParseException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
        
       movie.setDoubanRating(DoubanDetail.getJSONObject("rating").getFloat("average"));
@@ -337,7 +345,7 @@ public class MovieAPIService {
       movie.setWishCount(DoubanDetail.getInteger("wish_count"));
       movie.setCollectCount(DoubanDetail.getInteger("collect_count"));
       movie.setReviewsCount(DoubanDetail.getInteger("reviews_count"));
-      movie.setCommentsCount(DoubanDetail.getInteger("comments_count"));
+      movie.setCommentsCount(DoubanDetail.getIntegesr("comments_count"));
       movie.setSummary(DoubanDetail.getString("summary"));
       movie.setTotalBox(MTimeDetail.getJSONObject("boxOffice").getLong("totalBox"));
       

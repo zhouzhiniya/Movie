@@ -32,8 +32,8 @@ public class HTTPRequestService {
       JSONObject result = JSONObject.parseObject(resultStr);
       return result;
     } catch (Exception e) {
-      System.out.println("发送GET请求出现异常！" + e);
-      e.printStackTrace();
+//      System.out.println("发送GET请求出现异常！" + e);
+//      e.printStackTrace();
       return null;
     }
   }
