@@ -468,31 +468,31 @@ function init_BookingOne() {
 	
 	//4. Dropdown init 
 				//select
-                $("#select-sort").selectbox({
-                        onChange: function (val, inst) {
+                // $("#select-sort").selectbox({
+                //         onChange: function (val, inst) {
 
-                            $(inst.input[0]).children().each(function(item){
-                                $(this).removeAttr('selected');
-                            })
-                            $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
-                        }
+                //             $(inst.input[0]).children().each(function(item){
+                //                 $(this).removeAttr('selected');
+                //             })
+                //             $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+                //         }
 
-                    });
+                //     });
 
     
     //5. Datepicker init
-                $( ".datepicker__input" ).datepicker({
-                  showOtherMonths: true,
-                  selectOtherMonths: true,
-                  showAnim:"fade"
-                });
+                // $( ".datepicker__input" ).datepicker({
+                //   showOtherMonths: true,
+                //   selectOtherMonths: true,
+                //   showAnim:"fade"
+                // });
 
-                $(document).click(function(e) { 
-                    var ele = $(e.target); 
-                    if (!ele.hasClass("datepicker__input") && !ele.hasClass("ui-datepicker") && !ele.hasClass("ui-icon") && !$(ele).parent().parents(".ui-datepicker").length){
-                       $(".datepicker__input").datepicker("hide");
-                     }
-                });
+                // $(document).click(function(e) { 
+                //     var ele = $(e.target); 
+                //     if (!ele.hasClass("datepicker__input") && !ele.hasClass("ui-datepicker") && !ele.hasClass("ui-icon") && !$(ele).parent().parents(".ui-datepicker").length){
+                //        $(".datepicker__input").datepicker("hide");
+                //      }
+                // });
 
 	//6. Choose variant proccess
 				//choose film

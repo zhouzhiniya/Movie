@@ -74,6 +74,13 @@ $(document).ready(function(){
 										movietype += type[j] + " | ";
 									}
 								}
+								var forecast = data[i].forecast_rating;
+								if(forecast == null){
+									forecast = 0;
+								}else{
+									var str = forecast + "";
+									forecast = str.substring(0,str.indexOf('.') + 3);
+								}
 								if((i%4) == 0 || ((i-1)%4) == 0){
 									$("#allMovies").append('<div class="movie movie--test movie--test--light movie--test--left">'+
 			                                '<div class="movie__images">'+
@@ -87,7 +94,10 @@ $(document).ready(function(){
 			                                    '<p class="movie__option">'+movietype+'</p>'+ 
 			                                    '<div class="movie__rate">'+
 			                                        '<div class="score"></div>'+
-			                                        '<span class="movie__rating">'+data[i].douban_rating+'</span>'+
+			                                        '<span style="position: absolute;right: 30px;top: -30px;font-size: 14px;color: #ffd564;">豆瓣评分</span>'+
+			                                        '<span class="movie__rating" style="top:-8px">'+data[i].douban_rating+'</span>'+
+			                                        '<span style="position: absolute;top: -50px;font-size: 18px;color: #fe505a;">AI 预测评分</span>'+
+			                                        '<span class="movie__rating" style="right: unset;width: 60px;height: 60px;border-radius: 50%;top: -20px;line-height: 35px;background: #fe505a;color: #fff;">'+forecast+'</span>'+
 			                                    '</div>'+               
 			                                '</div>'+
 			                            '</div>');
@@ -104,7 +114,10 @@ $(document).ready(function(){
 			                                    '<p class="movie__option">'+movietype+'</p>'+ 
 			                                    '<div class="movie__rate">'+
 			                                        '<div class="score"></div>'+
-			                                        '<span class="movie__rating">'+data[i].douban_rating+'</span>'+
+			                                        '<span style="position: absolute;right: 30px;top: -30px;font-size: 14px;color: #ffd564;">豆瓣评分</span>'+
+			                                        '<span class="movie__rating" style="top:-8px">'+data[i].douban_rating+'</span>'+
+			                                        '<span style="position: absolute;top: -50px;font-size: 18px;color: #fe505a;">AI 预测评分</span>'+
+			                                        '<span class="movie__rating" style="right: unset;width: 60px;height: 60px;border-radius: 50%;top: -20px;line-height: 35px;background: #fe505a;color: #fff;">'+forecast+'</span>'+
 			                                    '</div>'+               
 			                                '</div>'+
 			                            '</div>');

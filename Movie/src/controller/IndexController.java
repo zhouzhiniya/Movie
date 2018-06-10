@@ -32,7 +32,7 @@ public class IndexController extends Controller{
 	
 	public void luelue() {
 		MovieAPIService ser = new MovieAPIService();
-		ser.saveMovieTop250Comments100_Douban();
+		ser.saveMovieComments100_Douban();
 	}
 
 }
