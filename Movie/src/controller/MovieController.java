@@ -11,6 +11,7 @@ import kit.ResultCodeEnum;
 import model.Comment;
 import model.DoubanComment;
 import model.Movie;
+import model.Recommendation;
 import service.MovieCommentService;
 import service.MovieService;
 
@@ -308,6 +309,16 @@ public class MovieController extends Controller
   public void recommend() {
     BaseResponse baseResponse = new BaseResponse();
     String userId = this.getPara("user_id");
+    if(StrKit.notBlank(userId)) {
+      List<Recommendation> recommendations = movieService.getRecommendationsByUserId(Integer.parseInt(userId));
+      if(recommendations != null) {
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+        baseResponse.setData(recommendations);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
   }
   
 }

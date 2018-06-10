@@ -12,6 +12,7 @@ import model.Booking;
 import model.DoubanComment;
 import model.Movie;
 import model.MovieTop250;
+import model.Recommendation;
 import model.Showing;
 
 /**
@@ -208,24 +209,23 @@ public class MovieService {
     return result;
   }
   
-//  public boolean generateRecommendation(int userId) {
-//    String sql = "delete from recommendation where user_id =?"
-//    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
-//    for (Recommendation recommendation : records) {
-//      recommendation.delete();
-//    }
-//    List<MovieTop250> result = this.getAllMatchesMovie(userId);
-//    for (MovieTop250 movie : result) {
-//      Recommendation newRecomm = new Recommendation();
-//      newRecomm.setUserId(userId);
-//      newRecomm.setTop250Id(movie.getId());
-//      newRecomm.save();
-//    }
-//    return true;
-//  }
-//  
-//  public List<Recommendation> getRecommendationsByUserId(int userId){
-//    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
-//    return records;
-//  }
+  public boolean generateRecommendation(int userId) {
+    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
+    for (Recommendation recommendation : records) {
+      recommendation.delete();
+    }
+    List<MovieTop250> result = this.getAllMatchesMovie(userId);
+    for (MovieTop250 movie : result) {
+      Recommendation newRecomm = new Recommendation();
+      newRecomm.setUserId(userId);
+      newRecomm.setTop250Id(movie.getId());
+      newRecomm.save();
+    }
+    return true;
+  }
+  
+  public List<Recommendation> getRecommendationsByUserId(int userId){
+    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
+    return records;
+  }
 }
