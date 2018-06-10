@@ -51,4 +51,9 @@ public class SeatService {
 	  seat.setSeatState(1);
 	  return seat.save();
 	}
+	
+	public Seat getSeatByNameAndShowing(String seatName, int showingId) {
+	  Seat result = Seat.dao.findFirst("select * from seat,showing where seat.seat_id = showing.seat_id AND showing.showing_id=? AND seat.seat=?", showingId, seatName);
+	  return result;
+	}
 }

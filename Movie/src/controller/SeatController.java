@@ -34,5 +34,24 @@ public class SeatController extends Controller{
 		
 		this.renderJson(baseResponse);
 	}
+	
+	/**
+	 * 根据座位名称和showing_id获取座位详细信息
+	 */
+	public void getSeatByNameAndShowing() {
+    BaseResponse baseResponse = new BaseResponse();
+    String seatName = this.getPara("seat");
+    String showingId = this.getPara("showing_id");
+
+    if(StrKit.notBlank(showingId) && StrKit.notBlank(seatName)) {
+      Seat seat = seatService.getSeatByNameAndShowing(seatName, Integer.parseInt(showingId));
+      baseResponse.setData(seat);
+      baseResponse.setResult(ResultCodeEnum.SUCCESS);
+    }else {
+      baseResponse.setResult(ResultCodeEnum.MISS_PARA);
+    }
+    this.renderJson(baseResponse);
+	  
+	}
 
 }
