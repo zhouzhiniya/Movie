@@ -4501,7 +4501,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 .auth .auth__show {
   background-color: #4c4145;
   display: inline-block;
-  padding-top: 10px;
+  padding-top: 12px;
   padding-left: 4px;
   padding-bottom: 13px;
   min-width: 104px;
@@ -4513,7 +4513,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   height: 31px;
 }
 .auth .auth__function {
-  background-color: #4c4145;
+  background-color: rgba(46, 41, 46, 0.8);
   width: 220px;
   padding: 19px 29px 21px;
   display: none;

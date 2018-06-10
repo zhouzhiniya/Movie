@@ -5,11 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.kit.StrKit;
 
+import model.DoubanComment;
+import model.DoubanReviewTop250;
+//import model.DobanComment;
 import model.Movie;
 import model.MovieTop250;
 
@@ -209,6 +213,11 @@ public class MovieAPIService {
     for (String doubanID : top250IDs) {
       JSONObject DoubanDetail = this.movieDetail_Douban(doubanID);
       
+      //竟然还有一些电影政策原因被删了所以查不到会报错
+      if(DoubanDetail == null) {
+        continue;
+      }
+      
       MovieTop250 movie = new MovieTop250();
       movie.setTitle(DoubanDetail.getString("title"));
 //      movie.setTitleEn(MTimeDetail.getJSONObject("basic").getString("nameEn"));
@@ -252,11 +261,13 @@ public class MovieAPIService {
       }
       
       //获取上映日期
-       try {
-        movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      if(StrKit.notBlank(DoubanDetail.getString("mainland_pubdate"))) {
+        try {
+          movie.setReleaseDate(strDate_dashed.parse(DoubanDetail.getString("mainland_pubdate")));
+        } catch (ParseException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
        
       movie.setDoubanRating(DoubanDetail.getJSONObject("rating").getFloat("average"));
@@ -272,6 +283,33 @@ public class MovieAPIService {
     return true;
   }
   
-  
+//  public ArrayList<DoubanComment> getMovieContents() {
+//    return null;
+//  }
 //  public 
+  
+  /**
+   * 向数据库存储top 250电影的影片（review，每个电影只存一个）
+   * （可能）用作推荐，其他勿用
+   * 如遇到报错：“Incorrect string value: '\xE9\x81\x93\xE8\x8E\xB1...' for column 'content' at row 1”
+   * 请在Navicat右键单击数据库，打开命令行，输入 ALTER TABLE 【douban_review_top250】 CONVERT TO CHARACTER SET utf8mb4;
+   * @return
+   */
+  public boolean saveTop250Reviews() {
+    List<MovieTop250> movies = MovieTop250.dao.find("select id,douban_id from movie_top250");
+    for (MovieTop250 movie : movies) {
+      String url = "https://api.douban.com/v2/movie/subject/" + movie.getDoubanId() + "/reviews?apikey=" + key_Douban + "&count=1";
+      JSONObject responce = requester.doGet(url);
+      //竟然还有一些电影政策原因被删了所以查不到会报错
+      if(responce == null) {
+        continue;
+      }
+      String reviewContent = responce.getJSONArray("reviews").getJSONObject(0).getString("content");
+      DoubanReviewTop250 newReview = new DoubanReviewTop250();
+      newReview.setMovieId(movie.getId());
+      newReview.setContent(reviewContent);
+      newReview.save();
+    }
+    return true;
+  }
 }
