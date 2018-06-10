@@ -1,12 +1,21 @@
 package service;
 
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONReader;
 
 import model.Booking;
 import model.DoubanComment;
@@ -239,5 +248,20 @@ public class MovieService {
   public MovieTop250 getTop250MovieById(int top250_movie_id) {
     MovieTop250 movie = MovieTop250.dao.findById(top250_movie_id);
     return movie;
+  }
+  
+  public JSONArray getMovieTagsByIdExecptOthers(int movie_id) {
+    Movie movie = Movie.dao.findById(movie_id);
+    JSONObject tags = JSONObject.parseObject(movie.getTagJson());
+    JSONArray newTags = new JSONArray();
+    for (Entry<String, Object> entry : tags.entrySet()) {
+    	if (!entry.getValue().equals("其他")) {
+			JSONObject tag = new JSONObject();
+			tag.put("name", entry.getKey());
+			tag.put("value", entry.getValue());
+			newTags.add(tag);
+    	}
+    }
+    return newTags;
   }
 }
