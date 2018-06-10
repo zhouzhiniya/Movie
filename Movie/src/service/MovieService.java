@@ -129,6 +129,10 @@ public class MovieService {
     return result;
   }
   
+//  public getExoMoviesByUserId(int userId) {
+//    
+//  }
+  
   //根据订票记录筛选电影类型
   public List<Movie> getMovieType(Integer uid) 
   {
