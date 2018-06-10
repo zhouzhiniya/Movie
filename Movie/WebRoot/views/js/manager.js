@@ -264,7 +264,7 @@ $.ajax({
 		
 		$.ajax({
 			type:"post",
-			url:_url + "/theater/getShowingInfoByMovieId",
+			url:_url + "/showing/getShowingInfoByMovieId",
 			data:{
 				day:day,
 				id:id
