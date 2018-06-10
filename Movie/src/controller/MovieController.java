@@ -11,6 +11,7 @@ import kit.ResultCodeEnum;
 import model.Comment;
 import model.DoubanComment;
 import model.Movie;
+import model.Recommendation;
 import service.MovieCommentService;
 import service.MovieService;
 
@@ -297,6 +298,24 @@ public class MovieController extends Controller
     }else if(StrKit.isBlank(userId)){
     	baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
     }else{
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
+  }
+  
+  /**
+   * 给用户推荐电影
+   */
+  public void recommend() {
+    BaseResponse baseResponse = new BaseResponse();
+    String userId = this.getSessionAttr("user_id");//改成直接前端传userID了
+    if(StrKit.notBlank(userId)) {
+      List<Recommendation> recommendations = movieService.getRecommendationsByUserId(Integer.parseInt(userId));
+      if(recommendations != null) {
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+        baseResponse.setData(recommendations);
+      }
+    }else {
       baseResponse.setResult(ResultCodeEnum.FAILED);
     }
     this.renderJson(baseResponse);

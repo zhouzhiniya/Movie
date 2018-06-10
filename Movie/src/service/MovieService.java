@@ -3,6 +3,7 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import model.Booking;
 import model.DoubanComment;
 import model.Movie;
 import model.MovieTop250;
+import model.Recommendation;
 import model.Showing;
 
 /**
@@ -144,6 +146,7 @@ public class MovieService {
     return result;
   }
   
+  
   public ArrayList<MovieTop250> getExoMoviesByUserId(int userId) {
     List<Booking> userBookings = Booking.dao.find("select * from booking where user_id=?", userId);
     ArrayList<String> userFaTypeses = new ArrayList<>();
@@ -163,6 +166,7 @@ public class MovieService {
     ArrayList<MovieTop250> relaMovs = new ArrayList<>();
     for (String type : userFaTypes) {
 //      String sql = "select * from movie_top250 where type like %?%" ;
+      System.out.println(type);
       List<MovieTop250> match = MovieTop250.dao.find("select * from movie_top250 where type like %?%", type);
       relaMovs.addAll(match);
     }
@@ -179,5 +183,49 @@ public class MovieService {
     return Movie.dao.find("select type from movie inner join showing on movie.movie_id = showing.movie_id inner join booking on showing.showing_id = booking.showing_id where user_id= ?", uid);
   }
 
+
+  public List<MovieTop250> getAllMatchesMovie(int userId){
+    String sql = "select * from movie_top250 where   (SUBSTRING_INDEX(type, ',', 1) in (select SUBSTRING_INDEX(type, ',', 1) AS type1 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1)   or   SUBSTRING_INDEX(type, ',', 1) in (select SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) AS type2 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1))     AND    (SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) in (select SUBSTRING_INDEX(type, ',', 1) AS type1 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1)   OR   SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) in (select SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) AS type2 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1))";
+    List<MovieTop250> matches = MovieTop250.dao.find(sql);
+    
+    ArrayList<MovieTop250> result = new ArrayList<>();
+    result.addAll(matches);
+    result.sort(new Comparator<MovieTop250>() {  
+      @Override  
+      public int compare(MovieTop250 o1, MovieTop250 o2) {  
+          // TODO Auto-generated method stub  
+          if(o1.getDoubanRating() > o2.getDoubanRating())  
+              return 1;  
+          if(o1.getDoubanRating() == o2.getDoubanRating()) {
+            if(o1.getWishCount() > o2.getWishCount()) {
+              return 1;
+            }
+            return -1;
+          }
+          else return -1;  
+      }  
+    });
+    
+    return result;
+  }
   
+  public boolean generateRecommendation(int userId) {
+    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
+    for (Recommendation recommendation : records) {
+      recommendation.delete();
+    }
+    List<MovieTop250> result = this.getAllMatchesMovie(userId);
+    for (MovieTop250 movie : result) {
+      Recommendation newRecomm = new Recommendation();
+      newRecomm.setUserId(userId);
+      newRecomm.setTop250Id(movie.getId());
+      newRecomm.save();
+    }
+    return true;
+  }
+  
+  public List<Recommendation> getRecommendationsByUserId(int userId){
+    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
+    return records;
+  }
 }
