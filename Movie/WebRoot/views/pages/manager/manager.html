@@ -57,7 +57,7 @@
                     <img alt='logo' src="../../images/logo.png">
                 </a>
 
-				<div class="function-block">
+				<div class="function-block" id="menu-list" style="display: none;">
 					<div class="function-block-item" id="this-week">本周历史排片</div>
 					<div class="function-block-item" id="do-it">今日排片</div>
 					<div class="function-block-item" id="room-setting">影厅设置</div>
@@ -65,7 +65,7 @@
                 
                 <!-- Additional header buttons / Auth and direct link to booking-->
                 <div class="control-panel">
-                    <div class="auth auth--home" style="right:100px;">
+                    <div class="auth auth--home" style="right:100px;display: none;" id="already-login">
                       <div class="auth__show">
                         <span class="auth__image">
                           <img alt="" src="../../images/31-31.png">
@@ -80,12 +80,16 @@
                         </ul>
 
                     </div>
+                    <a href="#" id="login-btn" class="btn btn-md btn--warning btn--book login-window btn-sign">登录</a>
                     <!-- <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">购票</a> -->
                     <!-- <a href="pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a> -->
                 </div>
 
             </div>
         </header>
+        <section id="no-login" class="container" style="height: 50px;width: 100%;margin-top:350px;text-align: center;color: white;font-size:18px;font-weight: 100;">
+        	您还未登录，请登录。
+        </section>
         <section id="this-week-tab" class="container my-tab" style="display: none;">
 
         	<h2 id='target' class="page-heading heading--outcontainer today-movie">本周排片</h2>
@@ -458,7 +462,7 @@
 	        </section>
 
 	        <!-- room setting start-->
-	        <section id="room-setting-tab" class="container my-tab" >
+	        <section id="room-setting-tab" class="container my-tab" style="display: none;">
         		<h2 id='target' class="page-heading heading--outcontainer today-movie">影厅设置</h2>
 				
 				<div class="step-title" style="margin-top:15px;display: inline-block;width: calc(100% - 145px)">已有影厅</div>
@@ -621,6 +625,52 @@
         	</div>
         </div>
 
+    <!-- open/close Login & Register -->
+        <div class="overlay overlay-hugeinc">
+            
+            <section class="container">
+
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button type="button" class="overlay-close">Close</button>
+                    <div id="login-form" class="login" method='get' novalidate=''>
+                        <p class="login__title">登录 <br><br><span class="login-edition">登录到您的影院</span></p>
+
+                        
+                        <div class="field-wrap">
+                        <input type='text' placeholder='账户名' id='login-account' class="login__input">
+                        <input type='password' placeholder='密码' id='login-password' class="login__input">
+
+                         </div>
+                        
+                        <div class="login__control" style="margin-top: 20px">
+                            <button class="btn btn-md btn--warning btn--wider" onclick="login()">登录</button>
+                            <a href="#" class="login__tracker form__tracker" onclick="gotoregister()">还没账号？去注册</span></a>
+                        </div>
+                    </div>
+                    <div id="register-form" class="login" method='get' style='display: none;'>
+                        <p class="login__title">注册 <br><br><span class="login-edition">登录到您的影院</span></p>
+
+                        
+                        <div class="field-wrap">
+                        <input type='text' placeholder='电影院名' class="login__input" id="theatername">
+                        <input type='text' placeholder='登录账号' class="login__input" id="account">
+                        <input type='password' placeholder='密码' class="login__input" value="" id="registerpassword">
+                        <input type='password' placeholder='确认密码' class="login__input" id="passwordagain">
+                        <input type='telephone' placeholder='手机号' class="login__input" id="mobile">
+                        <input type='email' placeholder='邮箱' class="login__input" id="email">
+                        <input type='city' placeholder='所在城市' class="login__input" id="city">
+                        <input type='address' placeholder='详细地址' class="login__input" id="address">
+                         </div>
+                        
+                        <div class="login__control">
+                            <button class="btn btn-md btn--warning btn--wider" onclick="register()" style="margin-top: 25px;">注册</button>
+                            <a href="#" class="login__tracker form__tracker" onclick="gotologin()" style="margin:10px 0 0 0">已有账号？去登录</span></a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
 
 
 <!--         <div id="add-showing-div" style="display: none;">
