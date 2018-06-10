@@ -1,4 +1,6 @@
 var _url = '/Movie'
+var movie_id = ""	//记录选择的电影
+var showing_id = ""		//记录选择的场次
 
 $(document).ready(function(){
 	//获取所有电影
@@ -10,7 +12,7 @@ $(document).ready(function(){
 				var data = resp.data;
 				$("#allMovies").html("");
 				for(var i=0; i<data.length; i++){
-					$("#allMovies").append('<div class="swiper-slide" data-film="'+data[i].title+'"> '+
+					$("#allMovies").append('<div class="swiper-slide" id="'+data[i].movie_id+'" data-film="'+data[i].title+'"> '+
                         '<div class="film-images">'+
                             '<img alt="" src="'+data[i].image+'">'+
                         '</div>'+
@@ -101,6 +103,7 @@ $(document).ready(function(){
 
                      //data element set
                      $('.choosen-movie').val(chooseFilm);
+                     movie_id = $(this).parent().attr("id");
 
                 })
 			}else{
@@ -118,11 +121,56 @@ $(document).ready(function(){
 				var data = resp.data;
 				$("#select-sort").html("");
 				for(var i=0; i<data.length; i++){
-					$("#select-sort").append('');
+					$("#select-sort").append('<option value="'+data[i]+'">'+data[i]+'</option>');
+				}
+				$("#select-sort").selectbox({
+                    onChange: function (val, inst) {
+
+                        $(inst.input[0]).children().each(function(item){
+                            $(this).removeAttr('selected');
+                        })
+                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+                    }
+
+                });
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
+
+	//时间选择器
+	var today = new Date();
+	var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+	laydate.render({
+	  elem: '#date' ,//指定元素
+	  value: val
+	});
+
+	getAllShowings();
+})
+
+//根据城市和时间获取所有场次
+function getAllShowings(){
+	$.ajax({
+		url: _url + "/theater/getTheaterByCityAndTime",
+		type: 'post',
+		data: {
+			movie_id: movie_id,
+			city: $("#select-sort").val(),
+			time: $("#date").val()
+		},
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				var data = resp.data;
+				if(data.length == 0){
+					$("#allShowings").html("暂时没有排片哦~~~");
+				}else{
+
 				}
 			}else{
 				layer.msg(resp.resultDesc);
 			}
 		}
 	})
-})
+}

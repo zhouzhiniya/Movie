@@ -45,6 +45,16 @@ $(document).ready(function(){
 				for(var i=0; i<data.length; i++){
 					$("#select-sort").append("<option value='"+data[i]+"'>"+data[i]+"</option>");
 				}
+				$("#select-sort").selectbox({
+                    onChange: function (val, inst) {
+
+                        $(inst.input[0]).children().each(function(item){
+                            $(this).removeAttr('selected');
+                        })
+                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+                    }
+
+                });
 			}else{
 				layer.msg(resp.resultDesc);
 			}

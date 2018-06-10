@@ -8,6 +8,7 @@ import com.jfinal.plugin.activerecord.Record;
 
 import kit.BaseResponse;
 import kit.ResultCodeEnum;
+import model.Auditorium;
 import model.Showing;
 import model.Theater;
 import service.ShowingService;
@@ -64,6 +65,28 @@ public class TheaterController extends Controller{
 					theaterService.addShowing(movie_id, show_time, auditorium_id, price);
 				}
 				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+		}
+		
+		this.renderJson(baseResponse);
+	}
+	
+	//获取影院有哪些影厅
+	public void getAuditoriumInfo() {
+		BaseResponse baseResponse = new BaseResponse();
+		String theaterid = this.getSessionAttr("theater_id");
+		
+		try {
+			List<Auditorium> allAuditoriums = theaterService.getAuditoriumInfo(theaterid);
+			if(allAuditoriums != null) {
+				baseResponse.setData(allAuditoriums);
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+			}else {
+				baseResponse.setResult(ResultCodeEnum.FAILED);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -153,6 +176,10 @@ public class TheaterController extends Controller{
 							{
 								String theaterid = result.get("theater_id").toString();
 								this.setSessionAttr("theater_id", theaterid);
+								this.setSessionAttr("theaterName", result.get("theater"));
+								Record theatername = new Record();
+								theatername.set("theaterName", result.get("theater"));
+								baseResponse.setData(theatername);
 								baseResponse.setResult(ResultCodeEnum.SUCCESS);
 							}
 						}
@@ -165,6 +192,10 @@ public class TheaterController extends Controller{
 						{
 							String theaterid = result.get("theater_id").toString();
 							this.setSessionAttr("theater_id", theaterid);
+							this.setSessionAttr("theaterName", result.get("theater"));
+							Record theatername = new Record();
+							theatername.set("theaterName", result.get("theater"));
+							baseResponse.setData(theatername);
 							baseResponse.setResult(ResultCodeEnum.SUCCESS);
 						}
 					}
@@ -179,6 +210,10 @@ public class TheaterController extends Controller{
 					{
 						String theaterid = result.get("theater_id").toString();
 						this.setSessionAttr("theater_id", theaterid);
+						this.setSessionAttr("theaterName", result.get("theater"));
+						Record theatername = new Record();
+						theatername.set("theaterName", result.get("theater"));
+						baseResponse.setData(theatername);
 						baseResponse.setResult(ResultCodeEnum.SUCCESS);
 					}
 				}
@@ -408,6 +443,29 @@ public class TheaterController extends Controller{
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void checkLogin() {
+		BaseResponse baseResponse = new BaseResponse();
+		try
+		{
+			String theaterid = this.getSessionAttr("theater_id");
+			Record result = new Record();
+			if(StrKit.isBlank(theaterid)) {
+				result.set("isLogin", 0);
+			}else {
+				result.set("isLogin", 1);
+				result.set("theaterName", this.getSessionAttr("theaterName"));
+			}
+			baseResponse.setData(result);
+			baseResponse.setResult(ResultCodeEnum.SUCCESS);
+		}
+		catch (Exception e)
+		{
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+			e.printStackTrace();
+		}
+		this.renderJson(baseResponse);
 	}
 	
 }

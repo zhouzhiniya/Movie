@@ -110,4 +110,9 @@ public Record validateTheaterByPhone(String phone)
 	public List<Theater> getAllCity() {
 		return Theater.dao.find("select city from theater group by city");
 	}
+	
+	//获取所有影厅信息
+	public List<Auditorium> getAuditoriumInfo(String theaterid){
+		return Auditorium.dao.find("select * from auditorium,seat where auditorium.auditorium_id = seat.auditorium_id and theater_id = ?",Integer.parseInt(theaterid));
+	}
 }
