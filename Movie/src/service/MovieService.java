@@ -210,7 +210,7 @@ public class MovieService {
   }
   
   public boolean generateRecommendation(int userId) {
-    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
+    List<Recommendation> records = Recommendation.dao.find("select * from recommendation where user_id=?", userId);
     for (Recommendation recommendation : records) {
       recommendation.delete();
     }
@@ -224,8 +224,20 @@ public class MovieService {
     return true;
   }
   
-  public List<Recommendation> getRecommendationsByUserId(int userId){
-    List<Recommendation> records = Recommendation.dao.find("select recommendation_id from recommendation where user_id=?", userId);
-    return records;
+  public ArrayList<MovieTop250> getRecommendationsByUserId(int userId){
+    List<Recommendation> records = Recommendation.dao.find("select * from recommendation where user_id=?", userId);
+    ArrayList<MovieTop250> movies = new ArrayList<MovieTop250>();
+    for (Recommendation record : records) {
+      MovieTop250 newMovie = MovieTop250.dao.findFirst("select * from movie_top250 where id=?",record.getTop250Id());
+      if(newMovie != null) {
+        movies.add(newMovie);
+      }
+    }
+    return movies;
+  }
+  
+  public MovieTop250 getTop250MovieById(int top250_movie_id) {
+    MovieTop250 movie = MovieTop250.dao.findById(top250_movie_id);
+    return movie;
   }
 }

@@ -351,12 +351,12 @@ public class MovieAPIService {
         }
       }
       
-      List<String> keywordList = HanLP.extractKeyword(totalComment, 30);
+      List<String> keywordList = HanLP.extractKeyword(totalComment, 100);
       Map<String, Integer> keywordMap = new HashMap<String, Integer>();
       int count = 0;
-      for (Iterator iterator = keywordList.iterator(); iterator.hasNext()&&count<9;) {
+      for (Iterator iterator = keywordList.iterator(); iterator.hasNext()&&count<20;) {
 	    String sbject = (String) iterator.next();
-    	if (sbject.length()>2) {
+    	if (sbject.length()>1) {
           keywordMap.put(sbject, 0);
           ++count;
     	}
@@ -366,14 +366,17 @@ public class MovieAPIService {
       for (Iterator iterator = DoubanComments.getJSONArray("comments").iterator(); iterator.hasNext();) {
         JSONObject sbject = (JSONObject) iterator.next();
         String content =  sbject.getString("content");
+        boolean flag = false;
         for (String entry : keywordMap.keySet()) {
-          if (content.indexOf(entry)==-1) {
-            count = keywordMap.get("其他");
-            keywordMap.put("其他", ++count);
-          } else {
+          if (content.indexOf(entry)!=-1) {
             count = keywordMap.get(entry);
             keywordMap.put(entry, ++count);
+            flag = true;
           }
+        }
+        if (!flag) {
+          count = keywordMap.get("其他");
+          keywordMap.put("其他", ++count);
         }
       }
       System.out.println(JSON.toJSON(keywordMap));
@@ -381,6 +384,7 @@ public class MovieAPIService {
         Db.update("update movie set tag_json=? where movie_id=?", JSON.toJSON(keywordMap), todayMovie.getMovieId());
       } catch (Exception e) {
         // TODO: handle exception
+        System.out.println("false");
         continue;
       }
     }
@@ -411,29 +415,32 @@ public class MovieAPIService {
         totalComment += sbject.getString("content");
       }
       
-      List<String> keywordList = HanLP.extractKeyword(totalComment, 30);
+      List<String> keywordList = HanLP.extractKeyword(totalComment, 100);
       Map<String, Integer> keywordMap = new HashMap<String, Integer>();
       int count = 0;
-      for (Iterator iterator = keywordList.iterator(); iterator.hasNext()&&count<9;) {
-	    String sbject = (String) iterator.next();
-    	if (sbject.length()>3) {
+      for (Iterator iterator = keywordList.iterator(); iterator.hasNext()&&count<20;) {
+        String sbject = (String) iterator.next();
+      	if (sbject.length()>1) {
           keywordMap.put(sbject, 0);
           ++count;
-    	}
+      	}
       }
       keywordMap.put("其他", 0);
       
       for (Iterator iterator = DoubanComments.getJSONArray("comments").iterator(); iterator.hasNext();) {
         JSONObject sbject = (JSONObject) iterator.next();
         String content =  sbject.getString("content");
+        boolean flag = false;
         for (String entry : keywordMap.keySet()) {
-          if (content.indexOf(entry)==-1) {
-            count = keywordMap.get("其他");
-            keywordMap.put("其他", ++count);
-          } else {
+          if (content.indexOf(entry)!=-1) {
             count = keywordMap.get(entry);
             keywordMap.put(entry, ++count);
+            flag = true;
           }
+        }
+        if (!flag) {
+          count = keywordMap.get("其他");
+          keywordMap.put("其他", ++count);
         }
       }
       System.out.println(JSON.toJSON(keywordMap));
@@ -441,6 +448,7 @@ public class MovieAPIService {
         Db.update("update movie_top250 set tag_json=? where id=?", JSON.toJSON(keywordMap), topMovie.getId());
       } catch (Exception e) {
         // TODO: handle exception
+        System.out.println("false");
         continue;
       }
     }

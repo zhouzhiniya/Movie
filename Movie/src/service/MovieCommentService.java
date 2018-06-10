@@ -32,11 +32,9 @@ public class MovieCommentService {
   
   public boolean addComment(int movieId, int userId, String content) {
     Comment newComment = new Comment();
-    Date now = new Date();
     newComment.setUserId(userId);
     newComment.setMovieId(movieId);
     newComment.setContent(content);
-    newComment.setCreatedAt(now);
     return newComment.save();
   }
 
