@@ -130,11 +130,11 @@ $(document).ready(function(){
                 var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
                 laydate.render({
                   elem: '#date' ,//指定元素
-                  value: val
-                });
-                $("#date").change(function(){
+                  value: val,
+                  change: function(value){
                     getAllShowings(movie_id);
-                })
+                  }
+                });
 				for(var i=0; i<data.length; i++){
 					$("#select-sort").append('<option value="'+data[i].city+'">'+data[i].city+'</option>');
 				}
@@ -167,7 +167,7 @@ function getAllShowings(movie_id){
         return;
     }
 	$.ajax({
-		url: _url + "/theater/getTheaterByCityAndTime",
+		url: _url + "/showing/showingsOfTheaters",
 		type: 'post',
 		data: {
 			movie_id: movie_id,
@@ -200,5 +200,6 @@ function book(){
         return;
     }
     $.cookie("bookmovie",movie_id);
-    $.cookie("showingid",showing_id)
+    $.cookie("showingid",showing_id);
+    window.href.location = _url + "/views/pages/books/book2.html";
 }

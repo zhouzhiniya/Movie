@@ -48,6 +48,9 @@ $(document).ready(function(){
 				  elem: '#date' ,//指定元素
 				  value: val
 				});
+				$("#date").change(function(){
+					getAllShowings();
+				})
 				$("#select-sort").html("");
 				for(var i=0; i<data.length; i++){
 					$("#select-sort").append("<option value='"+data[i].city+"'>"+data[i].city+"</option>");
@@ -149,9 +152,6 @@ $(document).ready(function(){
 	
 })
 
-$("#date").change(function(){
-	getAllShowings();
-})
 
 //根据城市和时间获取所有场次
 function getAllShowings(){
