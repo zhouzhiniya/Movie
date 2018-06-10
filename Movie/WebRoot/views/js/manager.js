@@ -388,12 +388,44 @@ $('body').on('click','.movie-delete-btn',function(){
 
 // });
 var growing_id = 0;
-$('#add-showing').click(function(){
+var allAuditoriumInfoName = new Array();
+var allAuditoriumInfoId = new Array();
+
+$.ajax({
+	type:"post",
+	url:_url + "/theater/getAuditoriumInfo",
+	data:{
+
+	},success:function(resp)
+	{
+		if(resp.resultCode == "30000")
+		{
+			for(var i = 0;i < resp.data.length;i++)
+			{
+				allAuditoriumInfoName.put(resp.data[i].name);
+				allAuditoriumInfoId.put(resp.data[i].id);
+			}	
+		}else{
+			layer.msg(resp.resultDesc);
+		}	
+	},error:function()
+	{
+		//layer.msg('服务器错误，请重试');
+	}
+});//ajax end
+
+var AuditorSelectTag;
+for(var j = 0;j < allAuditoriumInfoName.length;j++)
+{
+	AuditorSelectTag += '<option value="' + allAuditoriumInfoId[j] + '">' + allAuditoriumInfoName[j] +'</option>' 
+}
+$('#add-showing').click(function(){	
+	
 	growing_id ++;
 	$('#showings').append(
 		'<div class="showing-each">'+
     		'<select class="showing-movie" style="float: left;"><option value ="">电影</option></select>'+
-    		'<select class="showing-room" style="float: left;"><option value ="">放映厅</option><option value ="volvo">Volvo</option></select>'+
+    		'<select class="showing-room" style="float: left;"><option value ="">放映厅</option>' + AuditorSelectTag + '</select>'+
     		'<input id="test' + growing_id + '" class="showing-time" type="text" style="float: left;" placeholder="开始时间">'+
     		'<input class="showing-price" type="text" style="float: left;" placeholder="票价" />'+
     		'<span class="delete-showing-icon"></span>'+
@@ -462,10 +494,15 @@ $('#complete').click(function(){
 				data:{
 					"movies":movies
 				},
-				url:"",
+				url:_url + "/theater/addShowing",
 				success:function(resp)
 				{
-					layer.msg('已排完');
+					if(resp.resultCode == "30000")
+					{
+						layer.msg('已排完');
+					}else{
+						layer.msg(resp.resultDesc);
+					}	
 				},
 				error:function()
 				{
@@ -626,10 +663,38 @@ $('#confirm-add-room-btn').click(function(){
 			
 			layer.close(index);
 			layer.close(add_room_layer);
+			
+			var sits;
+			var room_name;
+			
+			$('.sits-state--your').each(function(){
+				sits += $(this).attr('data-place') + ',';
+			});
+			
+			sits = sits.substring(0,sits.length - 1);
+			
 
-			//发送新的选择结果
+			//确定添加影厅
 			$.ajax({
-
+				type:"post",
+				data:{
+					seats:sits,
+					name:room_name
+				},
+				url:_url + "/theater/addAuditorium",
+				success:function(resp)
+				{
+					if(resp.resultCode == "30000")
+					{
+						layer.msg('已排完');
+					}else{
+						layer.msg(resp.resultDesc);
+					}	
+				},
+				error:function()
+				{
+					layer.msg('服务器错误，请重试');
+				}
 			});
 
 
