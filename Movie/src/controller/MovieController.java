@@ -11,6 +11,7 @@ import kit.ResultCodeEnum;
 import model.Comment;
 import model.DoubanComment;
 import model.Movie;
+import model.MovieTop250;
 import model.Recommendation;
 import service.MovieCommentService;
 import service.MovieService;
@@ -310,7 +311,7 @@ public class MovieController extends Controller
     BaseResponse baseResponse = new BaseResponse();
     String userId = this.getSessionAttr("user_id");//改成直接前端传userID了
     if(StrKit.notBlank(userId)) {
-      List<Recommendation> recommendations = movieService.getRecommendationsByUserId(Integer.parseInt(userId));
+      ArrayList<MovieTop250> recommendations = movieService.getRecommendationsByUserId(Integer.parseInt(userId));
       if(recommendations != null) {
         baseResponse.setResult(ResultCodeEnum.SUCCESS);
         baseResponse.setData(recommendations);
