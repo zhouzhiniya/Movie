@@ -13,11 +13,13 @@ public class ShowingService {
 	}
 	
 	//判断某天是否有排片
-	public List<Showing> ifHasShowing(Date date,String theaterid){
-		return Showing.dao.find("select showing.movie_id,show_time,title from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = ? and theater_id = ?",date,Integer.parseInt(theaterid));
+	public List<Showing> ifHasShowing(String date,String theaterid){
+		String sql = ("select showing.movie_id,show_time,title from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+theaterid);
+		return Showing.dao.find(sql);
 	}
 	
-	public List<Showing> getShowingInfoByMovieId(Date date,String movie_id,String theaterid){
-		return Showing.dao.find("select * from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = ? and theater_id = ? and movie.movie_id = ?",date,Integer.parseInt(theaterid),Integer.parseInt(movie_id));
+	public List<Showing> getShowingInfoByMovieId(String date,String movie_id,String theaterid){
+		String sql = ("select * from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+theaterid+" and movie.movie_id = "+movie_id);
+		return Showing.dao.find(sql);
 	}
 }
