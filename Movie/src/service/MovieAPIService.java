@@ -295,26 +295,20 @@ public class MovieAPIService {
     return true;
   }
   
+  public List<Movie> getAllTodayMovies(){
+    Calendar cal = Calendar.getInstance();
+    String today = strDate.format(cal.getTime());
+    List<Movie> movies = Movie.dao.find("select * from movie where date = ?", today);
+    return movies;
+  }
+  
   public boolean saveMovieTop250Comments100_Douban() {
-    ArrayList<String> top250IDs = new ArrayList<>();
-
-    //添加Top250的全部豆瓣movie_id
-    for(int i = 0; i < 260; i += 20) {
-      String url = "http://api.douban.com/v2/movie/top250?start=" + i;
-      JSONObject response = requester.doGet(url);
-      JSONArray subjects = response.getJSONArray("subjects");
-      //TODO 判断是否还有
-      //添加当前页面所有电影的豆瓣movie_id
-      for (Iterator iterator = subjects.iterator(); iterator.hasNext();) { 
-        JSONObject sbject = (JSONObject) iterator.next();
-        String doubanID = sbject.getString("id");
-        top250IDs.add(doubanID);
-      }
-    }
+    List<Movie> todayMovies = getAllTodayMovies();
     
     //保存记录
-    for (String doubanID : top250IDs) {
-      JSONObject DoubanComments = this.movieComments100_Douban(doubanID);
+    for (Movie todayMovie : todayMovies) {
+      JSONObject DoubanComments = this.movieComments100_Douban(todayMovie.getDoubanId());
+      String totalComment = "";
       
       //防止还有一些电影政策原因被删了所以查不到会报错
       if(DoubanComments == null) {
@@ -324,7 +318,8 @@ public class MovieAPIService {
       for (Iterator iterator = DoubanComments.getJSONArray("comments").iterator(); iterator.hasNext();) {
 	    JSONObject sbject = (JSONObject) iterator.next();
 	    DoubanComment comment = new DoubanComment();
-	    comment.setDoubanId(doubanID);
+	    comment.setMovieId(todayMovie.getMovieId());
+	    comment.setDoubanId(sbject.getString("subject_id"));
 	    comment.setRating(sbject.getJSONObject("rating").getInteger("value"));
 	    comment.setUsefulCount(sbject.getInteger("useful_count"));
 	    comment.setUserName(sbject.getJSONObject("author").getString("name"));
@@ -343,9 +338,12 @@ public class MovieAPIService {
         }
         
         List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 9);
+        totalComment += sbject.getString("content");
         comment.setTags(String.join(",", keywordList));
         comment.save();
       }
+      
+      
     }
     
     return true;
