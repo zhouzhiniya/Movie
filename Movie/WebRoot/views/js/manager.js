@@ -46,6 +46,9 @@ $(document).ready(function(){
 
 });
 
+var _url = '/Movie';
+
+
 	//tab js
 	$('#this-week').click(function(){
 		$('#this-week-tab').show(1000);
@@ -477,3 +480,84 @@ $('.each-rooms').click(function(){
 	drawSits(6,7,$('#look-sit-pic'));//应该放到ajax 的 success
 });
 
+// ======================================================== login in & register =================================================
+//显示注册框
+function gotoregister(){
+	$("#login-form").hide();
+	$("#register-form").show();
+}
+
+//显示登录框
+function gotologin(){
+	$("#login-form").show();
+	$("#register-form").hide();
+}
+
+//登录
+function login(){
+	var account = $("#login-account").val();
+	var password = $("#login-password").val();
+	if(account == "" || password == "" ){
+		layer.msg("请将信息填写完整！");
+		return;
+	}
+	$.ajax({
+		url: _url + "/theater/login",
+		type: 'post',
+		data: {
+			username: account,
+			password: password
+		},
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				window.location.reload();
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	});
+}
+
+//注册
+function register(){
+	var theater = $('#theatername').val();
+	var account = $("#account").val();
+	var password = $("#registerpassword").val();
+	var passwordagain = $("#passwordagain").val();
+	var phone = $("#mobile").val();
+	var email = $("#email").val();
+	var city = $("#city").val();
+	var address = $("#address").val();
+
+	if(username == ""  || password == "" || passwordagain == "" || mobile == "" || email == "" || gender == ""){
+		layer.msg("用户名、密码、手机号、邮箱及性别不能为空！");
+		return;
+	}
+	if(password != passwordagain){
+		layer.msg("两次输入的密码不同！");
+		return;
+	}
+
+	$.ajax({
+		url: _url + "/user/register",
+		data: {
+			theater:theater,
+			account: account,
+			password: password,
+			phone: phone,
+			email: email,
+			city: city,
+			address: address
+		},
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				layer.msg("注册成功！去登录");
+				$("#login-form").show();
+				$("#register-form").hide();
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	});
+}
