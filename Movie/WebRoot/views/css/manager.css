@@ -1,116 +1,105 @@
-.function-block {
+.function-block{
   position: absolute;
   left: 300px;
   top: 17px;
 }
 
-.function-block-item {
+.function-block-item{
   display: inline-block;
   margin-right: 75px;
   font: 13px 'Roboto', sans-serif;
-  font-weight: bold;
-  color: #B4B1B2;
-  transition-duration: 0.25s;
-  transition-property: color;
-  cursor: pointer;
+    font-weight: bold;
+    color: #B4B1B2;
+    transition-duration: 0.25s;
+    transition-property: color;
+    cursor: pointer;
 }
-
-.function-block-item:hover {
+.function-block-item:hover{
   color: white;
 }
-
-.today-movie {
+.today-movie{
   margin-top: 96px;
   color: white;
 }
 
-.today-movie:after {
-  
+.today-movie:after{
+
+
 }
 /**    movie info    **/
-.movie-base {
+.movie-base{
   display: inline-block;
   width: 350px;
   margin-top: 15px;
   cursor: pointer;
 }
-
-.movie-name {
+.movie-name{
   display: inline-block;
   font-weight: 500;
   width: 200px;
 }
-
-.movie-base:hover {
+.movie-base:hover{
   color: #ffd564;
 }
 
-.movie-duration {
+.movie-duration{
   display: inline-block;
   font-weight: 500;
 }
-
-.each-movie {
+.each-movie{
   float: left;
   margin-top: 10px;
   color: white;
   width: 350px;
 }
-
-.el__data {
+.el__data{
   float: left;
   width: 100%;
 }
 
-.movie-session {
+.movie-session{
   float: left;
   width: calc(50% - 25px);
   margin-left: 25px;
   margin-top: 15px;
 }
-
-.movie-duration {
+.movie-duration{
   margin-left: 25px;
 }
-
-.each-movie-session {
+.each-movie-session{
   color: white;
   float: left;
   width: calc(100% - 350px);
   height: 335px;
   margin-top: 25px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255,255,255,0.3);
   padding-top: 20px;
   /* text-shadow: 0 0 1px #000; */
 }
-
-.session-place {
+.session-place{
   margin-left: 30px;
 }
-
-.session-att-rate {
+.session-att-rate{
   margin-left: 30px;
 }
-
-.session-time {
+.session-time{
   margin-left: 10px;
 }
 
 /**  do it  **/
-.step-title {
+.step-title{
   margin-left: 45px;
   color: white;
   font-weight: 500;
-}
 
-.choose-movie-list {
-  /* 	margin-top: 15px; */
+}
+.choose-movie-list{
+/*  margin-top: 15px; */
   margin-left: 30px;
   width: calc(100% - 45px);
   height: 160px;
 }
-
-#add-movie-btn {
+#add-movie-btn{
   float: left;
   height: 160px;
   width: 120px;
@@ -118,8 +107,7 @@
   margin-left: 15px;
   border-radius: 4px;
 }
-
-.each-choose-movie {
+.each-choose-movie{
   float: left;
   height: 160px;
   width: 120px;
@@ -129,8 +117,7 @@
   /* background-color: white; */
   /* background-image: url('../../images/add.png'); */
 }
-
-.each-movie-pic {
+.each-movie-pic{
   position: relative;
   /* margin-left: 12px; */
   height: 160px;
@@ -139,30 +126,28 @@
   background-size: cover;
   border-radius: 4px;
   /* background-color: black; */
-  /* cursor: pointer; */
+   cursor: pointer; 
 }
-
-.each-movie-name {
+.each-movie-name{
   position: absolute;
   bottom: 0;
   width: 120px;
   height: 25px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0,0,0,0.5);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   color: white;
-  /* 	margin-top: 5px; */
+/*  margin-top: 5px; */
   text-align: center;
 }
-
-#confirm-btn {
-  position: absolute;
-  bottom: 15px;
-  right: 30px;
+#confirm-btn{
+  float:right;
+  margin-top:25px;
+  margin-bottom: 15px;
+  margin-right: 30px;
   width: 100px;
 }
-
-.movie-add-btn-not {
+.movie-add-btn-not{
   position: absolute;
   right: 0;
   width: 18px;
@@ -170,8 +155,7 @@
   border-radius: 9px;
   background-color: #fff;
 }
-
-.movie-add-btn-confirm {
+.movie-add-btn-confirm{
   position: absolute;
   right: 0;
   width: 18px;
@@ -181,8 +165,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-.movie-delete-btn {
+.movie-delete-btn{
   position: absolute;
   right: 0;
   width: 18px;
@@ -193,29 +176,25 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-.movie-delete-btn:hover {
+.movie-delete-btn:hover{
   background-image: url('../images/delete-2.png');
 }
-
-#add-showing {
+#add-showing{
   margin-left: 45px;
   margin-top: 15px;
 }
 
-#showing-confirm-btn {
+#showing-confirm-btn{
   position: absolute;
   bottom: 15px;
   right: 30px;
   width: 100px;
 }
-
-#showings {
+#showings{
   margin-top: 25px;
   margin-left: 45px;
 }
-
-.delete-showing-icon {
+.delete-showing-icon{
   float: left;
   margin-left: 25px;
   margin-top: 3px;
@@ -227,50 +206,41 @@
   background-repeat: no-repeat;
   cursor: pointer;
 }
-
-#complete {
+#complete{
   float: right;
   margin-top: 25px;
 }
-
-#do-it-tab {
+#do-it-tab{
   padding-bottom: 50px;
 }
-
-.showing-movie {
+.showing-movie{
   width: 200px;
 }
-
-.showing-room {
+.showing-room{
   width: 200px;
   margin-left: 25px;
 }
-
-.showing-time {
+.showing-time{
   width: 200px;
   margin-left: 25px;
 }
-
-.showing-price {
+.showing-price{
   width: 200px;
   margin-left: 25px;
 }
-
-.showing-each {
+.showing-each{
   margin-top: 15px;
 }
 
 /** add Romms **/
-#add-room {
+#add-room{
   float: right;
 }
-
-#have-rooms {
+#have-rooms{
   margin-left: 45px;
   color: white;
 }
-
-.each-rooms {
+.each-rooms{
   float: left;
   height: 100px;
   width: 150px;
@@ -284,12 +254,11 @@
   font-weight: 700;
   font-size: 18px;
 }
-
-#sit-pic {
+#sit-pic{
   padding-bottom: 70px;
 }
 
-#confirm-add-room-btn {
+#confirm-add-room-btn{
   position: absolute;
   bottom: 15px;
   right: 30px;
