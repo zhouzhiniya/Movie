@@ -30,5 +30,9 @@ public class IndexController extends Controller{
     ser.saveTop250();
 	}
 	
+	public void luelue() {
+		MovieAPIService ser = new MovieAPIService();
+		ser.saveMovieTop250Comments100_Douban();
+	}
 
 }

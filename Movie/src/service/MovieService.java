@@ -3,7 +3,9 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import model.DoubanComment;
 import model.Movie;
@@ -72,5 +74,59 @@ public class MovieService {
     List<DoubanComment> result = DoubanComment.dao.find("select * from douban_comment where movie_id = ?", DoubanMovieID);
     return result;
   }
+  
+  
+  //统计观影记录中出现次数最多的类型
+  public List<Movie> getRecommendMovies(Object array[])
+  {
+    Set<Object> s = new HashSet<Object>();//HashSet用来去掉重复
+    for (Object o : array){
+      s.add(o);
+      } //现在的集合s中无重复的包含array中的所有元素
+    Object[] obj = s.toArray();//把集合s中的元素存入数组obj2中
+    int[] n = new int[obj.length];//这个数组用来存放每一个元素出现的次数
+    int max = 0;
+    for (int i = 0; i < obj.length; i++)
+    {
+      int cout = 0;
+      for (int j = 0; j < array.length; j++)
+      {
+        if (obj[i].equals(array[j]))
+          cout++;//用obj中的元素跟array中的每一个比较，如果相同cout自增
+      }
+      n[i] = cout;//每一个元素出现的次数存入数组n,数组n的下标i跟数组obj的下标是一一对应的。
+        if (max < cout)
+        {//得到元素出现次数最多是多少次
+          max = cout;
+        }
+    }
+    List<Movie> best = null;
+    for (int i = 0; i < n.length; i++)
+    {
+      if (max == n[i])
+      {
+        //如果出现的次数等于最大次数，就输出对应数组obj中的元素
+        best = (List<Movie>) obj[i];
+        }
+    }
+    return best;
+  }
+  
+
+  //根据类型在top250搜索电影
+  public List<Movie> searchMovieTop(Object keyword,String column) {
+    Calendar cal = Calendar.getInstance();
+    String today = strDate.format(cal.getTime());
+    String sql = "select * from movie where date = '"+today+"' and "+column+" like '%"+keyword+"%'";
+    System.out.println(sql);
+    return Movie.dao.find(sql);
+  }
+  
+  //根据订票记录筛选电影类型
+  public List<Movie> getMovieType(Integer uid) 
+  {
+    return Movie.dao.find("select type from movie inner join showing on movie.movie_id = showing.movie_id inner join booking on showing.showing_id = booking.showing_id where user_id= ?", uid);
+  }
+
   
 }

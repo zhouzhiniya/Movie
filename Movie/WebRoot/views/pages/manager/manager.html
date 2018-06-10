@@ -339,7 +339,7 @@
 			  <!-- cont inner end -->
 			</div>
         </section>
-        <section id="do-it-tab" class="container my-tab" >
+        <section id="do-it-tab" class="container my-tab" style="display: none;">
         	<h2 id='target' class="page-heading heading--outcontainer today-movie">排片</h2>
         	<div id="do"  style="display: none">
         		<div class="step-title">今日已完成排片</div>
@@ -456,6 +456,25 @@
 				<div id="complete" class="btn btn-md btn--warning btn--book login-window">完成排片</div>
 				<div style="clear: both"></div>
 	        </section>
+
+	        <!-- room setting start-->
+	        <section id="room-setting-tab" class="container my-tab" >
+        		<h2 id='target' class="page-heading heading--outcontainer today-movie">影厅设置</h2>
+				
+				<div class="step-title" style="margin-top:15px;display: inline-block;width: calc(100% - 145px)">已有影厅</div>
+				<hr style="margin-left: 45px;margin-top: 10px;" />
+
+				<div id="have-rooms">
+					<div id="have-no-rooms" style="display: none;">您还没有设置影厅，请添加影厅！</div>
+					<div class="each-rooms">一号厅</div>
+					<div class="each-rooms">二号厅</div>
+					<div class="each-rooms">三号厅</div>
+					<div style="clear: both;"></div>
+				</div>
+				<div id="add-room" class="btn btn-md btn--warning btn--book login-window">添加影厅</div>
+
+        	</section>
+        	<!-- room setting end -->
 	    </div>
 	</div>
 
@@ -463,6 +482,90 @@
 
 
 </body>
+    <!-- room setting set room start-->
+    <div id="add-room-div" style="display: none;">
+		<div class="choose-sits" style="margin-top: 30px;" >
+            <div class="choose-sits__info choose-sits__info--first">
+                <ul>
+                    <li class="sits-price marker--none">影厅名称</li>
+                    <input class="this-room-name" type="text" name="room-name" placeholder="输入影厅名称">
+                    <!-- <li class="sits-price ">Victory厅</li> -->
+                </ul>
+            </div>
+
+            <div class="choose-sits__info">
+                <ul>
+					<li class="sits-price marker--none">影厅大小</li>
+
+                	<select id="choose-row"><option value="">行</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option></select>
+
+                	<select id="choose-column"><option value="">列</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
+
+                </ul>
+            </div>
+                
+            <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+                <div class="sits-area hidden-xs">
+                    <div class="sits-anchor">屏幕</div>
+
+                    <div class="sits" id="sit-pic">
+                        <aside class="sits__line">
+
+                        </aside>
+
+                        <footer class="sits__number">
+
+                        </footer>
+                    </div>
+
+                </div>
+            </div>    
+        </div>
+
+		<div id="confirm-add-room-btn" class="btn btn-md btn--warning btn--book login-window">确定添加</div>
+
+   	</div>
+    <!-- set room end -->
+
+    <!-- look room start -->
+    <div id="look-room-div" style="display: none;">
+		<div class="choose-sits" style="margin-top: 30px;" >
+            <div class="choose-sits__info choose-sits__info--first">
+                <ul>
+                    <li class="sits-price marker--none">影厅名称</li>
+                    <li class="sits-price" id="look-room-name">Victory厅</li>
+                </ul>
+            </div>
+
+            <div class="choose-sits__info">
+                <ul>
+					<li class="sits-price marker--none">影厅大小</li>
+					<span id="look-row"></span>
+					<span id="look-column"></span>
+                </ul>
+            </div>
+                
+            <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+                <div class="sits-area hidden-xs">
+                    <div class="sits-anchor">屏幕</div>
+
+                    <div class="sits" id="look-sit-pic">
+                        <aside class="sits__line">
+
+                        </aside>
+
+                        <footer class="sits__number">
+
+                        </footer>
+                    </div>
+
+                </div>
+            </div>    
+        </div>
+
+   	</div>
+   	<!-- look room -->
+
         <div id="add-movie-div" style="display: none;">
         	<div class="choose-movie-list" style="margin-left:10px;">
 
@@ -562,9 +665,10 @@
         <script src="../../js/custom.js"></script>
         <script src="../../js/manager.js"></script>
 		
-	      <script type="text/javascript">
-              $(document).ready(function() {
+	    <script type="text/javascript">
+            $(document).ready(function() {
                 init_Home();
-              });
-		    </script>
+                init_BookingTwo();
+            });
+		</script>
 </html>

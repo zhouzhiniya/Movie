@@ -25,6 +25,14 @@ public abstract class BaseDoubanComment<M extends BaseDoubanComment<M>> extends 
 		return get("movie_id");
 	}
 
+	public void setDoubanId(java.lang.String doubanId) {
+		set("douban_id", doubanId);
+	}
+
+	public java.lang.String getDoubanId() {
+		return get("douban_id");
+	}
+
 	public void setContent(java.lang.String content) {
 		set("content", content);
 	}

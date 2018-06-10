@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hankcs.hanlp.HanLP;
 import com.jfinal.kit.StrKit;
 
 import model.DoubanComment;
@@ -72,6 +73,17 @@ public class MovieAPIService {
    */
   private JSONObject movieDetail_Douban(String DoubanMovieID) {
     String url = "http://api.douban.com/v2/movie/subject/" + DoubanMovieID + "?apikey=" + key_Douban;
+    JSONObject response = requester.doGet(url);
+    return response;    
+  }
+  
+  /**
+   * 从豆瓣获取电影短评详情
+   * @param DoubanMovieID
+   * @return
+   */
+  private JSONObject movieComments100_Douban(String DoubanMovieID) {
+    String url = "http://api.douban.com/v2/movie/subject/" + DoubanMovieID + "/comments?count=100&apikey=" + key_Douban;
     JSONObject response = requester.doGet(url);
     return response;    
   }
@@ -283,10 +295,59 @@ public class MovieAPIService {
     return true;
   }
   
-//  public ArrayList<DoubanComment> getMovieContents() {
-//    return null;
-//  }
-//  public 
+  public List<Movie> getAllTodayMovies(){
+    Calendar cal = Calendar.getInstance();
+    String today = strDate.format(cal.getTime());
+    List<Movie> movies = Movie.dao.find("select * from movie where date = ?", today);
+    return movies;
+  }
+  
+  public boolean saveMovieTop250Comments100_Douban() {
+    List<Movie> todayMovies = getAllTodayMovies();
+    
+    //保存记录
+    for (Movie todayMovie : todayMovies) {
+      JSONObject DoubanComments = this.movieComments100_Douban(todayMovie.getDoubanId());
+      String totalComment = "";
+      
+      //防止还有一些电影政策原因被删了所以查不到会报错
+      if(DoubanComments == null) {
+        continue;
+      }
+      
+      for (Iterator iterator = DoubanComments.getJSONArray("comments").iterator(); iterator.hasNext();) {
+	    JSONObject sbject = (JSONObject) iterator.next();
+	    DoubanComment comment = new DoubanComment();
+	    comment.setMovieId(todayMovie.getMovieId());
+	    comment.setDoubanId(sbject.getString("subject_id"));
+	    comment.setRating(sbject.getJSONObject("rating").getInteger("value"));
+	    comment.setUsefulCount(sbject.getInteger("useful_count"));
+	    comment.setUserName(sbject.getJSONObject("author").getString("name"));
+	    comment.setAvatar(sbject.getJSONObject("author").getString("avatar"));
+	    comment.setContent(sbject.getString("content"));
+	    comment.setCommentId(sbject.getString("id"));
+    	  
+    	//获取上映日期
+        if(StrKit.notBlank(sbject.getString("created_at"))) {
+          try {
+            comment.setCreatedAt(strDateTime.parse(sbject.getString("created_at")));
+          } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        }
+        
+        List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 9);
+        totalComment += sbject.getString("content");
+        comment.setTags(String.join(",", keywordList));
+        comment.save();
+      }
+      
+      
+    }
+    
+    return true;
+  }
   
   /**
    * 向数据库存储top 250电影的影片（review，每个电影只存一个）
