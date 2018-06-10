@@ -43,14 +43,7 @@ $(document).ready(function(){
 		}
 	})
 
-	//时间选择器
-	var today = new Date();
-	var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-	laydate.render({
-	  elem: '#date' ,//指定元素
-	  value: val
-	});
-
+	
 	//获取所有的城市
 	$.ajax({
 		url: _url + '/theater/getAllCity',
@@ -58,6 +51,13 @@ $(document).ready(function(){
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
+				//时间选择器
+				var today = new Date();
+				var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+				laydate.render({
+				  elem: '#date' ,//指定元素
+				  value: val
+				});
 				$("#select-sort").html("");
 				for(var i=0; i<data.length; i++){
 					if(i==0){
@@ -85,7 +85,61 @@ $(document).ready(function(){
 		}
 	})
 
-	
+	//获取所有评论
+	$.ajax({
+		url: _url + "/movie/commentOfMovie",
+		type: 'post',
+		data: {
+			movie_id: movie_id
+		},
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				var data = resp.data;
+				$("#commentnum").html(data.length);
+				$("#allcomments").html("");
+				for(var i=0; i<data.length; i++){
+					$("#allcomments").append('<div class="comment">'+
+                                '<div class="comment__images">'+
+                                    '<img src="'+data[i].avatar+'">'+
+                                '</div>'+
+                                '<a class="comment__author"><span class="social-used fa fa-facebook"></span>'+data[i].user_name+'</a>'+
+                                '<p class="comment__date">'+data[i].created_at+'</p>'+
+                                '<p class="comment__message">'+data[i].content+'</p>'+
+                            '</div>');
+				}
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
+
+	//获取豆瓣评论
+	$.ajax({
+		url: _url + "/movie/commentDouban",
+		type: 'post',
+		data: {
+			movie_id: movie_id
+		},
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				var data = resp.data;
+				$("#doubancommentnum").html(data.length);
+				$("#doubancomments").html("");
+				for(var i=0; i<data.length; i++){
+					$("#doubancomments").append('<div class="comment">'+
+                                '<div class="comment__images">'+
+                                    '<img src="'+data[i].avatar+'">'+
+                                '</div>'+
+                                '<a class="comment__author"><span class="social-used fa fa-facebook"></span>'+data[i].user_name+'</a>'+
+                                '<p class="comment__date">'+data[i].created_at+'</p>'+
+                                '<p class="comment__message">'+data[i].content+'</p>'+
+                            '</div>');
+				}
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
 
 	
 })
@@ -113,6 +167,31 @@ function getAllShowings(){
 				}else{
 
 				}
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
+}
+
+//评论
+function addcomment(){
+	var content = $("#commentcontent").val();
+	if(content == ""){
+		layer.msg("请输入评论内容！");
+		return;
+	}
+	$.ajax({
+		url: _url + "/movie/addComment",
+		type: 'post',
+		data: {
+			movie_id: $.cookie("movie_id"),
+			content: content
+		},
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				layer.msg("评论成功！");
+				window.href.reload();
 			}else{
 				layer.msg(resp.resultDesc);
 			}

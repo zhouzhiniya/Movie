@@ -241,16 +241,44 @@
                         <div id='cimenas-map'></div> 
                     </div>
 
-                    <h2 class="page-heading">评论 (15)</h2>
+                    <h2 class="page-heading">评论 (<span id="commentnum"></span>)</h2>
 
                     <div class="comment-wrapper">
-                        <form id="comment-form" class="comment-form" method='post'>
-                            <textarea class="comment-form__text" placeholder='Add you comment here'></textarea>
-                            <label class="comment-form__info">剩余250字</label>
-                            <button type='submit' class="btn btn-md btn--danger comment-form__btn">评论</button>
-                        </form>
+                        <div id="comment-form" class="comment-form" method='post'>
+                            <textarea class="comment-form__text" id="commentcontent" placeholder='输入评论内容'></textarea>
+                            <button class="btn btn-md btn--danger comment-form__btn" onclick="addcomment()">评论</button>
+                        </div>
 
-                        <div class="comment-sets">
+                        <div class="comment-sets" id="allcomments">
+
+                            <div class="comment">
+                                <div class="comment__images">
+                                    <img alt='' src="http://placehold.it/50x50">
+                                </div>
+
+                                <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
+                                <p class="comment__date">today | 03:04</p>
+                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
+                                <a href='#' class="comment__reply">回复</a>
+                            </div>
+
+                            <div class="comment">
+                                <div class="comment__images">
+                                    <img alt='' src="http://placehold.it/50x50">
+                                </div>
+
+                                <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Olia Gozha</a>
+                                <p class="comment__date">22.10.2013 | 14:40</p>
+                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
+                                <a href='#' class="comment__reply">回复</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <h2 class="page-heading">豆瓣热评 (<span id="doubancommentnum"></span>)</h2>
+
+                    <div class="comment-sets" style="margin-top: 40px" id="doubancomments">
 
                         <div class="comment">
                             <div class="comment__images">
@@ -274,57 +302,6 @@
                             <a href='#' class="comment__reply">回复</a>
                         </div>
 
-                        <div class="comment comment--answer">
-                            <div class="comment__images">
-                                <img alt='' src="http://placehold.it/50x50">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Dmitriy Pustovalov</a>
-                            <p class="comment__date">today | 10:19</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">回复</a>
-                        </div>
-
-                        <div class="comment comment--last">
-                            <div class="comment__images">
-                                <img alt='' src="http://placehold.it/50x50">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Sia Andrews</a>
-                            <p class="comment__date"> 22.10.2013 | 12:31 </p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">回复</a>
-                        </div>
-
-                        <div id='hide-comments' class="hide-comments">
-                            <div class="comment">
-                                <div class="comment__images">
-                                    <img alt='' src="http://placehold.it/50x50">
-                                </div>
-
-                                <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
-                                <p class="comment__date">today | 03:04</p>
-                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                                <a href='#' class="comment__reply">回复</a>
-                            </div>
-
-                            <div class="comment">
-                                <div class="comment__images">
-                                    <img alt='' src="http://placehold.it/50x50">
-                                </div>
-
-                                <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Olia Gozha</a>
-                                <p class="comment__date">22.10.2013 | 14:40</p>
-                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                                <a href='#' class="comment__reply">回复</a>
-                            </div>
-                        </div>
-
-                        <div class="comment-more">
-                            <a href="#" class="watchlist">查看更多评论</a>
-                        </div>
-
-                    </div>
                     </div>
                 </div>
             </div>
