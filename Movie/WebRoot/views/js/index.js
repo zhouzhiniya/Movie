@@ -87,7 +87,7 @@ $(document).ready(function(){
 			                                '<p>'+data[i].comments_count+' 条评论</p>'+
 			                             '</li>'+
 			                             '<li class="last-block">'+
-			                                 '<a class="slide__link" onclick="moreMovie('+data[i].movie_id+')">更多</a>'+
+			                                 '<a class="slide__link" onclick="moreRecommendMovie('+data[i].id+')">更多</a>'+
 			                             '</li>'+
 			                         '</ul>'+
 			                     '</div>');
@@ -260,6 +260,12 @@ $(document).ready(function(){
 function moreMovie(movieid){
 	$.cookie("movie_id",movieid);
 	window.location.href = "/Movie/views/pages/moviemessage/movie-page-left.html";
+}
+
+//点击推荐的更多
+function moreRecommendMovie(movieid){
+	$.cookie("movie_id",movieid);
+	window.location.href = "/Movie/views/pages/moviemessage/movie-page-left-recommend.html";
 }
 
 //搜索电影
