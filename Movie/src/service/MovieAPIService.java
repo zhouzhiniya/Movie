@@ -320,18 +320,18 @@ public class MovieAPIService {
       }
       
       for (Iterator iterator = DoubanComments.getJSONArray("comments").iterator(); iterator.hasNext();) {
-	    JSONObject sbject = (JSONObject) iterator.next();
-	    DoubanComment comment = new DoubanComment();
-	    comment.setMovieId(todayMovie.getMovieId());
-	    comment.setDoubanId(sbject.getString("subject_id"));
-	    comment.setRating(sbject.getJSONObject("rating").getInteger("value"));
-	    comment.setUsefulCount(sbject.getInteger("useful_count"));
-	    comment.setUserName(sbject.getJSONObject("author").getString("name"));
-	    comment.setAvatar(sbject.getJSONObject("author").getString("avatar"));
-	    comment.setContent(sbject.getString("content"));
-	    comment.setCommentId(sbject.getString("id"));
-    	  
-    	//获取上映日期
+      JSONObject sbject = (JSONObject) iterator.next();
+      DoubanComment comment = new DoubanComment();
+      comment.setMovieId(todayMovie.getMovieId());
+      comment.setDoubanId(sbject.getString("subject_id"));
+      comment.setRating(sbject.getJSONObject("rating").getInteger("value"));
+      comment.setUsefulCount(sbject.getInteger("useful_count"));
+      comment.setUserName(sbject.getJSONObject("author").getString("name"));
+      comment.setAvatar(sbject.getJSONObject("author").getString("avatar"));
+      comment.setContent(sbject.getString("content"));
+      comment.setCommentId(sbject.getString("id"));
+        
+      //获取上映日期
         if(StrKit.notBlank(sbject.getString("created_at"))) {
           try {
             comment.setCreatedAt(strDateTime.parse(sbject.getString("created_at")));
@@ -341,7 +341,7 @@ public class MovieAPIService {
           }
         }
         
-        List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 9);
+        List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 10);
         totalComment += sbject.getString("content");
         comment.setTags(String.join(",", keywordList));
         try {
@@ -351,29 +351,34 @@ public class MovieAPIService {
         }
       }
       
-      List<String> keywordList = HanLP.extractKeyword(totalComment, 9);
+      List<String> keywordList = HanLP.extractKeyword(totalComment, 30);
       Map<String, Integer> keywordMap = new HashMap<String, Integer>();
       for (String keyword : keywordList) {
-    	  keywordMap.put(keyword, 0);
+        keywordMap.put(keyword, 0);
       }
       keywordMap.put("其他", 0);
       
       for (Iterator iterator = DoubanComments.getJSONArray("comments").iterator(); iterator.hasNext();) {
-	    JSONObject sbject = (JSONObject) iterator.next();
-	    String content =  sbject.getString("content");
-	    int count = 0;
-	    for (String entry : keywordMap.keySet()) {
-	      if (content.indexOf(entry)==-1) {
-	    	  count = keywordMap.get("其他");
-	    	  keywordMap.put("其他", ++count);
-	      } else {
-	    	  count = keywordMap.get(entry);
-	    	  keywordMap.put(entry, ++count);
-	      }
-	    }
+      JSONObject sbject = (JSONObject) iterator.next();
+      String content =  sbject.getString("content");
+      int count = 0;
+      for (String entry : keywordMap.keySet()) {
+        if (content.indexOf(entry)==-1) {
+          count = keywordMap.get("其他");
+          keywordMap.put("其他", ++count);
+        } else {
+          count = keywordMap.get(entry);
+          keywordMap.put(entry, ++count);
+        }
       }
-      
-      Db.update("update movie set tag_json=?", JSON.toJSON(keywordMap));
+      }
+      System.out.println(JSON.toJSON(keywordMap));
+      try {
+        Db.update("update movie set tag_json=? where movie_id=?", JSON.toJSON(keywordMap), todayMovie.getMovieId());
+      } catch (Exception e) {
+        // TODO: handle exception
+        continue;
+      }
     }
     
     return true;
