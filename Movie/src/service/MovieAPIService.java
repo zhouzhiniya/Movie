@@ -341,7 +341,7 @@ public class MovieAPIService {
           }
         }
         
-        List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 9);
+        List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 10);
         totalComment += sbject.getString("content");
         comment.setTags(String.join(",", keywordList));
         try {
@@ -351,7 +351,7 @@ public class MovieAPIService {
         }
       }
       
-      List<String> keywordList = HanLP.extractKeyword(totalComment, 9);
+      List<String> keywordList = HanLP.extractKeyword(totalComment, 30);
       Map<String, Integer> keywordMap = new HashMap<String, Integer>();
       for (String keyword : keywordList) {
         keywordMap.put(keyword, 0);
