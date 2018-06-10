@@ -34,5 +34,11 @@ public class IndexController extends Controller{
 		MovieAPIService ser = new MovieAPIService();
 		ser.saveMovieComments100_Douban();
 	}
+	
+	public void rrr() {
+
+    MovieService servvvvv = new MovieService();
+    servvvvv.recommendByUserId(1);
+	}
 
 }

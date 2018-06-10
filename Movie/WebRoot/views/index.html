@@ -1,922 +1,769 @@
 <!doctype html>
 <html>
 <head>
-	<!-- Basic Page Needs -->
-        <meta charset="utf-8">
-        <title>AMovie</title>
-        <meta name="description" content="A Template by Gozha.net">
-        <meta name="keywords" content="HTML, CSS, JavaScript">
-        <meta name="author" content="Gozha.net">
-    
-    <!-- Mobile Specific Metas-->
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="telephone=no" name="format-detection">
-    
-    <!-- Fonts -->
-        <!-- Font awesome - icon font -->
-        <link href="/Movie/views/assetes/font-awesome/css/font-awesome.css" rel="stylesheet">
-        <!-- Roboto -->
-        <!-- <link href='http://fonts.useso.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'> -->
-        <!-- Open Sans -->
-        <!-- <link href='http://fonts.useso.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css'> -->
-    
-    <!-- Stylesheets -->
+<!-- Basic Page Needs -->
+<meta charset="utf-8">
+<title>AMovie</title>
+<meta name="description" content="A Template by Gozha.net">
+<meta name="keywords" content="HTML, CSS, JavaScript">
+<meta name="author" content="Gozha.net">
 
-        <!-- Mobile menu -->
-        <link href="/Movie/views/css/gozha-nav.css" rel="stylesheet" />
-        <!-- Select -->
-        <link href="/Movie/views/css/external/jquery.selectbox.css" rel="stylesheet" />
+<!-- Mobile Specific Metas-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="telephone=no" name="format-detection">
 
-        <!-- REVOLUTION BANNER CSS SETTINGS -->
-        <link rel="stylesheet" type="text/css" href="/Movie/views/assetes/rs-plugin/css/settings.css" media="screen" />
-    
-        <!-- Custom -->
-        <link href="/Movie/views/css/style.css?v=1" rel="stylesheet" />
+<!-- Fonts -->
+<!-- Font awesome - icon font -->
+<link href="/Movie/views/assetes/font-awesome/css/font-awesome.css" rel="stylesheet">
+<!-- Roboto -->
+<!-- <link href='http://fonts.useso.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'> -->
+<!-- Open Sans -->
+<!-- <link href='http://fonts.useso.com/css?family=Open+Sans:800italic' rel='stylesheet' type='text/css'> -->
+
+<!-- Stylesheets -->
+
+<!-- Mobile menu -->
+<link href="/Movie/views/css/gozha-nav.css" rel="stylesheet" />
+<!-- Select -->
+<link href="/Movie/views/css/external/jquery.selectbox.css" rel="stylesheet" />
+
+<!-- REVOLUTION BANNER CSS SETTINGS -->
+<link rel="stylesheet" type="text/css" href="/Movie/views/assetes/rs-plugin/css/settings.css" media="screen" />
+
+<!-- Custom -->
+<link href="/Movie/views/css/style.css?v=1" rel="stylesheet" />
 
 
-        <!-- Modernizr --> 
-        <script src="/Movie/views/js/external/modernizr.custom.js"></script>
-    
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --> 
-    <!--[if lt IE 9]> 
+<!-- Modernizr -->
+<script src="/Movie/views/js/external/modernizr.custom.js"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]> 
     	<script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script> 
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>		
     <![endif]-->
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- Banner -->
-        
+  <div class="wrapper">
+    <!-- Banner -->
 
-        <!-- Header section -->
-        <header class="header-wrapper header-wrapper--home">
-            <div class="container">
-                <!-- Logo link-->
-                <a href='/Movie/views/index.html' class="logo">
-                    <img alt='logo' src="/Movie/views/images/logo.png">
+
+    <!-- Header section -->
+    <header class="header-wrapper header-wrapper--home">
+      <div class="container">
+        <!-- Logo link-->
+        <a href='/Movie/views/index.html' class="logo">
+          <img alt='logo' src="/Movie/views/images/logo.png">
+        </a>
+
+        <!-- Main website navigation-->
+
+
+        <!-- Additional header buttons / Auth and direct link to booking-->
+        <div class="control-panel haslogin">
+          <div class="auth auth--home">
+            <div class="auth__show">
+              <span class="auth__image"> <img alt="" src="/Movie/views/images/31-31.png">
+              </span>
+            </div>
+            <a href="#" class="btn btn--sign btn--singin"> 我的 </a>
+            <ul class="auth__function">
+              <li><a href="#" class="auth__function-item">观看清单</a></li>
+              <li><a href="#" class="auth__function-item">订单记录</a></li>
+              <li><a href="#" class="auth__function-item">评论</a></li>
+              <li><a href="#" class="auth__function-item">个人设置</a></li>
+              <li><a href="/Movie/user/exit" class="auth__function-item">退出登录</a></li>
+            </ul>
+
+          </div>
+          <a href="/Movie/views/pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a>
+        </div>
+
+        <!-- Main website navigation-->
+        <nav id="navigation-box" class="nologin">
+          <!-- Toggle for mobile menu mode -->
+          <a href="#" id="navigation-toggle">
+            <span class="menu-icon"> <span class="icon-toggle" role="button" aria-label="Toggle Navigation"> <span class="lines"></span>
+            </span>
+            </span>
+          </a>
+
+          <!-- Link navigation -->
+
+          <!-- Additional header buttons / Auth and direct link to booking-->
+          <div class="control-panel">
+            <a href="#" class="btn btn--sign login-window">登录</a>
+            <a href="#" class="btn btn-md btn--warning btn--book login-window">购票</a>
+          </div>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- Slider -->
+    <div class="bannercontainer">
+      <div class="banner">
+        <ul>
+
+          <li data-transition="fade" data-slotamount="7" class="slide" data-slide='Rush.'><img alt='' src="/Movie/views/images/b1.jpg">
+            <div class="caption slide__name margin-slider" data-x="right" data-y="80" data-splitin="chars" data-elementdelay="0.1" data-speed="700" data-start="1400" data-easing="easeOutBack" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:0;transformOrigin:50% 50%;"
+              data-frames="{ typ :lines;
+                                                 elementdelay :0.1;
+                                                 start:1650;
+                                                 speed:500;
+                                                 ease:Power3.easeOut;
+                                                 animation:x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
+                                                 },
+                                                 { typ :lines;
+                                                 elementdelay :0.1;
+                                                 start:2150;
+                                                 speed:500;
+                                                 ease:Power3.easeOut;
+                                                 animation:x:0;y:0;z:0;rotationX:00;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
+                                                 }
+                                                 "
+              data-splitout="lines" data-endelementdelay="0.1" data-customout="x:-230;y:0;z:0;rotationX:0;rotationY:0;rotationZ:90;scaleX:0.2;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%" data-endspeed="500" data-end="8400" data-endeasing="Back.easeIn">RUSH</div>
+
+            <div class="caption slide__time margin-slider sfr str" data-x="right" data-hoffset='-243' data-y="186" data-speed="300" data-start="2100" data-easing="easeOutBack" data-endspeed="300" data-end="8700" data-endeasing="Back.easeIn">From</div>
+            <div class="caption slide__date margin-slider lfb ltb" data-x="right" data-hoffset='-149' data-y="186" data-speed="500" data-start="2400" data-easing="Power4.easeOut" data-endspeed="400" data-end="8200" data-endeasing="Back.easeIn">October 18</div>
+            <div class="caption slide__time margin-slider sfr str" data-x="right" data-hoffset='-113' data-y="186" data-speed="300" data-start="2100" data-easing="easeOutBack" data-endspeed="300" data-end="8700" data-endeasing="Back.easeIn">- till</div>
+            <div class="caption slide__date margin-slider lfb ltb" data-x="right" data-y="186" data-speed="500" data-start="2800" data-easing="Power4.easeOut" data-endspeed="400" data-end="8200" data-endeasing="Back.easeIn">November 01</div>
+            <div class="caption slide__text margin-slider customin customout" data-x="right" data-y="250" data-customin="x:0;y:100;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:3;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:0% 0%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="400" data-start="3000" data-endspeed="400" data-end="8000" data-endeasing="Back.easeIn">
+              Two-time Academy Award winner Ron Howard, teams once again with fellow two-time Academy<br> Award nominee, writer Peter Morgan , on Rush, a spectacular big-screen re-creation of the merciless<br> 1970s rivalry between James Hunt and Niki Lauda.
+            </div>
+            <div class="caption margin-slider skewfromright customout " data-x="right" data-y="324" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="400" data-start="3300" data-easing="Power4.easeOut" data-endspeed="300" data-end="7700" data-endeasing="Power4.easeOut">
+              <a href="#" class="slide__link">check out cinemas &amp; time</a>
+            </div></li>
+
+          <li data-transition="fade" data-slotamount="7" class="slide fading-slide" data-slide='Travel worldwide.
+Create trip film.'><img alt='' src="/Movie/views/images/b2.jpg">
+
+
+            <div class="caption slide__name slide__name--smaller" data-x="left" data-y="160" data-splitin="chars" data-elementdelay="0.1" data-speed="700" data-start="1400" data-easing="easeOutBack" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:0;transformOrigin:50% 50%;"
+              data-frames="{ typ :lines;
+                                                 elementdelay :0.1;
+                                                 start:1650;
+                                                 speed:500;
+                                                 ease:Power3.easeOut;
+                                                 animation:x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
+                                                 },
+                                                 { typ :lines;
+                                                 elementdelay :0.1;
+                                                 start:2150;
+                                                 speed:500;
+                                                 ease:Power3.easeOut;
+                                                 animation:x:0;y:0;z:0;rotationX:00;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
+                                                 }
+                                                 "
+              data-splitout="lines" data-endelementdelay="0.1" data-customout="x:-230;y:0;z:0;rotationX:0;rotationY:0;rotationZ:90;scaleX:0.2;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%" data-endspeed="500" data-endeasing="Back.easeIn">Travel, Admire, Remember.</div>
+
+            <div class="caption slide__time position-center postion-place--one sfr stl" data-x="left" data-y="242" data-speed="300" data-start="2100" data-easing="easeOutBack" data-endspeed="300" data-endeasing="Back.easeIn">From</div>
+            <div class="caption slide__date position-center postion-place--two lfb ltb" data-x="left" data-y="242" data-speed="500" data-start="2400" data-easing="Power4.easeOut" data-endspeed="400" data-endeasing="Back.easeIn">April 18</div>
+            <div class="caption slide__time position-center postion-place--three sfr stl" data-x="left" data-y="242" data-speed="300" data-start="2100" data-easing="easeOutBack" data-endspeed="300" data-endeasing="Back.easeIn">- till</div>
+            <div class="caption slide__date position-center postion-place--four lfb ltb" data-x="left" data-y="242" data-speed="500" data-start="2800" data-easing="Power4.easeOut" data-endspeed="400" data-endeasing="Back.easeIn">May 01</div>
+
+            <div class="caption lfb slider-wrap-btn ltb" data-x="left" data-y="310" data-speed="400" data-start="3300" data-easing="Power4.easeOut" data-endspeed="500" data-endeasing="Power4.easeOut">
+              <a href="#" class="btn btn-md btn--danger btn--wide slider--btn">learn more</a>
+            </div></li>
+
+          <li data-transition="fade" data-slotamount="7" class="slide" data-slide='Stop wishing. 
+Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
+            <div class="caption slide__name slide__name--smaller slide__name--specific customin customout" data-x="left" data-y="160" data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="700" data-start="1400" data-easing="easeOutBack" data-endspeed="500" data-end="8600" data-endeasing="Back.easeIn">
+              Stop <span class="highlight">wishing.</span> Start <span class="highlight">doing.</span>
+            </div>
+
+            <div class="caption slide__descript customin customout" data-x="left" data-y="240" data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="700" data-start="2000" data-endspeed="500" data-end="8400" data-endeasing="Back.easeIn">find your best match movie with A.MOVIE</div>
+
+            <div class="caption lfb customout slider-wrap-btn" data-x="left" data-y="310" data-speed="500" data-start="2800" data-easing="Power4.easeOut" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-endspeed="400" data-end="8000" data-endeasing="Power4.easeOut">
+              <a href="#" class="btn btn-md btn--danger slider--btn">check out movies</a>
+            </div></li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!--end slider -->
+    <!-- <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >手机网站模板</a></div> -->
+
+    <!-- Main content -->
+    <section class="container">
+      <div class="movie-best">
+        <div class="col-sm-10 col-sm-offset-1 movie-best__rating" style="font-weight: bold; font-size: 26px">今&nbsp;日&nbsp;最&nbsp;佳</div>
+        <div class="col-sm-12 change--col" id="gradeMovie">
+          <div class="movie-beta__item ">
+            <img alt='' src="/Movie/views/images/m1.jpg"> <span class="best-rate">8.3</span>
+
+            <ul class="movie-beta__info">
+              <li><span class="best-voted">今日214万人已观看</span></li>
+              <li>
+                <p class="movie__time">169 分钟</p>
+                <p>冒险 | 喜剧</p>
+                <p>138 条评论</p>
+              </li>
+              <li class="last-block"><a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a></li>
+            </ul>
+          </div>
+          <div class="movie-beta__item second--item">
+            <img alt='' src="/Movie/views/images/m2.jpg"> <span class="best-rate">8.0</span>
+
+            <ul class="movie-beta__info">
+              <li><span class="best-voted">今日200万人已观看</span></li>
+              <li>
+                <p class="movie__time">120 分钟</p>
+                <p>爱情 | 文艺</p>
+                <p>200 条评论</p>
+              </li>
+              <li class="last-block"><a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a></li>
+            </ul>
+          </div>
+          <div class="movie-beta__item third--item">
+            <img alt='' src="/Movie/views/images/m3.jpg"> <span class="best-rate">7.5</span>
+
+            <ul class="movie-beta__info">
+              <li><span class="best-voted">今日120万人已观看</span></li>
+              <li>
+                <p class="movie__time">112 分钟</p>
+                <p>冒险 | 喜剧</p>
+                <p>100 条评论</p>
+              </li>
+              <li class="last-block"><a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a></li>
+            </ul>
+          </div>
+          <div class="movie-beta__item hidden-xs">
+            <img alt='' src="/Movie/views/images/m4.jpg"> <span class="best-rate">7.3</span>
+
+            <ul class="movie-beta__info">
+              <li><span class="best-voted">今日214万人已观看</span></li>
+              <li>
+                <p class="movie__time">169 分钟</p>
+                <p>冒险 | 喜剧</p>
+                <p>138 条评论</p>
+              </li>
+              <li class="last-block"><a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a></li>
+            </ul>
+          </div>
+          <div class="movie-beta__item hidden-xs hidden-sm">
+            <img alt='' src="/Movie/views/images/380-60.png"> <span class="best-rate">7.3</span>
+
+            <ul class="movie-beta__info">
+              <li><span class="best-voted">今日214万人已观看</span></li>
+              <li>
+                <p class="movie__time">169 分钟</p>
+                <p>冒险 | 喜剧</p>
+                <p>138 条评论</p>
+              </li>
+              <li class="last-block"><a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a></li>
+            </ul>
+          </div>
+          <div class="movie-beta__item hidden-xs hidden-sm">
+            <img alt='' src="/Movie/views/images/380-60.png"> <span class="best-rate">7.3</span>
+
+            <ul class="movie-beta__info">
+              <li><span class="best-voted">今日214万人已观看</span></li>
+              <li>
+                <p class="movie__time">169 分钟</p>
+                <p>冒险 | 喜剧</p>
+                <p>138 条评论</p>
+              </li>
+              <li class="last-block"><a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-10 col-sm-offset-1 movie-best__check">查看正在放映的所有电影</div>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="mega-select-present mega-select-top mega-select--full">
+          <div class="mega-select-marker">
+            <div class="marker-indecator location">
+              <p class="select-marker">
+                <span>看电影</span> <br>就在你的城市
+              </p>
+            </div>
+
+            <div class="marker-indecator cinema">
+              <p class="select-marker">
+                <span>寻找想要的</span> <br>电影院
+              </p>
+            </div>
+
+            <div class="marker-indecator film-category">
+              <p class="select-marker">
+                <span>寻找电影</span> <br>按你所想
+              </p>
+            </div>
+
+            <div class="marker-indecator actors">
+              <p class="select-marker">
+                <span>寻找影星</span> <br>你喜爱的
+              </p>
+            </div>
+
+            <div class="marker-indecator director">
+              <p class="select-marker">
+                <span>寻找电影</span> <br>导演
+              </p>
+            </div>
+
+          </div>
+
+          <div class="mega-select pull-right">
+            <span class="mega-select__point">搜索</span>
+            <ul class="mega-select__sort">
+              <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='location'>城市</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='cinema'>电影院</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='film-category'>电影类型</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='actors'>演员</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='director'>导演</a></li>
+            </ul>
+
+            <input name="search-input" type='text' class="select__field">
+
+            <div class="select__btn">
+              <a class="btn btn-md btn--danger location">
+                搜索<span class="hidden-exrtasm">城市</span>
+              </a>
+              <a class="btn btn-md btn--danger cinema">
+                搜索<span class="hidden-exrtasm">电影院</span>
+              </a>
+              <a class="btn btn-md btn--danger film-category" onclick="searchMovie('movie_type')">
+                搜索<span class="hidden-exrtasm">类型</span>
+              </a>
+              <a class="btn btn-md btn--danger actors" onclick="searchMovie('actor')">
+                搜索<span class="hidden-exrtasm">演员</span>
+              </a>
+              <a class="btn btn-md btn--danger director" onclick="searchMovie('director')">
+                搜索<span class="hidden-exrtasm">导演</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <h2 id='target' class="page-heading heading--outcontainer">所有电影</h2>
+
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-8 col-md-9" id="allMovies">
+            <!-- Movie variant with time -->
+            <div class="movie movie--test movie--test--dark movie--test--left">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
                 </a>
-                
-                <!-- Main website navigation-->
-                
-                
-                <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel haslogin">
-                    <div class="auth auth--home">
-                      <div class="auth__show">
-                        <span class="auth__image">
-                          <img alt="" src="/Movie/views/images/31-31.png">
-                        </span>
-                      </div>
-                      <a href="#" class="btn btn--sign btn--singin">
-                          我的
-                      </a>
-                        <ul class="auth__function">
-                            <li><a href="#" class="auth__function-item">观看清单</a></li>
-                            <li><a href="#" class="auth__function-item">订单记录</a></li>
-                            <li><a href="#" class="auth__function-item">评论</a></li>
-                            <li><a href="#" class="auth__function-item">个人设置</a></li>
-                            <li><a href="/Movie/user/exit" class="auth__function-item">退出登录</a></li>
-                        </ul>
-
-                    </div>
-                    <a href="/Movie/views/pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a>
-                </div>
-
-                <!-- Main website navigation-->
-                <nav id="navigation-box" class="nologin">
-                    <!-- Toggle for mobile menu mode -->
-                    <a href="#" id="navigation-toggle">
-                        <span class="menu-icon">
-                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
-                              <span class="lines"></span>
-                            </span>
-                        </span>
-                    </a>
-                    
-                    <!-- Link navigation -->
-                
-                <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
-                    <a href="#" class="btn btn--sign login-window">登录</a>
-                    <a href="#" class="btn btn-md btn--warning btn--book login-window">购票</a>
-                </div>
-            </nav>
-
-            </div>
-        </header>
-
-        <!-- Slider -->
-            <div class="bannercontainer">
-                    <div class="banner">
-                        <ul>
-
-                            <li data-transition="fade" data-slotamount="7" class="slide" data-slide='Rush.'>
-                                <img alt='' src="/Movie/views/images/b1.jpg">
-                                <div class="caption slide__name margin-slider" 
-                                     data-x="right" 
-                                     data-y="80" 
-
-                                     data-splitin="chars"
-                                     data-elementdelay="0.1"
-
-                                     data-speed="700" 
-                                     data-start="1400" 
-                                     data-easing="easeOutBack"
-
-                                     data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:0;transformOrigin:50% 50%;"
-
-                                    data-frames="{ typ :lines;
-                                                 elementdelay :0.1;
-                                                 start:1650;
-                                                 speed:500;
-                                                 ease:Power3.easeOut;
-                                                 animation:x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
-                                                 },
-                                                 { typ :lines;
-                                                 elementdelay :0.1;
-                                                 start:2150;
-                                                 speed:500;
-                                                 ease:Power3.easeOut;
-                                                 animation:x:0;y:0;z:0;rotationX:00;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
-                                                 }
-                                                 "
-
-
-                                    data-splitout="lines"
-                                    data-endelementdelay="0.1"
-                                    data-customout="x:-230;y:0;z:0;rotationX:0;rotationY:0;rotationZ:90;scaleX:0.2;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%"
-
-                                    data-endspeed="500"
-                                    data-end="8400"
-                                    data-endeasing="Back.easeIn"
-                                     >
-                                    RUSH
-                                </div>
-
-                                <div class="caption slide__time margin-slider sfr str" 
-                                     data-x="right" 
-                                     data-hoffset='-243' 
-                                     data-y="186" 
-                                     data-speed="300" 
-                                     data-start="2100" 
-                                     data-easing="easeOutBack"
-                                     data-endspeed="300"
-                                     data-end="8700"
-                                     data-endeasing="Back.easeIn"
-                                     >
-                                     From
-                                 </div>
-                                <div class="caption slide__date margin-slider lfb ltb" 
-                                     data-x="right" 
-                                     data-hoffset='-149' 
-                                     data-y="186" 
-                                     data-speed="500" 
-                                     data-start="2400" 
-                                     data-easing="Power4.easeOut"
-                                     data-endspeed="400"
-                                     data-end="8200"
-                                     data-endeasing="Back.easeIn"
-                                     >
-                                     October 18
-                                 </div>
-                                <div class="caption slide__time margin-slider sfr str" 
-                                     data-x="right" 
-                                     data-hoffset='-113' 
-                                     data-y="186" 
-                                     data-speed="300" 
-                                     data-start="2100" 
-                                     data-easing="easeOutBack"
-                                     data-endspeed="300"
-                                     data-end="8700"
-                                     data-endeasing="Back.easeIn"
-                                     >
-                                     - till
-                                 </div>
-                                <div class="caption slide__date margin-slider lfb ltb" 
-                                     data-x="right" 
-                                     data-y="186" 
-                                     data-speed="500" 
-                                     data-start="2800" 
-                                     data-easing="Power4.easeOut"
-                                     data-endspeed="400"
-                                     data-end="8200"
-                                     data-endeasing="Back.easeIn"
-                                     >
-                                     November 01
-                                 </div>
-                                <div class="caption slide__text margin-slider customin customout" 
-                                     data-x="right" 
-                                     data-y="250"
-                                     data-customin="x:0;y:100;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:3;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:0% 0%;"
-                                     data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" 
-                                     data-speed="400" 
-                                     data-start="3000"
-                                     data-endspeed="400"
-                                     data-end="8000"
-                                     data-endeasing="Back.easeIn">
-                                     Two-time Academy Award winner Ron Howard, teams once again with fellow two-time Academy<br> Award nominee, writer Peter Morgan , on Rush, a spectacular big-screen re-creation of the merciless<br> 1970s rivalry between James Hunt and Niki Lauda.
-                                 </div>
-                                <div class="caption margin-slider skewfromright customout " 
-                                     data-x="right" 
-                                     data-y="324"
-                                     data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
-                                     data-speed="400" 
-                                     data-start="3300"
-                                     data-easing="Power4.easeOut"
-                                     data-endspeed="300"
-                                     data-end="7700"
-                                     data-endeasing="Power4.easeOut">
-                                     <a href="#" class="slide__link">check out cinemas &amp; time</a>
-                                 </div>
-                            </li>
-
-                            <li data-transition="fade" data-slotamount="7" class="slide fading-slide" data-slide='Travel worldwide.
-Create trip film.'>
-                                <img alt='' src="/Movie/views/images/b2.jpg">
-                                 
-
-                                 <div class="caption slide__name slide__name--smaller" 
-                                     data-x="left" 
-                                     data-y="160" 
-
-                                     data-splitin="chars"
-                                     data-elementdelay="0.1"
-
-                                     data-speed="700" 
-                                     data-start="1400" 
-                                     data-easing="easeOutBack"
-
-                                     data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:0;transformOrigin:50% 50%;"
-
-                                    data-frames="{ typ :lines;
-                                                 elementdelay :0.1;
-                                                 start:1650;
-                                                 speed:500;
-                                                 ease:Power3.easeOut;
-                                                 animation:x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
-                                                 },
-                                                 { typ :lines;
-                                                 elementdelay :0.1;
-                                                 start:2150;
-                                                 speed:500;
-                                                 ease:Power3.easeOut;
-                                                 animation:x:0;y:0;z:0;rotationX:00;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:1;transformPerspective:600;transformOrigin:50% 50%;
-                                                 }
-                                                 "
-
-
-                                    data-splitout="lines"
-                                    data-endelementdelay="0.1"
-                                    data-customout="x:-230;y:0;z:0;rotationX:0;rotationY:0;rotationZ:90;scaleX:0.2;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%"
-                                    data-endspeed="500"
-                                   
-                                    data-endeasing="Back.easeIn"
-                                     >
-                                    Travel, Admire, Remember.
-                                </div>
-
-                                <div class="caption slide__time position-center postion-place--one sfr stl" 
-                                     data-x="left" 
-                                      
-                                     data-y="242" 
-                                     data-speed="300" 
-                                     data-start="2100" 
-                                     data-easing="easeOutBack"
-                                     data-endspeed="300"
-                                     
-                                     data-endeasing="Back.easeIn">
-                                     From
-                                 </div>
-                                <div class="caption slide__date position-center postion-place--two lfb ltb" 
-                                     data-x="left"                                       
-                                     data-y="242" 
-                                     data-speed="500" 
-                                     data-start="2400" 
-                                     data-easing="Power4.easeOut"
-                                     data-endspeed="400"
-                                     
-                                     data-endeasing="Back.easeIn">
-                                     April 18 
-                                 </div>
-                                <div class="caption slide__time position-center postion-place--three sfr stl" 
-                                     data-x="left" 
-                                     data-y="242" 
-                                     data-speed="300" 
-                                     data-start="2100" 
-                                     data-easing="easeOutBack"
-                                     data-endspeed="300"
-                                     
-                                     data-endeasing="Back.easeIn">
-                                     - till
-                                 </div>
-                                <div class="caption slide__date position-center postion-place--four lfb ltb" 
-                                     data-x="left"
-                                     data-y="242" 
-                                     data-speed="500" 
-                                     data-start="2800" 
-                                     data-easing="Power4.easeOut" 
-                                     data-endspeed="400"
-                                     
-                                     data-endeasing="Back.easeIn">
-                                     May 01
-                                 </div>
-
-                                 <div class="caption lfb slider-wrap-btn ltb" 
-                                     data-x="left"
-                                     data-y="310" 
-                                     data-speed="400" 
-                                     data-start="3300" 
-                                     data-easing="Power4.easeOut"
-                                     data-endspeed="500"
-                                     
-                                     data-endeasing="Power4.easeOut" >
-                                     <a href="#" class="btn btn-md btn--danger btn--wide slider--btn">learn more</a>
-                                 </div>
-                            </li>
-
-                            <li data-transition="fade" data-slotamount="7" class="slide" data-slide='Stop wishing. 
-Start doing.'>
-                                <img alt='' src="/Movie/views/images/b3.jpg">
-                                 <div class="caption slide__name slide__name--smaller slide__name--specific customin customout" 
-                                     data-x="left" 
-                                     data-y="160" 
-
-                                     data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                                     data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
-
-                                     data-speed="700" 
-                                     data-start="1400" 
-                                     data-easing="easeOutBack"
-                                     data-endspeed="500"
-                                     data-end="8600"
-                                     data-endeasing="Back.easeIn"
-
-                                     >
-                                    Stop <span class="highlight">wishing.</span> Start <span class="highlight">doing.</span> 
-                                </div>
-
-                                  <div class="caption slide__descript customin customout" 
-                                     data-x="left" 
-                                     data-y="240"
-                                     data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                                     data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" 
-                                     data-speed="700" 
-                                     data-start="2000"
-                                     data-endspeed="500"
-                                     data-end="8400"
-                                     data-endeasing="Back.easeIn">
-                                     find your best match movie with A.MOVIE
-                                 </div>
-
-                                 <div class="caption lfb customout slider-wrap-btn" 
-                                     data-x="left" 
-                                     data-y="310" 
-                                     data-speed="500" 
-                                     data-start="2800" 
-                                     data-easing="Power4.easeOut"
-                                     data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" 
-                                     data-endspeed="400"
-                                     data-end="8000"
-                                     data-endeasing="Power4.easeOut" >
-                                     <a href="#" class="btn btn-md btn--danger slider--btn">check out movies</a>
-                                 </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-        <!--end slider -->
-        <!-- <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >手机网站模板</a></div> -->
-        
-        <!-- Main content -->
-        <section class="container">
-            <div class="movie-best">
-                 <div class="col-sm-10 col-sm-offset-1 movie-best__rating" style="font-weight: bold;font-size: 26px">今&nbsp;日&nbsp;最&nbsp;佳</div>
-                 <div class="col-sm-12 change--col" id="gradeMovie">
-                     <div class="movie-beta__item ">
-                        <img alt='' src="/Movie/views/images/m1.jpg">
-                         <span class="best-rate">8.3</span>
-
-                         <ul class="movie-beta__info">
-                             <li><span class="best-voted">今日214万人已观看</span></li>
-                             <li>
-                                <p class="movie__time">169 分钟</p>
-                                <p>冒险 | 喜剧  </p>
-                                <p>138 条评论</p>
-                             </li>
-                             <li class="last-block">
-                                 <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a>
-                             </li>
-                         </ul>
-                     </div>
-                     <div class="movie-beta__item second--item">
-                         <img alt='' src="/Movie/views/images/m2.jpg">
-                         <span class="best-rate">8.0</span>
-
-                         <ul class="movie-beta__info">
-                             <li><span class="best-voted">今日200万人已观看</span></li>
-                             <li>
-                                <p class="movie__time">120 分钟</p>
-                                <p>爱情 | 文艺  </p>
-                                <p>200 条评论</p>
-                             </li>
-                             <li class="last-block">
-                                 <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a>
-                             </li>
-                         </ul>
-                     </div>
-                     <div class="movie-beta__item third--item">
-                         <img alt='' src="/Movie/views/images/m3.jpg">
-                         <span class="best-rate">7.5</span>
-
-                         <ul class="movie-beta__info">
-                             <li><span class="best-voted">今日120万人已观看</span></li>
-                             <li>
-                                <p class="movie__time">112 分钟</p>
-                                <p>冒险 | 喜剧  </p>
-                                <p>100 条评论</p>
-                             </li>
-                             <li class="last-block">
-                                 <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a>
-                             </li>
-                         </ul>
-                     </div>
-                     <div class="movie-beta__item hidden-xs">
-                         <img alt='' src="/Movie/views/images/m4.jpg">
-                         <span class="best-rate">7.3</span>
-
-                         <ul class="movie-beta__info">
-                             <li><span class="best-voted">今日214万人已观看</span></li>
-                             <li>
-                                <p class="movie__time">169 分钟</p>
-                                <p>冒险 | 喜剧  </p>
-                                <p>138 条评论</p>
-                             </li>
-                             <li class="last-block">
-                                 <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a>
-                             </li>
-                         </ul>
-                     </div>
-                     <div class="movie-beta__item hidden-xs hidden-sm">
-                         <img alt='' src="/Movie/views/images/380-60.png">
-                         <span class="best-rate">7.3</span>
-
-                         <ul class="movie-beta__info">
-                             <li><span class="best-voted">今日214万人已观看</span></li>
-                             <li>
-                                <p class="movie__time">169 分钟</p>
-                                <p>冒险 | 喜剧  </p>
-                                <p>138 条评论</p>
-                             </li>
-                             <li class="last-block">
-                                 <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a>
-                             </li>
-                         </ul>
-                     </div>
-                     <div class="movie-beta__item hidden-xs hidden-sm">
-                         <img alt='' src="/Movie/views/images/380-60.png">
-                         <span class="best-rate">7.3</span>
-
-                         <ul class="movie-beta__info">
-                             <li><span class="best-voted">今日214万人已观看</span></li>
-                             <li>
-                                <p class="movie__time">169 分钟</p>
-                                <p>冒险 | 喜剧  </p>
-                                <p>138 条评论</p>
-                             </li>
-                             <li class="last-block">
-                                 <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="slide__link">更多</a>
-                             </li>
-                         </ul>
-                     </div>
-                 </div>
-                <div class="col-sm-10 col-sm-offset-1 movie-best__check">查看正在放映的所有电影</div>
-            </div>
-
-            <div class="col-sm-12">
-                <div class="mega-select-present mega-select-top mega-select--full">
-                    <div class="mega-select-marker">
-                        <div class="marker-indecator location">
-                            <p class="select-marker"><span>看电影</span> <br>就在你的城市</p>
-                        </div>
-
-                        <div class="marker-indecator cinema">
-                            <p class="select-marker"><span>寻找想要的</span> <br>电影院</p>
-                        </div>
-
-                        <div class="marker-indecator film-category">
-                            <p class="select-marker"><span>寻找电影</span> <br>按你所想</p>
-                        </div>
-
-                        <div class="marker-indecator actors">
-                            <p class="select-marker"><span>寻找影星</span> <br>你喜爱的</p>
-                        </div>
-
-                        <div class="marker-indecator director">
-                            <p class="select-marker"><span>寻找电影</span> <br>导演</p>
-                        </div>
-
-                    </div>
-
-                      <div class="mega-select pull-right">
-                          <span class="mega-select__point">搜索</span>
-                          <ul class="mega-select__sort">
-                              <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='location'>城市</a></li>
-                              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='cinema'>电影院</a></li>
-                              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='film-category'>电影类型</a></li>
-                              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='actors'>演员</a></li>
-                              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='director'>导演</a></li>
-                          </ul>
-
-                          <input name="search-input" type='text' class="select__field">
-                          
-                          <div class="select__btn">
-                            <a class="btn btn-md btn--danger location">搜索<span class="hidden-exrtasm">城市</span></a>
-                            <a class="btn btn-md btn--danger cinema">搜索<span class="hidden-exrtasm">电影院</span></a>
-                            <a class="btn btn-md btn--danger film-category" onclick="searchMovie('movie_type')">搜索<span class="hidden-exrtasm">类型</span></a>
-                            <a class="btn btn-md btn--danger actors" onclick="searchMovie('actor')">搜索<span class="hidden-exrtasm">演员</span></a>
-                            <a class="btn btn-md btn--danger director" onclick="searchMovie('director')">搜索<span class="hidden-exrtasm">导演</span></a>
-                          </div>
-
-                      </div>
-                  </div>
-            </div>
-            
-            <div class="clearfix"></div>
-
-            <h2 id='target' class="page-heading heading--outcontainer">所有电影</h2>
-
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-8 col-md-9" id="allMovies">
-                        <!-- Movie variant with time -->
-                            <div class="movie movie--test movie--test--dark movie--test--left">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                        <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">Gravity (2013)  </a>
-
-                                    <p class="movie__time">91 min</p>
-
-                                    <p class="movie__option"><a href="#">Sci-Fi</a> | <a href="#">Thriller</a> | <a href="#">Drama</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">4.1</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--light movie--test--left">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">The Hobbit: The Desolation of Smaug (2013)  </a>
-
-                                    <p class="movie__time">169 min</p>
-
-                                    <p class="movie__option"><a href="#">Adventure</a> | <a href="#">Fantasy</a> | <a href="#">Drama</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">5.0</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--light movie--test--right">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">The Hunger Games: Catching Fire (2013)   </a>
-
-                                    <p class="movie__time">146 min</p>
-
-                                    <p class="movie__option"><a href="#">Action</a> | <a href="#">Adventure</a> | <a href="#">Sci-Fi</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">4.9</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--dark movie--test--right">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">Thor: The Dark World (2013) </a>
-
-                                    <p class="movie__time">112 min</p>
-
-                                    <p class="movie__option"><a href="#">Action</a> | <a href="#">Adventure</a> | <a href="#">Fantasy</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">5.0</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--dark movie--test--left">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">World War Z (2013)  </a>
-
-                                    <p class="movie__time">116 min</p>
-
-                                    <p class="movie__option"><a href="#">Action</a> | <a href="#">Adventure</a> | <a href="#">Horror</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">4.1</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--light movie--test--left">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">Prisoners (2013) </a>
-
-                                    <p class="movie__time">153 min</p>
-
-                                    <p class="movie__option"><a href="#">Crime</a> | <a href="#">Thriller</a> | <a href="#">Drama</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">5.0</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--light movie--test--right">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">This Is the End (2013)   </a>
-
-                                    <p class="movie__time">107 min</p>
-
-                                    <p class="movie__option"><a href="#">Comedy</a> | <a href="#">Fantasy</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">4.9</span>
-                                    </div>               
-                                </div>
-                            </div>
-
-                            <div class="movie movie--test movie--test--dark movie--test--right">
-                                <div class="movie__images">
-                                    <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
-                                    <img alt='' src="/Movie/views/images/424-424.png">
-                                    </a>
-                                </div>
-
-                                <div class="movie__info">
-                                    <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">The Internship (2013)  </a>
-
-                                    <p class="movie__time">112 min</p>
-
-                                    <p class="movie__option"><a href="#">Comedy</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">5.0</span>
-                                    </div>               
-                                </div>
-                            </div>
-                         <!-- Movie variant with time -->
-
-                </div>
-            </div>
-
-            <div class="col-sm-12">
-              <h2 class="page-heading">最新电影</h2>
-              <div id="recentMovies">
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <div class="post__image">
-                            <img alt='' src="/Movie/views/images/270-330.png">
-                            <div class="social social--position social--hide">
-                                <span class="social__name">Share:</span>
-                                <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                                <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                                <a href='#' class="social__variant social--third fa fa-vk"></a>
-                            </div>
-                        </div>
-                        <p class="post__date">22 October 2013 </p>
-                        <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">"Thor: The Dark World" - World Premiere</a>
-                        <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>
-                    </div>
-                </div>
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <div class="post__image">
-                            <img alt='' src="/Movie/views/images/270-330.png">
-                            <div class="social social--position social--hide">
-                                <span class="social__name">Share:</span>
-                                <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                                <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                                <a href='#' class="social__variant social--third fa fa-vk"></a>
-                            </div>
-                        </div>
-                        <p class="post__date">22 October 2013 </p>
-                        <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">30th Annual Night Of Stars Presented By The Fashion Group International</a>
-                        <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>
-                    </div>
-                </div>
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <div class="post__image">
-                            <img alt='' src="/Movie/views/images/270-330.png">
-                            <div class="social social--position social--hide">
-                                <span class="social__name">Share:</span>
-                                <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                                <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                                <a href='#' class="social__variant social--third fa fa-vk"></a>
-                            </div>
-                        </div>
-                        <p class="post__date">22 October 2013 </p>
-                        <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">Hollywood Film Awards 2013</a>
-                        <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>
-                    </div>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">Gravity (2013) </a>
+
+                <p class="movie__time">91 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Sci-Fi</a>
+                  |
+                  <a href="#">Thriller</a>
+                  |
+                  <a href="#">Drama</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">4.1</span>
                 </div>
               </div>
             </div>
-                
-        </section>
-        
-        <div class="clearfix"></div>
 
-        <footer class="footer-wrapper">
-            <section class="container">
-                <div class="col-xs-4 col-md-2 footer-nav">
-                    <ul class="nav-link">
-                        <li><a href="#" class="nav-link__item">Cities</a></li>
-                        <li><a href="movie-list-left.html" class="nav-link__item">Movies</a></li>
-                        <li><a href="trailer.html" class="nav-link__item">Trailers</a></li>
-                        <li><a href="rates-left.html" class="nav-link__item">Rates</a></li>
-                    </ul>
+            <div class="movie movie--test movie--test--light movie--test--left">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">The Hobbit: The Desolation of Smaug (2013) </a>
+
+                <p class="movie__time">169 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Adventure</a>
+                  |
+                  <a href="#">Fantasy</a>
+                  |
+                  <a href="#">Drama</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">5.0</span>
                 </div>
-                <div class="col-xs-4 col-md-2 footer-nav">
-                    <ul class="nav-link">
-                        <li><a href="coming-soon.html" class="nav-link__item">Coming soon</a></li>
-                        <li><a href="cinema-list.html" class="nav-link__item">Cinemas</a></li>
-                        <li><a href="offers.html" class="nav-link__item">Best offers</a></li>
-                        <li><a href="news-left.html" class="nav-link__item">News</a></li>
-                    </ul>
+              </div>
+            </div>
+
+            <div class="movie movie--test movie--test--light movie--test--right">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">The Hunger Games: Catching Fire (2013) </a>
+
+                <p class="movie__time">146 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Action</a>
+                  |
+                  <a href="#">Adventure</a>
+                  |
+                  <a href="#">Sci-Fi</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">4.9</span>
                 </div>
-                <div class="col-xs-4 col-md-2 footer-nav">
-                    <ul class="nav-link">
-                        <li><a href="#" class="nav-link__item">Terms of use</a></li>
-                        <li><a href="gallery-four.html" class="nav-link__item">Gallery</a></li>
-                        <li><a href="contact.html" class="nav-link__item">Contacts</a></li>
-                        <li><a href="page-elements.html" class="nav-link__item">Shortcodes</a></li>
-                    </ul>
+              </div>
+            </div>
+
+            <div class="movie movie--test movie--test--dark movie--test--right">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">Thor: The Dark World (2013) </a>
+
+                <p class="movie__time">112 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Action</a>
+                  |
+                  <a href="#">Adventure</a>
+                  |
+                  <a href="#">Fantasy</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">5.0</span>
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    <div class="footer-info">
-                        <p class="heading-special--small">A.Movie<br><span class="title-edition">in the social media</span></p>
+              </div>
+            </div>
 
-                        <div class="social">
-                            <a href='#' class="social__variant fa fa-facebook"></a>
-                            <a href='#' class="social__variant fa fa-twitter"></a>
-                            <a href='#' class="social__variant fa fa-vk"></a>
-                            <a href='#' class="social__variant fa fa-instagram"></a>
-                            <a href='#' class="social__variant fa fa-tumblr"></a>
-                            <a href='#' class="social__variant fa fa-pinterest"></a>
-                        </div>
-                        
-                        <div class="clearfix"></div>
-                        <p class="copy">&copy; A.Movie, 2013. All rights reserved. Done by Olia Gozha</p>
-                    </div>
+            <div class="movie movie--test movie--test--dark movie--test--left">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">World War Z (2013) </a>
+
+                <p class="movie__time">116 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Action</a>
+                  |
+                  <a href="#">Adventure</a>
+                  |
+                  <a href="#">Horror</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">4.1</span>
                 </div>
-            </section>
-        </footer>
-    </div>
+              </div>
+            </div>
 
-    <!-- open/close -->
-        <div class="overlay overlay-hugeinc">
-            
-            <section class="container">
+            <div class="movie movie--test movie--test--light movie--test--left">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
 
-                <div class="col-sm-4 col-sm-offset-4">
-                    <button type="button" class="overlay-close">Close</button>
-                    <div id="login-form" class="login" method='get' novalidate=''>
-                        <p class="login__title">登录 <br><br><span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span></p>
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">Prisoners (2013) </a>
 
-                        
-                        <div class="field-wrap">
-                        <input type='text' placeholder='用户名/手机号/邮箱' id='account' class="login__input">
-                        <input type='password' placeholder='密码' id='password' class="login__input">
+                <p class="movie__time">153 min</p>
 
-                         </div>
-                        
-                        <div class="login__control" style="margin-top: 20px">
-                            <button class="btn btn-md btn--warning btn--wider" onclick="login()">登录</button>
-                            <a href="#" class="login__tracker form__tracker" onclick="gotoregister()">还没账号？去注册</span></a>
-                        </div>
-                    </div>
-                    <div id="register-form" class="login" method='get' style='display: none;'>
-                        <p class="login__title">注册 <br><br><span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span></p>
+                <p class="movie__option">
+                  <a href="#">Crime</a>
+                  |
+                  <a href="#">Thriller</a>
+                  |
+                  <a href="#">Drama</a>
+                </p>
 
-                        
-                        <div class="field-wrap">
-                        <input type='text' placeholder='用户名' class="login__input" id="username">
-                        <input type='password' placeholder='密码' class="login__input" value="" id="registerpassword">
-                        <input type='password' placeholder='确认密码' class="login__input" id="passwordagain">
-                        <input type='telephone' placeholder='手机号' class="login__input" id="mobile">
-                        <input type='email' placeholder='邮箱' class="login__input" id="email">
-                        <select class="login__input" id="gender">
-                            <option value="-1" selected="selected">---请选择性别---</option>
-                            <option value="0">男</option>
-                            <option value="1">女</option>
-                        </select>
-                        <input type='text' placeholder='出生日期' class="login__input" id="birthday">
-                         </div>
-                        
-                        <div class="login__control">
-                            <button class="btn btn-md btn--warning btn--wider" onclick="register()">注册</button>
-                            <a href="#" class="login__tracker form__tracker" onclick="gotologin()" style="margin:10px 0 0 0">已有账号？去登录</span></a>
-                        </div>
-                    </div>
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">5.0</span>
                 </div>
+              </div>
+            </div>
 
-            </section>
+            <div class="movie movie--test movie--test--light movie--test--right">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">This Is the End (2013) </a>
+
+                <p class="movie__time">107 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Comedy</a>
+                  |
+                  <a href="#">Fantasy</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">4.9</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="movie movie--test movie--test--dark movie--test--right">
+              <div class="movie__images">
+                <a href="/Movie/views/pages/moviemessage/movie-page-left.html" class="movie-beta__link">
+                  <img alt='' src="/Movie/views/images/424-424.png">
+                </a>
+              </div>
+
+              <div class="movie__info">
+                <a href='/Movie/views/pages/moviemessage/movie-page-left.html' class="movie__title">The Internship (2013) </a>
+
+                <p class="movie__time">112 min</p>
+
+                <p class="movie__option">
+                  <a href="#">Comedy</a>
+                </p>
+
+                <div class="movie__rate">
+                  <div class="score"></div>
+                  <span class="movie__rating">5.0</span>
+                </div>
+              </div>
+            </div>
+            <!-- Movie variant with time -->
+
+          </div>
         </div>
 
-	<!-- JavaScript-->
-        <!-- jQuery 1.9.1--> 
-        <script src="/Movie/views/assetes/jquery/jquery-1.10.2.min.js"></script>
-        <script>window.jQuery || document.write('<script src="Movie/views/js/external/jquery-1.10.1.min.js"><\/script>')</script>
-        <!-- Migrate --> 
-        <script src="/Movie/views/js/external/jquery-migrate-1.2.1.min.js"></script>
-        <!-- Bootstrap 3--> 
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-        <!-- layer -->
-        <script src="/Movie/views/assetes/layer/layer.js"></script>
-        <!-- cookie -->
-        <script type="text/javascript" src="/Movie/views/assetes/jquery/jquery.cookie.js"></script>
-        <!-- jQuery REVOLUTION Slider -->
-        <script type="text/javascript" src="/Movie/views/assetes/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-        <script type="text/javascript" src="/Movie/views/assetes/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+        <div class="col-sm-12">
+          <h2 class="page-heading">最新电影</h2>
+          <div id="recentMovies">
+            <div class="col-sm-4 similar-wrap col--remove">
+              <div class="post post--preview post--preview--wide">
+                <div class="post__image">
+                  <img alt='' src="/Movie/views/images/270-330.png">
+                  <div class="social social--position social--hide">
+                    <span class="social__name">Share:</span>
+                    <a href='#' class="social__variant social--first fa fa-facebook"></a>
+                    <a href='#' class="social__variant social--second fa fa-twitter"></a>
+                    <a href='#' class="social__variant social--third fa fa-vk"></a>
+                  </div>
+                </div>
+                <p class="post__date">22 October 2013</p>
+                <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">"Thor: The Dark World" - World Premiere</a>
+                <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>
+              </div>
+            </div>
+            <div class="col-sm-4 similar-wrap col--remove">
+              <div class="post post--preview post--preview--wide">
+                <div class="post__image">
+                  <img alt='' src="/Movie/views/images/270-330.png">
+                  <div class="social social--position social--hide">
+                    <span class="social__name">Share:</span>
+                    <a href='#' class="social__variant social--first fa fa-facebook"></a>
+                    <a href='#' class="social__variant social--second fa fa-twitter"></a>
+                    <a href='#' class="social__variant social--third fa fa-vk"></a>
+                  </div>
+                </div>
+                <p class="post__date">22 October 2013</p>
+                <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">30th Annual Night Of Stars Presented By The Fashion Group International</a>
+                <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>
+              </div>
+            </div>
+            <div class="col-sm-4 similar-wrap col--remove">
+              <div class="post post--preview post--preview--wide">
+                <div class="post__image">
+                  <img alt='' src="/Movie/views/images/270-330.png">
+                  <div class="social social--position social--hide">
+                    <span class="social__name">Share:</span>
+                    <a href='#' class="social__variant social--first fa fa-facebook"></a>
+                    <a href='#' class="social__variant social--second fa fa-twitter"></a>
+                    <a href='#' class="social__variant social--third fa fa-vk"></a>
+                  </div>
+                </div>
+                <p class="post__date">22 October 2013</p>
+                <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">Hollywood Film Awards 2013</a>
+                <a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
 
-        <!-- Mobile menu -->
-        <script src="/Movie/views/js/jquery.mobile.menu.js"></script>
-         <!-- Select -->
-        <script src="/Movie/views/js/external/jquery.selectbox-0.2.min.js"></script>
-        <!-- Stars rate -->
-        <script src="/Movie/views/js/external/jquery.raty.js"></script>
-        
-        <!-- Form element -->
-        <script src="/Movie/views/js/external/form-element.js"></script>
-        <!-- Form validation -->
-        <script src="/Movie/views/js/form.js"></script>
+    <div class="clearfix"></div>
 
-        <!-- Twitter feed -->
-        <script src="/Movie/views/js/external/twitterfeed.js"></script>
+    <footer class="footer-wrapper">
+      <section class="container">
+        <div class="col-xs-4 col-md-2 footer-nav">
+          <ul class="nav-link">
+            <li><a href="#" class="nav-link__item">Cities</a></li>
+            <li><a href="movie-list-left.html" class="nav-link__item">Movies</a></li>
+            <li><a href="trailer.html" class="nav-link__item">Trailers</a></li>
+            <li><a href="rates-left.html" class="nav-link__item">Rates</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-4 col-md-2 footer-nav">
+          <ul class="nav-link">
+            <li><a href="coming-soon.html" class="nav-link__item">Coming soon</a></li>
+            <li><a href="cinema-list.html" class="nav-link__item">Cinemas</a></li>
+            <li><a href="offers.html" class="nav-link__item">Best offers</a></li>
+            <li><a href="news-left.html" class="nav-link__item">News</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-4 col-md-2 footer-nav">
+          <ul class="nav-link">
+            <li><a href="#" class="nav-link__item">Terms of use</a></li>
+            <li><a href="gallery-four.html" class="nav-link__item">Gallery</a></li>
+            <li><a href="contact.html" class="nav-link__item">Contacts</a></li>
+            <li><a href="page-elements.html" class="nav-link__item">Shortcodes</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="footer-info">
+            <p class="heading-special--small">
+              A.Movie<br>
+              <span class="title-edition">in the social media</span>
+            </p>
 
-        <!-- Custom -->
-        <script src="/Movie/views/js/custom.js"></script>
+            <div class="social">
+              <a href='#' class="social__variant fa fa-facebook"></a>
+              <a href='#' class="social__variant fa fa-twitter"></a>
+              <a href='#' class="social__variant fa fa-vk"></a>
+              <a href='#' class="social__variant fa fa-instagram"></a>
+              <a href='#' class="social__variant fa fa-tumblr"></a>
+              <a href='#' class="social__variant fa fa-pinterest"></a>
+            </div>
 
-        <!-- index -->
-        <script type="text/javascript" src="/Movie/views/js/index.js"></script>
-		
-	      <script type="text/javascript">
+            <div class="clearfix"></div>
+            <p class="copy">&copy; A.Movie, 2013. All rights reserved. Done by Olia Gozha</p>
+          </div>
+        </div>
+      </section>
+    </footer>
+  </div>
+
+  <!-- open/close -->
+  <div class="overlay overlay-hugeinc">
+
+    <section class="container">
+
+      <div class="col-sm-4 col-sm-offset-4">
+        <button type="button" class="overlay-close">Close</button>
+        <div id="login-form" class="login" method='get' novalidate=''>
+          <p class="login__title">
+            登录 <br>
+            <br>
+            <span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span>
+          </p>
+
+
+          <div class="field-wrap">
+            <input type='text' placeholder='用户名/手机号/邮箱' id='account' class="login__input"> <input type='password' placeholder='密码' id='password' class="login__input">
+
+          </div>
+
+          <div class="login__control" style="margin-top: 20px">
+            <button class="btn btn-md btn--warning btn--wider" onclick="login()">登录</button>
+            <a href="#" class="login__tracker form__tracker" onclick="gotoregister()">
+              还没账号？去注册</span>
+            </a>
+          </div>
+        </div>
+        <div id="register-form" class="login" method='get' style='display: none;'>
+          <p class="login__title">
+            注册 <br>
+            <br>
+            <span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span>
+          </p>
+
+
+          <div class="field-wrap">
+            <input type='text' placeholder='用户名' class="login__input" id="username"> <input type='password' placeholder='密码' class="login__input" value="" id="registerpassword"> <input type='password' placeholder='确认密码' class="login__input" id="passwordagain"> <input type='telephone' placeholder='手机号' class="login__input" id="mobile"> <input type='email' placeholder='邮箱' class="login__input" id="email"> <select class="login__input" id="gender">
+              <option value="-1" selected="selected">---请选择性别---</option>
+              <option value="0">男</option>
+              <option value="1">女</option>
+            </select> <input type='text' placeholder='出生日期' class="login__input" id="birthday">
+          </div>
+
+          <div class="login__control">
+            <button class="btn btn-md btn--warning btn--wider" onclick="register()">注册</button>
+            <a href="#" class="login__tracker form__tracker" onclick="gotologin()" style="margin: 10px 0 0 0">
+              已有账号？去登录</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- JavaScript-->
+  <!-- jQuery 1.9.1-->
+  <script src="/Movie/views/assetes/jquery/jquery-1.10.2.min.js"></script>
+  <script>window.jQuery || document.write('<script src="Movie/views/js/external/jquery-1.10.1.min.js"><\/script>')</script>
+  <!-- Migrate -->
+  <script src="/Movie/views/js/external/jquery-migrate-1.2.1.min.js"></script>
+  <!-- Bootstrap 3-->
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+  <!-- layer -->
+  <script src="/Movie/views/assetes/layer/layer.js"></script>
+  <!-- cookie -->
+  <script type="text/javascript" src="/Movie/views/assetes/jquery/jquery.cookie.js"></script>
+  <!-- jQuery REVOLUTION Slider -->
+  <script type="text/javascript" src="/Movie/views/assetes/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+  <script type="text/javascript" src="/Movie/views/assetes/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+  <!-- Mobile menu -->
+  <script src="/Movie/views/js/jquery.mobile.menu.js"></script>
+  <!-- Select -->
+  <script src="/Movie/views/js/external/jquery.selectbox-0.2.min.js"></script>
+  <!-- Stars rate -->
+  <script src="/Movie/views/js/external/jquery.raty.js"></script>
+
+  <!-- Form element -->
+  <script src="/Movie/views/js/external/form-element.js"></script>
+  <!-- Form validation -->
+  <script src="/Movie/views/js/form.js"></script>
+
+  <!-- Twitter feed -->
+  <script src="/Movie/views/js/external/twitterfeed.js"></script>
+
+  <!-- Custom -->
+  <script src="/Movie/views/js/custom.js"></script>
+
+  <!-- index -->
+  <script type="text/javascript" src="/Movie/views/js/index.js"></script>
+
+  <script type="text/javascript">
               $(document).ready(function() {
                 init_Home();
               });
