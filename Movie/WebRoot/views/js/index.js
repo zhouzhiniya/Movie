@@ -294,3 +294,47 @@ function login(){
 		}
 	})
 }
+
+//注册
+function register(){
+	var username = $("#username").val();
+	var password = $("#password").val();
+	var passwordagain = $("#passwordagain").val();
+	var mobile = $("#mobile").val();
+	var email = $("#email").val();
+	var gender = $("#gender").val();
+	var birthday = $("#birthday").val();
+
+	if(username == ""  || password == "" || passwordagain == "" || mobile == "" || email == "" || gender == ""){
+		layer.msg("用户名、密码、手机号、邮箱及性别不能为空！");
+		return;
+	}
+	if(password != passwordagain){
+		alert(password);
+		alert(passwordagain);
+		layer.msg("两次输入的密码不同！");
+		return;
+	}
+
+	$.ajax({
+		url: _url + "/user/register",
+		data: {
+			username: username,
+			password: password,
+			mobile: mobile,
+			email: email,
+			gender: gender,
+			birthday: birthday
+		},
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				layer.msg("注册成功！去登录");
+				$("#login-form").show();
+				$("#register-form").hide();
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
+}

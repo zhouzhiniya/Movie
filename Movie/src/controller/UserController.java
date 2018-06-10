@@ -93,13 +93,12 @@ public class UserController extends Controller{
 		{
 			String username = this.getPara("username");
 			String password = this.getPara("password");
-			String name = this.getPara("name");
 			String mobile = this.getPara("mobile");
 			String email = this.getPara("email");
 			String gender = this.getPara("gender");
 			java.util.Date birthday = this.getParaToDate("birthday");
 
-			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(name)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender))
+			if (StrKit.isBlank(username)||StrKit.isBlank(password)||StrKit.isBlank(mobile)||StrKit.isBlank(email)||StrKit.isBlank(gender))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
@@ -114,7 +113,7 @@ public class UserController extends Controller{
 						result = userService.validateUserByUsername(username);
 						{
 							if(result == null) {
-								boolean ifAdd = userService.addUser(username, password, name,mobile, email, gender,birthday);
+								boolean ifAdd = userService.addUser(username, password, mobile, email, gender,birthday);
 								if(ifAdd)
 								{
 									baseResponse.setResult(ResultCodeEnum.SUCCESS);
