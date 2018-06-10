@@ -154,6 +154,7 @@ public class MovieService {
     }
     ArrayList<String> userFaTypes = new ArrayList<>();
     for (String str : userFaTypeses) {
+      System.out.println(str);
       String[] types = str.split(",");
       for (String string : types) {
         userFaTypes.add(string);
@@ -161,8 +162,8 @@ public class MovieService {
     }
     ArrayList<MovieTop250> relaMovs = new ArrayList<>();
     for (String type : userFaTypes) {
-      String sql = "select * from movie_top250 where type like %" + type + "%";
-      List<MovieTop250> match = MovieTop250.dao.find(sql);
+//      String sql = "select * from movie_top250 where type like %?%" ;
+      List<MovieTop250> match = MovieTop250.dao.find("select * from movie_top250 where type like %?%", type);
       relaMovs.addAll(match);
     }
     for (MovieTop250 movieTop250 : relaMovs) {
