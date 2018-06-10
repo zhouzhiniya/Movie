@@ -24,7 +24,7 @@ public class HTTPRequestService {
       // 建立实际的连接
       connection.connect();
       // 定义 BufferedReader输入流来读取URL的响应
-      BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
       String line;
       while ((line = br.readLine()) != null) {
         resultStr += line;
