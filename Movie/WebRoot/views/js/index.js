@@ -298,7 +298,7 @@ function login(){
 //注册
 function register(){
 	var username = $("#username").val();
-	var password = $("#password").val();
+	var password = $("#registerpassword").val();
 	var passwordagain = $("#passwordagain").val();
 	var mobile = $("#mobile").val();
 	var email = $("#email").val();
@@ -310,8 +310,6 @@ function register(){
 		return;
 	}
 	if(password != passwordagain){
-		alert(password);
-		alert(passwordagain);
 		layer.msg("两次输入的密码不同！");
 		return;
 	}

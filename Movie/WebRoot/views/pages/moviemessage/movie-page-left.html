@@ -72,11 +72,8 @@
                     <!-- Link navigation -->
                 
                 <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
-                    <a href="#" class="btn btn--sign login-window">登录</a>
-                    <a href="#" class="btn btn-md btn--warning btn--book login-window">购票</a>
-                </div>
-            </nav>
+                
+                </nav>
 
             </div>
         </header>
@@ -151,30 +148,32 @@
                 </div>
 
                 <h2 class="page-heading">放映时间 &amp; 电影票</h2>
-                <div class="choose-container">
-                    <form id='select' class="select" method='get'>
-                          <select name="select_item" id="select-sort" class="select__sort" tabindex="0">
-                            <option value="1" selected='selected'>London</option>
-                            <option value="2">New York</option>
-                            <option value="3">Paris</option>
-                            <option value="4">Berlin</option>
-                            <option value="5">Moscow</option>
-                            <option value="3">Minsk</option>
-                            <option value="4">Warsawa</option>
-                            <option value="5">Kiev</option>
-                        </select>
-                    </form>
+                    <div class="choose-container">
+                    <div class="choose-container choose-container--short">
+                        <form id='select' class="select" method='get'>
+                              <select name="select_item" id="select-sort" class="select__sort" tabindex="0">
+                                <option value="1" selected='selected'>北京</option>
+                                <option value="2">New York</option>
+                                <option value="3">Paris</option>
+                                <option value="4">Berlin</option>
+                                <option value="5">Moscow</option>
+                                <option value="3">Minsk</option>
+                                <option value="4">Warsawa</option>
+                                <option value="5">Kiev</option>
+                            </select>
+                        </form>
 
-                    <div class="datepicker">
-                      <span class="datepicker__marker"><i class="fa fa-calendar"></i>日期</span>
-                      <input type="text" id="datepicker" value='03/10/2014' class="datepicker__input">
+                        <div class="datepicker">
+                          <span class="datepicker__marker"><i class="fa fa-calendar"></i>日期</span>
+                          <input type="text" id="date" class="datepicker__input">
+                        </div>
                     </div>
 
-                    <a href="#" id="map-switch" class="watchlist watchlist--map"><span class="show-map">在地图上显示电影院</span><span  class="show-time">以时间面板显示电影院</span></a>
+                    <!-- <a href="#" id="map-switch" class="watchlist watchlist--map"><span class="show-map">在地图上显示电影院</span><span  class="show-time">以时间面板显示电影院</span></a> -->
                     
                     <div class="clearfix"></div>
 
-                    <div class="time-select">
+                    <div class="time-select" id="allShowings">
                         <div class="time-select__group group--first">
                             <div class="col-sm-4">
                                 <p class="time-select__place">Cineworld</p>
@@ -518,14 +517,14 @@
         <script src="/Movie/views/js/external/infobox.js"></script> 
 
         <!-- Share buttons -->
-        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-525fd5e9061e7ef0"></script>
+       <!--  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-525fd5e9061e7ef0"></script> -->
 
         <!-- Form element -->
         <script src="/Movie/views/js/external/form-element.js"></script>
         <!-- Form validation -->
         <script src="/Movie/views/js/form.js"></script>
-
+        <script src="/Movie/views/assetes/layDate/laydate/laydate.js"></script>
         <!-- Custom -->
         <script src="/Movie/views/js/custom.js"></script>
         <!-- page -->
