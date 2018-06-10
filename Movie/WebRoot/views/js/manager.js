@@ -79,32 +79,6 @@ var growing_id = 0;
 var allAuditoriumInfoName = new Array();
 var allAuditoriumInfoId = new Array();
 
-//清空数组
-allAuditoriumInfoName = [];
-allAuditoriumInfoId = [];
-
-$.ajax({
-	type:"post",
-	url:_url + "/theater/getAuditoriumInfo",
-	data:{
-
-	},success:function(resp)
-	{
-		if(resp.resultCode == "30000")
-		{
-			for(var i = 0;i < resp.data.length;i++)
-			{
-				allAuditoriumInfoName.push(resp.data[i].name);
-				allAuditoriumInfoId.push(resp.data[i].id);
-			}	
-		}else{
-			//layer.msg(resp.resultDesc);
-		}	
-	},error:function()
-	{
-		//layer.msg('服务器错误，请重试');
-	}
-});//ajax end
 
 
 	//tab js==
@@ -135,20 +109,56 @@ $.ajax({
 					{
 						$('#do').hide();
 						$('#no-do').show();
+						
+
+						//清空数组
+						allAuditoriumInfoName = [];
+						allAuditoriumInfoId = [];
+
+						$.ajax({
+							type:"post",
+							url:_url + "/theater/getAuditoriumInfo",
+							data:{
+
+							},success:function(resp)
+							{
+								if(resp.resultCode == "30000")
+								{
+									for(var i = 0;i < resp.data.length;i++)
+									{
+										allAuditoriumInfoName.push(resp.data[i].auditorium);
+										allAuditoriumInfoId.push(resp.data[i].auditorium_id);
+									}	
+									
+								}else{
+									//layer.msg(resp.resultDesc);
+								}	
+							},error:function()
+							{
+								//layer.msg('服务器错误，请重试');
+							}
+						});//ajax end
+						
 					}else{//如果今天排了片子			
 						
 						$('#do').show();
 						$('#no-do').hide();			
 						
 						var result = resp.data.showinginfo;
+						$('#do').find('.el__data').children('.each-movie').html('');
+						
+						if(result.length == 0)
+						{
+							$(this).find('.el__data').children('.each-movie').text('该天暂无排片');
+						}
 									
 						//循环添加电影
 						for(var i = 0;i < result.length;i++)
 						{
 							$('#do').find('.el__data').children('.each-movie').append(
-				            	'<div class="movie-base" movie-id="' + result[i].id + '">' + 
-				        			'<span class="movie-name">' + result[i].name + '</span>'+
-				        			'<span class="movie-duration">' + result[i].time + '</span>'+
+				            	'<div class="movie-base" movie-id="' + result[i].movie_id + '" movie-day="0">' + 
+				        			'<span class="movie-name">' + result[i].title + '</span>'+
+//				        			'<span class="movie-duration">' + result[i].show_time + '</span>'+
 				        		'</div>	'
 							);
 						}	
@@ -173,9 +183,9 @@ $.ajax({
 		$('#already-have-rooms').html('');
 		$.ajax({
 			type:"post",
-			url:_url + "/theater/getAuditoriumInfo",
+			url:_url + "/theater/getAuditorium",
 			data:{
-				day:0
+
 			},success:function(resp)
 			{
 				if(resp.resultCode == "30000")
@@ -223,7 +233,7 @@ $.ajax({
 			{
 				if(resp.resultCode == "30000")
 				{
-					result = resp.data.showinginfo;
+					result = resp.data.showinginfo;	
 					
 				}else{
 					layer.msg(resp.resultDesc);
@@ -237,14 +247,18 @@ $.ajax({
 		
 		$('.each-movie-session').html('');
 		$(this).find('.el__data').children('.each-movie').html('');
+		if(result.length == 0)
+		{
+			$(this).find('.el__data').children('.each-movie').text('该天暂无排片');
+		}
 		
 		//循环添加电影
 		for(var i = 0;i < result.length;i++)
 		{
 			$(this).find('.el__data').children('.each-movie').append(
-            	'<div class="movie-base" movie-id="' + result[i].id + '">' + 
-        			'<span class="movie-name">' + result[i].name + '</span>'+
-        			'<span class="movie-duration">' + result[i].time + '</span>'+
+            	'<div class="movie-base" movie-id="' + result[i].movie_id + '" movie-day="' + day + '">' + 
+        			'<span class="movie-name">' + result[i].title + '</span>'+
+//        			'<span class="movie-duration">' + result[i].show_time + '</span>'+
         		'</div>	'
 			);
 		}	
@@ -255,9 +269,9 @@ $.ajax({
 
 	
 	//点击电影
-	$('.movie-base').click(function(){
+	$('body').on('click','.movie-base',function(){
 		
-		var day = $(this).parent().parent().parent().parent().parent().parent().attr('day-data');
+		var day = $(this).attr('movie-day');
 		var id = $(this).attr('movie-id');
 		
 		$('.each-movie-session').html('');
@@ -273,13 +287,17 @@ $.ajax({
 				if(resp.resultCode == "30000")
 				{
 					//请求成功
-					$('.each-movie-session').append(
-		            	'<span class="movie-session">'+
-	            			'<span class="session-time">' + resp.data.show_time + '</span> '+
-	            			'<span class="session-place">' + resp.data.room + '</span>'+
-	            			'<span class="session-att-rate">上座率： ' + '未知' + '</span>'+
-	            		'</span>'			
-					);			
+					for(var k = 0;k < resp.data.length;k++)
+					{
+						$('.each-movie-session').append(
+				            	'<span class="movie-session">'+
+			            			'<span class="session-time">开场时间：' + resp.data[k].show_time + '</span> '+
+			            			'<span class="session-place">影厅：' + resp.data[k].auditorium + '</span>'+
+			            			'<span class="session-att-rate">上座率： ' + '未知' + '</span>'+
+			            		'</span>'			
+						);	
+					}	
+			
 					
 				}else{
 					layer.msg(resp.resultDesc);
@@ -458,13 +476,15 @@ $('body').on('click','.movie-delete-btn',function(){
 
 // });
 
-
-var AuditorSelectTag;
-for(var j = 0;j < allAuditoriumInfoName.length;j++)
-{
-	AuditorSelectTag += '<option value="' + allAuditoriumInfoId[j] + '">' + allAuditoriumInfoName[j] +'</option>' 
-}
 $('#add-showing').click(function(){	
+	
+	var AuditorSelectTag = "";
+	for(var j = 0;j < allAuditoriumInfoName.length;j++)
+	{
+		AuditorSelectTag += '<option value="' + allAuditoriumInfoId[j] + '">' + allAuditoriumInfoName[j] +'</option>' 
+	}
+
+	//alert(AuditorSelectTag);
 	
 	growing_id ++;
 	$('#showings').append(
@@ -531,7 +551,7 @@ $('#complete').click(function(){
 			});
 
 			movies = movies.substring(0,movies.length - 1);
-			alert(movies);
+			//alert(movies);
 
 			//发送新的选择结果
 			$.ajax({
@@ -545,6 +565,8 @@ $('#complete').click(function(){
 					if(resp.resultCode == "30000")
 					{
 						layer.msg('已排完');
+						$('#do-it').click();
+						
 					}else{
 						layer.msg(resp.resultDesc);
 					}	
@@ -595,9 +617,9 @@ function drawSits(row,column,div){
             '</footer>'
 	);
 
-	// alert(row + ',' +column);
+	//alert(row + ',' +column);
 
-	var char;
+	var char = "";
 
 	for(var i = 1;i <= row;i++)
 	{
@@ -638,7 +660,7 @@ function drawSits(row,column,div){
 
 	}	
 
-	var newChar;
+	var newChar = "";
 	for(var m = 1;m <= row;m++)
 	{
 		switch(m)
@@ -673,7 +695,7 @@ function drawSits(row,column,div){
 
 		for(var j = 1;j <= column;j++)
 		{	
-			$('.sits__row').eq(m - 1).append('<span class="sits__place sits-price--middle" data-place="' + newChar + '-' + j + '" data-price="30">' + newChar + j + '</span>');
+			div.children('.sits__row').eq(m - 1).append('<span class="sits__place sits-price--middle" data-place="' + newChar + '-' + j + '" data-price="30">' + newChar + j + '</span>');
 		}
 
 	}
@@ -731,7 +753,8 @@ $('#confirm-add-room-btn').click(function(){
 				{
 					if(resp.resultCode == "30000")
 					{
-						layer.msg('已排完');
+						layer.msg('添加成功！');
+						$('#room-setting').click();
 					}else{
 						layer.msg(resp.resultDesc);
 					}	
@@ -784,7 +807,7 @@ $('body').on('click','.each-rooms',function(){
 		}
 	});
 
-	drawSits(6,7,$('#look-sit-pic'));//应该放到ajax 的 success
+	drawSits(3,3,$('#look-sit-pic'));//应该放到ajax 的 success
 });
 
 // ======================================================== login in & register =================================================
@@ -891,3 +914,23 @@ function register(){
 		}
 	});
 }
+
+$('#log-out').click(function(){
+	$.ajax({
+		url: _url + "/theater/exit",
+		data: {
+
+		},
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30000")
+			{
+				window.location.reload();
+			}	
+		}
+	});
+	
+});
+//====================== Date Function=========================
+
+
