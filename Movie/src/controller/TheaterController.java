@@ -206,7 +206,6 @@ public class TheaterController extends Controller{
 			String city = this.getPara("city");
 			String address = this.getPara("address");
 			
-
 			if (StrKit.isBlank(account)||StrKit.isBlank(password)||StrKit.isBlank(theater)||StrKit.isBlank(phone)||StrKit.isBlank(email)||StrKit.isBlank(city)||StrKit.isBlank(address))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
