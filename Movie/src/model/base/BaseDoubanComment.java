@@ -17,12 +17,12 @@ public abstract class BaseDoubanComment<M extends BaseDoubanComment<M>> extends 
 		return get("comment_id");
 	}
 
-	public void setMovieId(java.lang.Integer movieId) {
-		set("movie_id", movieId);
+	public void setDoubanId(java.lang.String doubanId) {
+		set("douban_id", doubanId);
 	}
 
-	public java.lang.Integer getMovieId() {
-		return get("movie_id");
+	public java.lang.String getDoubanId() {
+		return get("douban_id");
 	}
 
 	public void setContent(java.lang.String content) {

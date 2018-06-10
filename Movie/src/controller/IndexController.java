@@ -30,10 +30,5 @@ public class IndexController extends Controller{
     ser.saveTop250();
 	}
 	
-	public void huhu() {
-    MovieAPIService ser = new MovieAPIService();
-    ser.saveTop250Reviews();
-	}
-	
 
 }
