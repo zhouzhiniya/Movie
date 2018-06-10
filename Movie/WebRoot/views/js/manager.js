@@ -1,11 +1,65 @@
 $(document).ready(function(){
+	
 	$('#add-movie-div').find('.each-movie-pic').css('cursor','pointer');
 
 	laydate.render({
   		elem: '.showing-time' ,
   		type: 'time'//指定元素
 	});
+	
+//	$("#login-form").show();
+//	$("#register-form").hide();
+//	
+//	$('#login-btn').hide();
+//	$('#alreay').show();
+//	
+//	$('#no-login').hide();
+//	
+//	$('#menu-list').show();
+//	$('#this-week-tab').hide();
+//	$('#do-it-tab').show();
+//	$('#room-setting-tab').hide();
 
+	$.ajax({
+		url: _url + "/theater/checkLogin",
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30000")
+			{
+				if(resp.data.isLogin == 0)
+				{
+					//未登录
+					$('#login-btn').show();
+					$('#already-login').hide();
+					
+					$('#no-login').show();
+					
+					$('#menu-list').hide();
+					$('#this-week-tab').hide();
+					$('#do-it-tab').hide();
+					$('#room-setting-tab').hide();
+				}else{
+					//已登录
+					$('#login-btn').hide();
+					$('#alreay-login').show();
+					$('#theater-name').text(resp.data.theaterName);
+					
+					$('#no-login').hide();
+					
+					$('#menu-list').show();
+					$('#this-week-tab').show();
+					$('#do-it-tab').hide();
+					$('#room-setting-tab').hide();
+					
+				}	
+			}else{
+				layer.msg(resp.resultDesc);
+			}	
+		}
+	});//ajax end
+	
+	
+	
 	//没嵌代码的时候测试用的
 	var result = 0;
 
@@ -15,56 +69,230 @@ $(document).ready(function(){
 		$('#no-do').show();
 	}else{
 		$('#do').show();
-		$('#no-do').do();				
+		$('#no-do').hide();				
 	}	
 
-	//查看是否已经完成了今日排片
-	$.ajax({
-		type:"post",
-		url:"",
-		data:{
-
-		},success:function(resp){
-
-			var result = 0;
-
-			if(result == 0)
-			{
-				$('#do').hide();
-				$('#no-do').show();
-			}else{
-				$('#do').show();
-				$('#no-do').do();				
-			}	
-
-		},error:function()
-		{
-
-		}
-
-	});
-
 });
-
 var _url = '/Movie';
 
+var growing_id = 0;
+var allAuditoriumInfoName = new Array();
+var allAuditoriumInfoId = new Array();
 
-	//tab js
+//清空数组
+allAuditoriumInfoName = [];
+allAuditoriumInfoId = [];
+
+$.ajax({
+	type:"post",
+	url:_url + "/theater/getAuditoriumInfo",
+	data:{
+
+	},success:function(resp)
+	{
+		if(resp.resultCode == "30000")
+		{
+			for(var i = 0;i < resp.data.length;i++)
+			{
+				allAuditoriumInfoName.push(resp.data[i].name);
+				allAuditoriumInfoId.push(resp.data[i].id);
+			}	
+		}else{
+			//layer.msg(resp.resultDesc);
+		}	
+	},error:function()
+	{
+		//layer.msg('服务器错误，请重试');
+	}
+});//ajax end
+
+
+	//tab js==
 	$('#this-week').click(function(){
 		$('#this-week-tab').show(1000);
 		$('#do-it-tab').hide(1000);
 		$('#room-setting-tab').hide(1000);
 	});
 	$('#do-it').click(function(){
+		
 		$('#this-week-tab').hide(1000);
 		$('#room-setting-tab').hide(1000);
-		$('#do-it-tab').show(1000);		
+		$('#do-it-tab').show(1000);	
+		
+		
+		//问今天排了没
+		$.ajax({
+			type:"post",
+			url:_url + "/showing/ifHasShowing",
+			data:{
+				day:0
+			},success:function(resp)
+			{
+				if(resp.resultCode == "30000")
+				{
+					//如果今天没排片
+					if(resp.data.haveShowing == 0)
+					{
+						$('#do').hide();
+						$('#no-do').show();
+					}else{//如果今天排了片子			
+						
+						$('#do').show();
+						$('#no-do').hide();			
+						
+						var result = resp.data.showinginfo;
+									
+						//循环添加电影
+						for(var i = 0;i < result.length;i++)
+						{
+							$('#do').find('.el__data').children('.each-movie').append(
+				            	'<div class="movie-base" movie-id="' + result[i].id + '">' + 
+				        			'<span class="movie-name">' + result[i].name + '</span>'+
+				        			'<span class="movie-duration">' + result[i].time + '</span>'+
+				        		'</div>	'
+							);
+						}	
+						
+					}	
+					
+				}else{
+					layer.msg(resp.resultDesc);
+				}	
+			},error:function()
+			{
+				//layer.msg('服务器错误，请重试');
+			}
+		});
 	});
 	$('#room-setting').click(function(){
 		$('#this-week-tab').hide(1000);
 		$('#room-setting-tab').show(1000);
 		$('#do-it-tab').hide(1000);		
+		
+		//是否设置过影厅
+		$('#already-have-rooms').html('');
+		$.ajax({
+			type:"post",
+			url:_url + "/theater/getAuditoriumInfo",
+			data:{
+				day:0
+			},success:function(resp)
+			{
+				if(resp.resultCode == "30000")
+				{
+					if(resp.data.length == 0)
+					{
+						$('#have-no-rooms').show();
+						$('#already-have-rooms').hide();
+					}else{
+						$('#have-no-rooms').hide();
+						$('#already-have-rooms').show();
+						for(var i = 0;i < resp.data.length;i++)
+						{
+							$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '">' + resp.data[i].auditorium + '</div>');
+						}	
+						
+						$('#already-have-rooms').append('<div style="clear: both;"></div>');
+					}
+					
+				}else{
+					layer.msg(resp.resultDesc);
+				}	
+			},error:function()
+			{
+				//layer.msg('服务器错误，请重试');
+			}
+		});
+		
+		
 	});
+	
+	
+	//================================================== this-week ==============================================================
+	//每次点击手风琴
+	$(".el:not(.s--active)").click(function(){
+		var day = $(this).attr('day-data');
+		var result;
+		
+		$.ajax({
+			type:"post",
+			url:_url + "/showing/ifHasShowing",
+			data:{
+				day:day
+			},success:function(resp)
+			{
+				if(resp.resultCode == "30000")
+				{
+					result = resp.data.showinginfo;
+					
+				}else{
+					layer.msg(resp.resultDesc);
+				}	
+			},error:function()
+			{
+				//layer.msg('服务器错误，请重试');
+			}
+		});
+
+		
+		$('.each-movie-session').html('');
+		$(this).find('.el__data').children('.each-movie').html('');
+		
+		//循环添加电影
+		for(var i = 0;i < result.length;i++)
+		{
+			$(this).find('.el__data').children('.each-movie').append(
+            	'<div class="movie-base" movie-id="' + result[i].id + '">' + 
+        			'<span class="movie-name">' + result[i].name + '</span>'+
+        			'<span class="movie-duration">' + result[i].time + '</span>'+
+        		'</div>	'
+			);
+		}	
+	});
+	
+
+
+
+	
+	//点击电影
+	$('.movie-base').click(function(){
+		
+		var day = $(this).parent().parent().parent().parent().parent().parent().attr('day-data');
+		var id = $(this).attr('movie-id');
+		
+		$('.each-movie-session').html('');
+		
+		$.ajax({
+			type:"post",
+			url:_url + "/theater/getShowingInfoByMovieId",
+			data:{
+				day:day,
+				id:id
+			},success:function(resp)
+			{
+				if(resp.resultCode == "30000")
+				{
+					//请求成功
+					$('.each-movie-session').append(
+		            	'<span class="movie-session">'+
+	            			'<span class="session-time">' + resp.data.startTime + '</span> '+
+	            			'<span class="session-place">' + resp.data.room + '</span>'+
+	            			'<span class="session-att-rate">上座率： ' + '未知' + '</span>'+
+	            		'</span>'			
+					);			
+					
+				}else{
+					layer.msg(resp.resultDesc);
+				}	
+			},error:function()
+			{
+				//layer.msg('服务器错误，请重试');
+			}
+		});
+		
+	});
+	
+	//==================================================== today-do ====================================================
 	var confirm_layer;
 
 	$('body').on('click','#add-movie-btn',function(){
@@ -74,7 +302,46 @@ var _url = '/Movie';
 			content:$('#add-movie-div'),
 			area: ['1000px', '600px']
 		});
+		
+		//打开之后要请求所有电影列表
+		$('#add-movie-div').children('.choose-movie-list').html('');
+		
+		$.ajax({
+			type:"post",
+			url:_url + "/movie/getAllMovies",
+			data:{
 
+			},success:function(resp)
+			{
+				if(resp.resultCode == "30000")
+				{
+					for(var i = 0;i < resp.data.length;i++)
+					{
+						var name = resp.data[i].title;
+						var id = resp.data[i].movie_id;
+						var image = resp.data[i].image;
+						
+						$('#add-movie-div').children('.choose-movie-list').append(
+				        	'<div class="each-choose-movie" movie-id="' + id + '" movie-confirm="" movie-pic-url="' + image + '">'+
+			        			'<div class="each-movie-pic" style="background-image: url(' + "'" + image +"'" + ')">'+
+			        				'<div class="movie-add-btn-not"></div>'+
+			        				'<div class="movie-add-btn-confirm" style="display: none;"></div>'+
+			        				'<div class="each-movie-name">' + name + '</div>'+
+			        			'</div>'+	
+			        		'</div>'
+						);
+					}	
+					$('#add-movie-div').children('.choose-movie-list').append('<div style="clear:both;"></div><div id="confirm-btn" class="btn btn-md btn--warning btn--book "> 确定</div>');
+			
+				}else{
+					layer.msg(resp.resultDesc);
+				}	
+			},error:function()
+			{
+				//layer.msg('服务器错误，请重试');
+			}
+		});//ajax end
+	
 		//刷新选中状态
 		$('#add-movie-div').find('.each-choose-movie').each(function(){
 			var this_movie_id = $(this).attr('movie-id');
@@ -98,7 +365,7 @@ var _url = '/Movie';
 
 
 	//确定添加电影
-	$('#confirm-btn').click(function(){
+	$('body').on('click','#confirm-btn',function(){
 
 		//每次添加都先清空
 		$('#do-it-tab').find('.choose-movie-list').html('');
@@ -130,7 +397,7 @@ var _url = '/Movie';
 	});
 
 //添加电影
-	$('#add-movie-div').find('.each-movie-pic').click(function(){
+	$('body').on('click','#add-movie-div .each-movie-pic',function(){
 
 
 
@@ -190,32 +457,7 @@ $('body').on('click','.movie-delete-btn',function(){
 // 	});
 
 // });
-var growing_id = 0;
-var allAuditoriumInfoName = new Array();
-var allAuditoriumInfoId = new Array();
 
-$.ajax({
-	type:"post",
-	url:_url + "/theater/getAuditoriumInfo",
-	data:{
-
-	},success:function(resp)
-	{
-		if(resp.resultCode == "30000")
-		{
-			for(var i = 0;i < resp.data.length;i++)
-			{
-				allAuditoriumInfoName.put(resp.data[i].name);
-				allAuditoriumInfoId.put(resp.data[i].id);
-			}	
-		}else{
-			layer.msg(resp.resultDesc);
-		}	
-	},error:function()
-	{
-		//layer.msg('服务器错误，请重试');
-	}
-});//ajax end
 
 var AuditorSelectTag;
 for(var j = 0;j < allAuditoriumInfoName.length;j++)
@@ -468,7 +710,7 @@ $('#confirm-add-room-btn').click(function(){
 			layer.close(add_room_layer);
 			
 			var sits;
-			var room_name;
+			var room_name = $('.this-room-name').val();
 			
 			$('.sits-state--your').each(function(){
 				sits += $(this).attr('data-place') + ',';
@@ -513,7 +755,7 @@ $('#confirm-add-room-btn').click(function(){
 
 //======================================= look room start ================================
 var look_room_layer;
-$('.each-rooms').click(function(){
+$('body').on('click','.each-rooms',function(){
 	look_room_layer = layer.open({
 		type:1,
 		title:'查看影厅信息',
@@ -570,12 +812,35 @@ function login(){
 		url: _url + "/theater/login",
 		type: 'post',
 		data: {
-			username: account,
+			account: account,
 			password: password
 		},
 		success: function(resp){
 			if(resp.resultCode == "30000"){
+				
 				window.location.reload();
+				
+//				//登录成功
+//				
+//				
+//				$('#login-btn').hide();
+//				$('#alreay').show();
+//				//$('#theater-name').text(resp.data.theaterName);
+//				
+//				$('#no-login').hide();
+//				
+//				$('#menu-list').show();
+//				$('#this-week-tab').show();
+//				$('#do-it-tab').hide();
+//				$('#room-setting-tab').hide();
+//				
+//				//关闭登录框
+//		        $('.overlay').removeClass('open').addClass('close');
+//
+//		        setTimeout(function(){
+//		            $('.overlay').removeClass('close');}, 500);
+				
+				
 			}else{
 				layer.msg(resp.resultDesc);
 			}
@@ -594,7 +859,7 @@ function register(){
 	var city = $("#city").val();
 	var address = $("#address").val();
 
-	if(username == ""  || password == "" || passwordagain == "" || mobile == "" || email == "" || gender == ""){
+	if(account == ""  || password == "" || passwordagain == "" || phone == "" || email == "" || city == ""|| address == ""|| theater == ""){
 		layer.msg("用户名、密码、手机号、邮箱及性别不能为空！");
 		return;
 	}
@@ -604,7 +869,7 @@ function register(){
 	}
 
 	$.ajax({
-		url: _url + "/user/register",
+		url: _url + "/theater/register",
 		data: {
 			theater:theater,
 			account: account,

@@ -20,6 +20,7 @@ import controller.BookingController;
 import controller.IndexController;
 import controller.MovieController;
 import controller.SeatController;
+import controller.ShowingController;
 import controller.TheaterController;
 import controller.UserController;
 import model.Theater;
@@ -52,6 +53,7 @@ public class CommonConfig extends JFinalConfig
 		me.add("/",IndexController.class);
 		me.add("/movie",MovieController.class);
 		me.add("/theater",TheaterController.class);
+		me.add("/showing",ShowingController.class);
 		me.add("/seat",SeatController.class);
 		me.add("/user",UserController.class);
 		me.add("/booking",BookingController.class);

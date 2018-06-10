@@ -57,7 +57,7 @@
                     <img alt='logo' src="../../images/logo.png">
                 </a>
 
-        <div class="function-block" id="menu-list" style="display: none;">
+        <div class="function-block" id="menu-list" >
           <div class="function-block-item" id="this-week">本周历史排片</div>
           <div class="function-block-item" id="do-it">今日排片</div>
           <div class="function-block-item" id="room-setting">影厅设置</div>
@@ -65,14 +65,13 @@
                 
                 <!-- Additional header buttons / Auth and direct link to booking-->
                 <div class="control-panel">
-                    <div class="auth auth--home" style="right:100px;display: none;" id="already-login">
+                    <div class="auth auth--home" style="right:100px;" id="already-login">
                       <div class="auth__show">
                         <span class="auth__image">
                           <img alt="" src="../../images/31-31.png">
                         </span>
                       </div>
                       <a href="#" id="theater-name" class="btn btn--sign btn--singin">
-                          银兴国际影城（南湖时尚城店）
                       </a>
                         <ul class="auth__function">
                             <li><a href="#" class="auth__function-item">影院信息</a></li>
@@ -80,7 +79,7 @@
                         </ul>
 
                     </div>
-                    <a href="#" id="login-btn" class="btn btn-md btn--warning btn--book login-window btn-sign">登录</a>
+                    <a href="#" id="login-btn" class="btn btn-md btn--warning btn--book login-window btn-sign" style="display: none;">登录</a>
                     <!-- <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">购票</a> -->
                     <!-- <a href="pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a> -->
                 </div>
@@ -396,10 +395,11 @@
 
         <div id="have-rooms">
           <div id="have-no-rooms" style="display: none;">您还没有设置影厅，请添加影厅！</div>
-          <div class="each-rooms">一号厅</div>
+          <div id="already-have-rooms"></div>
+          <!--  <div class="each-rooms">一号厅</div>
           <div class="each-rooms">二号厅</div>
           <div class="each-rooms">三号厅</div>
-          <div style="clear: both;"></div>
+          <div style="clear: both;"></div> -->
         </div>
         <div id="add-room" class="btn btn-md btn--warning btn--book ">添加影厅</div>
 

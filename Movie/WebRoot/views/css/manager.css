@@ -263,3 +263,7 @@
   bottom: 15px;
   right: 30px;
 }
+
+.el:not(.s--active){
+	cursor:pointer;
+}
