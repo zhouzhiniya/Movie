@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.jfinal.core.Controller;
@@ -60,9 +61,19 @@ public class TheaterController extends Controller{
 				for(int i=0; i<allMovies.length; i++) {
 					String[] info = allMovies[i].split("-");
 					String movie_id = info[0];
-					String show_time = info[1];
-					String auditorium_id = info[2];
+					String auditorium_id = info[1];							
+					String show_time = info[2];
 					String price = info[3];
+					
+					Calendar cal=Calendar.getInstance();  
+					
+					int year = cal.get(Calendar.YEAR);
+					int month = cal.get(Calendar.MONTH) + 1;
+					int today = cal.get(Calendar.DATE);
+					
+					show_time = year + "-" + month + "-" + today + " " + show_time;
+					System.out.println(show_time);
+					
 					theaterService.addShowing(movie_id, show_time, auditorium_id, price);
 				}
 				baseResponse.setResult(ResultCodeEnum.SUCCESS);
@@ -98,6 +109,27 @@ public class TheaterController extends Controller{
 		this.renderJson(baseResponse);
 	}
 	
+	//获取影院有哪些影厅
+	public void getAuditorium() {
+		BaseResponse baseResponse = new BaseResponse();
+		String theaterid = this.getSessionAttr("theater_id");
+		
+		try {
+			List<Auditorium> allAuditoriums = theaterService.getAuditorium(theaterid);
+			if(allAuditoriums != null) {
+				baseResponse.setData(allAuditoriums);
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+			}else {
+				baseResponse.setResult(ResultCodeEnum.FAILED);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+		}
+		
+		this.renderJson(baseResponse);
+	}	
 	//获取所有影院所在的城市
 	public void getAllCity() {
 		BaseResponse baseResponse = new BaseResponse();

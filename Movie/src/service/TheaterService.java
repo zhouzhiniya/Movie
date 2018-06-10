@@ -85,8 +85,8 @@ public Record validateTheaterByPhone(String phone)
 				seat.set("seat", allSeats[i]);
 				seat.set("auditorium_id", auditoriumId);
 				seat.set("seat_state", 0);
-				seat.save();
-				if(!seat.save()) {
+				boolean setSeat = seat.save();
+				if(!setSeat) {
 					return false;
 				}
 			}
@@ -114,5 +114,10 @@ public Record validateTheaterByPhone(String phone)
 	//获取所有影厅信息
 	public List<Auditorium> getAuditoriumInfo(String theaterid){
 		return Auditorium.dao.find("select * from auditorium,seat where auditorium.auditorium_id = seat.auditorium_id and theater_id = ?",Integer.parseInt(theaterid));
+	}
+	
+	//获取所有影厅信息
+	public List<Auditorium> getAuditorium(String theaterid){
+		return Auditorium.dao.find("select * from auditorium where theater_id = ?",Integer.parseInt(theaterid));
 	}
 }
