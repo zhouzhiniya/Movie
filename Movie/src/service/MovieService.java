@@ -256,11 +256,11 @@ public class MovieService {
     JSONObject tags = JSONObject.parseObject(movie.getTagJson());
     JSONArray newTags = new JSONArray();
     for (Entry<String, Object> entry : tags.entrySet()) {
-    	if (!entry.getValue().equals("其他")) {
-			JSONObject tag = new JSONObject();
-			tag.put("name", entry.getKey());
-			tag.put("value", entry.getValue());
-			newTags.add(tag);
+    	if (!entry.getKey().equals("其他")) {
+  			JSONObject tag = new JSONObject();
+  			tag.put("name", entry.getKey());
+  			tag.put("value", entry.getValue());
+  			newTags.add(tag);
     	}
     }
     return newTags;

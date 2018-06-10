@@ -150,6 +150,63 @@ $(document).ready(function(){
 	})
 
 	
+	
+	
+	
+	
+	
+	//文字云
+	$.ajax({
+    url: _url + '/movie/tagsOfMovie',
+    type: 'post',
+    data: {
+      movie_id: movie_id
+    },
+    success: function(resp){
+      if (resp.resultCode == "30000"){
+        $("#movietags").html("")
+        var data = resp.data;
+        var option = {
+          tooltip: {//鼠标划入的提示框
+            show: true
+          },
+          series: [{
+            type: 'wordCloud', //绘图类型为字符云
+            width:"100%",//所占整体宽度
+            height:"100%",//所占整体高度
+            gridSize: 15,//文字间距
+            sizeRange: [20, 100],//文字大小[最小，最大]
+            rotationRange: [0,120],//旋转最大和最小角度
+            //rotationStep:30,//文字旋转单位，30表示30°的倍数
+            shape: 'ellipse',//整体字符云展现的图形
+            textStyle: {//文字样式设置
+              normal: {
+                color: function() {//颜色
+                  return 'rgb(' + [//返回随机生成的颜色
+                    Math.round(Math.random() * 160),
+                    Math.round(Math.random() * 160),
+                    Math.round(Math.random() * 160)
+                  ].join(',') + ')';
+                }
+              },
+              emphasis: {//鼠标划入样式
+                shadowBlur: 10,//文字阴影模糊度
+                shadowColor: '#333'//文字阴影颜色
+              }
+            },
+            data: data
+          }]
+        };
+
+        var myChart = echarts.init(document.getElementById("cimenas-map"));
+        myChart.setOption(option);
+      }else{
+        layer.msg(resp.resultDesc);
+      }
+    }
+  })
+	//文字云嘿嘿
+	
 })
 
 

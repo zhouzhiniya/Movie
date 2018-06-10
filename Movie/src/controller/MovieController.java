@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONArray;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 
@@ -344,8 +345,21 @@ public class MovieController extends Controller
     this.renderJson(baseResponse);
   }
   
-  public void movieTags() {
-    
+  public void tagsOfMovie() {
+    BaseResponse baseResponse = new BaseResponse();
+    String movieId = this.getPara("movie_id");
+    if(StrKit.notBlank(movieId)) {
+      JSONArray tags = movieService.getMovieTagsByIdExecptOthers(Integer.parseInt(movieId));
+      if(tags != null) {
+        baseResponse.setData(tags);
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
   }
   
 }
