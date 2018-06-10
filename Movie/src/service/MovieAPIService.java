@@ -343,7 +343,8 @@ public class MovieAPIService {
         }
         
         List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 9);
-        
+        comment.setTags(String.join(",", keywordList));
+        comment.save();
       }
     }
     
