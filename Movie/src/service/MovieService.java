@@ -235,4 +235,9 @@ public class MovieService {
     }
     return movies;
   }
+  
+  public MovieTop250 getTop250MovieById(int top250_movie_id) {
+    MovieTop250 movie = MovieTop250.dao.findById(top250_movie_id);
+    return movie;
+  }
 }

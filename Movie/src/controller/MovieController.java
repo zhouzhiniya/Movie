@@ -324,4 +324,24 @@ public class MovieController extends Controller
     this.renderJson(baseResponse);
   }
   
+  /**
+   * 根据推荐的电影id查询该电影详情
+   */
+  public void recommendMovieDetail() {
+    BaseResponse baseResponse = new BaseResponse();
+    String movieId = this.getPara("movie_id");
+    if(StrKit.notBlank(movieId)) {
+      MovieTop250 recommendations = movieService.getTop250MovieById(Integer.parseInt(movieId));
+      if(recommendations != null) {
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+        baseResponse.setData(recommendations);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
+  }
+  
 }
