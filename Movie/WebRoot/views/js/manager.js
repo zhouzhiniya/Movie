@@ -117,7 +117,7 @@ var allAuditoriumInfoId = new Array();
 
 						$.ajax({
 							type:"post",
-							url:_url + "/theater/getAuditoriumInfo",
+							url:_url + "/theater/getAuditorium",
 							data:{
 
 							},success:function(resp)
