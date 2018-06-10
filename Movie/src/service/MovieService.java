@@ -114,12 +114,19 @@ public class MovieService {
   
 
   //根据类型在top250搜索电影
-  public List<Movie> searchMovieTop(Object keyword,String column) {
+  public List<Movie> searchMovieTop(Object[] keyword,String column) {
     Calendar cal = Calendar.getInstance();
     String today = strDate.format(cal.getTime());
-    String sql = "select * from movie where date = '"+today+"' and "+column+" like '%"+keyword+"%'";
-    System.out.println(sql);
-    return Movie.dao.find(sql);
+    ArrayList<Movie> result = new ArrayList<>();
+    for (Object object : keyword) {
+      String sql = "select * from movie where date = '"+today+"' and "+column+" like '%" + object + "%'";
+      List<Movie> movies = Movie.dao.find(sql);
+      for (Movie movie : movies) {
+        result.add(movie);
+      }
+    }
+//    System.out.println(sql);
+    return result;
   }
   
   //根据订票记录筛选电影类型

@@ -197,6 +197,9 @@ public class MovieController extends Controller
           if(type!= null)
           {
             movie = movieService.searchMovieTop(type,"type");
+            for (Movie movie2 : movie) {
+              System.out.println(movie2);
+            }
           }else {
             baseResponse.setResult(ResultCodeEnum.FAILED);
           }
