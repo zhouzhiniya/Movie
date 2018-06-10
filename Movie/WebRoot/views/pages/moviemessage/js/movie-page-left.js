@@ -13,13 +13,6 @@ $(document).ready(function(){
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
-				var forecast = data.forecast_rating;
-				if(forecast == null){
-					forecast = 0;
-				}else{
-					var str = forecast + "";
-					forecast = str.substring(0,str.indexOf('.') + 3);
-				}
 				$("#movietitle").html(data.title);
 				$("#movieimg").attr("src",data.image);
 				$("#movierate").html(data.douban_rating);
@@ -29,8 +22,6 @@ $(document).ready(function(){
 				$("#movietype").html(data.type);
 				$("#moviedate").html(releasetime);
 				$("#director").html(data.director);
-				$("#rate").html(data.douban_rating);
-				$("#forecast").html(forecast);
 				$("#actor").html(data.actors);
 				$("#moviecomment").html(data.comments_count);
 				$("#moviecontent").html(data.summary);
@@ -43,14 +34,6 @@ $(document).ready(function(){
 		}
 	})
 
-	//时间选择器
-	var today = new Date();
-	var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-	laydate.render({
-	  elem: '#date' ,//指定元素
-	  value: val
-	});
-
 	//获取所有的城市
 	$.ajax({
 		url: _url + '/theater/getAllCity',
@@ -60,11 +43,7 @@ $(document).ready(function(){
 				var data = resp.data;
 				$("#select-sort").html("");
 				for(var i=0; i<data.length; i++){
-					if(i==0){
-						$("#select-sort").append("<option value='"+data[i].city+"' selected='selected'>"+data[i].city+"</option>");
-					}else{
-						$("#select-sort").append("<option value='"+data[i].city+"'>"+data[i].city+"</option>");
-					}
+					$("#select-sort").append("<option value='"+data[i]+"'>"+data[i]+"</option>");
 				}
 				$("#select-sort").selectbox({
                     onChange: function (val, inst) {
@@ -73,27 +52,34 @@ $(document).ready(function(){
                             $(this).removeAttr('selected');
                         })
                         $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
-                        getAllShowings();
                     }
 
                 });
-                //根据城市和时间获取所有场次
-				getAllShowings();
 			}else{
 				layer.msg(resp.resultDesc);
 			}
 		}
 	})
 
-	
+	//时间选择器
+	var today = new Date();
+	var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+	laydate.render({
+	  elem: '#date' ,//指定元素
+	  value: val
+	});
 
-	
+	//根据城市和时间获取所有场次
+	getAllShowings();
 })
 
 $("#date").change(function(){
 	getAllShowings();
 })
 
+$("#select-sort").change(function(){
+	getAllShowings();
+})
 
 //根据城市和时间获取所有场次
 function getAllShowings(){

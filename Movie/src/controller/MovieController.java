@@ -285,7 +285,7 @@ public class MovieController extends Controller
   public void addComment() {
     BaseResponse baseResponse = new BaseResponse();
     String movieId = this.getPara("movie_id");
-    String userId = this.getPara("user_id");
+    String userId = this.getSessionAttr("user_id");
     String content = this.getPara("content");
     if(StrKit.notBlank(movieId) && StrKit.notBlank(userId) && StrKit.notBlank(content)) {
       boolean saved = commServ.addComment(Integer.parseInt(movieId), Integer.parseInt(userId), content);
@@ -294,7 +294,9 @@ public class MovieController extends Controller
       }else {
         baseResponse.setResult(ResultCodeEnum.FAILED);
       }
-    }else {
+    }else if(StrKit.isBlank(userId)){
+    	baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
+    }else{
       baseResponse.setResult(ResultCodeEnum.FAILED);
     }
     this.renderJson(baseResponse);
