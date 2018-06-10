@@ -23,6 +23,7 @@ public class _MappingKit {
 		arp.addMapping("douban_review_top250", "review_id", DoubanReviewTop250.class);
 		arp.addMapping("movie", "movie_id", Movie.class);
 		arp.addMapping("movie_top250", "id", MovieTop250.class);
+		arp.addMapping("recommendation", "recommendation_id", Recommendation.class);
 		arp.addMapping("seat", "seat_id", Seat.class);
 		arp.addMapping("showing", "showing_id", Showing.class);
 		arp.addMapping("theater", "theater_id", Theater.class);
