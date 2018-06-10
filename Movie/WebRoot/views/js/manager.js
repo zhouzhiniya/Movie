@@ -212,7 +212,7 @@ $.ajax({
 	//每次点击手风琴
 	$(".el:not(.s--active)").click(function(){
 		var day = $(this).attr('day-data');
-		var result;
+		var result = "";
 		
 		$.ajax({
 			type:"post",
@@ -275,7 +275,7 @@ $.ajax({
 					//请求成功
 					$('.each-movie-session').append(
 		            	'<span class="movie-session">'+
-	            			'<span class="session-time">' + resp.data.startTime + '</span> '+
+	            			'<span class="session-time">' + resp.data.show_time + '</span> '+
 	            			'<span class="session-place">' + resp.data.room + '</span>'+
 	            			'<span class="session-att-rate">上座率： ' + '未知' + '</span>'+
 	            		'</span>'			
@@ -709,7 +709,7 @@ $('#confirm-add-room-btn').click(function(){
 			layer.close(index);
 			layer.close(add_room_layer);
 			
-			var sits;
+			var sits = "";
 			var room_name = $('.this-room-name').val();
 			
 			$('.sits-state--your').each(function(){
