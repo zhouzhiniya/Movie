@@ -24,7 +24,7 @@ public class TheaterController extends Controller{
 		BaseResponse baseResponse = new BaseResponse();
 		String name = this.getPara("name");
 		String seats = this.getPara("seats");
-		String theaterid = this.getSessionAttr("user_id");
+		String theaterid = this.getSessionAttr("theater_id");
 		
 		try {
 			if(StrKit.isBlank(name) || StrKit.isBlank(seats)) {
