@@ -56,7 +56,7 @@ public class BookingController extends Controller{
 				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
 			}else
 			{
-				List<Booking> result = bookingService.getBookingInfo(Integer.parseInt(uid));
+				List<Booking> result = bookingService.getUserBookingInfos(Integer.parseInt(uid));
 				if(result!=null)
 				{
 					baseResponse.setData(result);
