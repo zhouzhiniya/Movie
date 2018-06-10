@@ -50,12 +50,18 @@ $(document).ready(function(){
 	$('#this-week').click(function(){
 		$('#this-week-tab').show(1000);
 		$('#do-it-tab').hide(1000);
+		$('#room-setting-tab').hide(1000);
 	});
 	$('#do-it').click(function(){
 		$('#this-week-tab').hide(1000);
+		$('#room-setting-tab').hide(1000);
 		$('#do-it-tab').show(1000);		
 	});
-
+	$('#room-setting').click(function(){
+		$('#this-week-tab').hide(1000);
+		$('#room-setting-tab').show(1000);
+		$('#do-it-tab').hide(1000);		
+	});
 	var confirm_layer;
 
 	$('body').on('click','#add-movie-btn',function(){
@@ -285,3 +291,189 @@ function refreshMovie(){
 		$('.showing-movie').append('<option value ="' + id_value + '">' + name + '</option>');
 	});
 }
+
+
+//room-setting======================================================================================================================
+var add_room_layer;
+$('#add-room').click(function(){
+	add_room_layer = layer.open({
+		type:1,
+		title:'添加影厅',
+		content:$('#add-room-div'),
+		area: ['100%', '100%']		
+	});
+});
+
+function drawSits(row,column,div){
+
+	div.html(
+            '<aside class="sits__line">'+
+            '</aside>'+
+            '<footer class="sits__number">'+
+            '</footer>'
+	);
+
+	// alert(row + ',' +column);
+
+	var char;
+
+	for(var i = 1;i <= row;i++)
+	{
+		switch(i)
+		{
+			case 1 : char = 'A'; break;
+			case 2 : char = 'B'; break;
+			case 3 : char = 'C'; break;
+			case 4 : char = 'D'; break;
+			case 5 : char = 'E'; break;
+			case 6 : char = 'F'; break;
+			case 7 : char = 'G'; break;
+			case 8 : char = 'H'; break;
+			case 9 : char = 'I'; break;
+			case 10 : char = 'J'; break;
+			case 11 : char = 'K'; break;
+			case 12 : char = 'L'; break;
+			case 13 : char = 'M'; break;
+			case 14 : char = 'N'; break;
+			case 15 : char = 'O'; break;
+			case 16 : char = 'P'; break;
+			case 17 : char = 'Q'; break;
+			case 18 : char = 'R'; break;
+			case 19 : char = 'S'; break;
+			case 20 : char = 'T'; break;
+			case 21 : char = 'U'; break;
+			case 22 : char = 'V'; break;
+			case 23 : char = 'W'; break;
+			case 24 : char = 'X'; break;
+			case 25 : char = 'Y'; break;
+			case 26 : char = 'Z'; break;
+
+
+		}
+
+		div.children('.sits__line').append('<span class="sits__indecator">' + char + '</span>');
+		div.children('.sits__line').after('<div class="sits__row">');
+
+	}	
+
+	var newChar;
+	for(var m = 1;m <= row;m++)
+	{
+		switch(m)
+		{
+			case 1 : newChar = 'A'; break;
+			case 2 : newChar = 'B'; break;
+			case 3 : newChar = 'C'; break;
+			case 4 : newChar = 'D'; break;
+			case 5 : newChar = 'E'; break;
+			case 6 : newChar = 'F'; break;
+			case 7 : newChar = 'G'; break;
+			case 8 : newChar = 'H'; break;
+			case 9 : newChar = 'I'; break;
+			case 10 : newChar = 'J'; break;
+			case 11 : newChar = 'K'; break;
+			case 12 : newChar = 'L'; break;
+			case 13 : newChar = 'M'; break;
+			case 14 : newChar = 'N'; break;
+			case 15 : newChar = 'O'; break;
+			case 16 : newChar = 'P'; break;
+			case 17 : newChar = 'Q'; break;
+			case 18 : newChar = 'R'; break;
+			case 19 : newChar = 'S'; break;
+			case 20 : newChar = 'T'; break;
+			case 21 : newChar = 'U'; break;
+			case 22 : newChar = 'V'; break;
+			case 23 : newChar = 'W'; break;
+			case 24 : newChar = 'X'; break;
+			case 25 : newChar = 'Y'; break;
+			case 26 : newChar = 'Z'; break;
+		}
+
+		for(var j = 1;j <= column;j++)
+		{	
+			$('.sits__row').eq(m - 1).append('<span class="sits__place sits-price--middle" data-place="' + newChar + '-' + j + '" data-price="30">' + newChar + j + '</span>');
+		}
+
+	}
+
+
+
+	for(var k = 1;k <= column;k++)
+	{
+		div.children('.sits__number').append('<span class="sits__indecator">' + k +'</span>');
+	}
+
+	init_BookingTwo();
+
+}
+
+$('#choose-row').change(function(){
+	drawSits($('#choose-row').val(),$('#choose-column').val(),$('#sit-pic'));
+});
+
+$('#choose-column').change(function(){
+
+	drawSits($('#choose-row').val(),$('#choose-column').val(),$('#sit-pic'));
+});
+
+
+$('#confirm-add-room-btn').click(function(){
+	layer.confirm(
+		'确定添加该影厅？',
+		{title:'操作确认'},
+		//成功
+		function(index){
+			
+			layer.close(index);
+			layer.close(add_room_layer);
+
+			//发送新的选择结果
+			$.ajax({
+
+			});
+
+
+		},
+		//取消
+		function(index){
+			layer.close(index);
+		}
+		);
+
+
+});
+
+//======================================= look room start ================================
+var look_room_layer;
+$('.each-rooms').click(function(){
+	look_room_layer = layer.open({
+		type:1,
+		title:'查看影厅信息',
+		content:$('#look-room-div'),
+		area: ['100%', '100%']		
+	});
+
+	$('#look-room-name').text($(this).text());
+	$.ajax({
+		type:"post",
+		url:"",
+		data:{
+			roomId:""
+		},success:function(resp){
+
+			var row = resp.data;
+			var column = resp.data;
+
+			$('#look-row').text(row);
+			$('#look-column').text(column);
+
+
+
+		},error:function(){
+			layer.msg('服务器错误，请重试');
+		}
+	});
+
+	drawSits(6,7,$('#look-sit-pic'));//应该放到ajax 的 success
+});
+

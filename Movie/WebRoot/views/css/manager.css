@@ -230,3 +230,35 @@
 .showing-each{
 	margin-top: 15px;
 }
+
+/** add Romms **/
+#add-room{
+	float: right;
+}
+#have-rooms{
+	margin-left: 45px;
+	color: white;
+}
+.each-rooms{
+	float: left;
+	height: 100px;
+	width: 150px;
+	border: 1px solid #fff;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 25px;
+	margin-bottom: 25px;
+	text-align: center;
+	line-height: 100px;
+	font-weight: 700;
+	font-size: 18px;
+}
+#sit-pic{
+	padding-bottom: 70px;
+}
+
+#confirm-add-room-btn{
+	position: absolute;
+	bottom: 15px;
+	right: 30px;
+}
