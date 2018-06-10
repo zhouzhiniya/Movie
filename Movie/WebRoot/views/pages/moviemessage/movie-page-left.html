@@ -37,6 +37,10 @@
 
         <!-- Modernizr --> 
         <script src="/Movie/views/js/external/modernizr.custom.js"></script>  
+        
+        <!-- ECharts -->
+        <script src="/Movie/views/assetes/echarts/echarts.min.js"></script>  
+        <script src="/Movie/views/assetes/echarts/worldcloud.js"></script>  
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --> 
     <!--[if lt IE 9]> 
@@ -236,11 +240,7 @@
                         </div>
                     </div>
                     
-                    <!-- hiden maps with multiple locator-->
-                    <div  class="map">
-                        <div id='cimenas-map'></div> 
-                    </div>
-
+                    
                     <h2 class="page-heading">评论 (<span id="commentnum"></span>)</h2>
 
                     <div class="comment-wrapper">
@@ -275,8 +275,19 @@
 
                         </div>
                     </div>
+                    
+                    
+                    
+                    <!-- hiden maps with multiple locator-->
+                    
+                    <h2 class="page-heading" style="margin-top: 10px;">自然语言处理 —— TextRank 关键词提取算法 </h2>
+                    <div  class="map">
+                        <div id='cimenas-map'></div> 
+                    </div>
 
-                    <h2 class="page-heading">豆瓣热评 (<span id="doubancommentnum"></span>)</h2>
+                    <h2 class="page-heading" style="margin-top: 10px;">豆瓣热评 (<span id="doubancommentnum"></span>)</h2>
+          
+                   <!--  <div style="margin-top: 20px;height: 200px;width: 100%;" id="movietags"> </div> -->
 
                     <div class="comment-sets" style="margin-top: 40px" id="doubancomments">
 
