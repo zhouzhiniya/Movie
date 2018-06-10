@@ -285,7 +285,7 @@ public class MovieController extends Controller
   public void addComment() {
     BaseResponse baseResponse = new BaseResponse();
     String movieId = this.getPara("movie_id");
-    String userId = this.getSessionAttr("user_id");
+    String userId = this.getPara("user_id");//改成直接前端传userID了
     String content = this.getPara("content");
     if(StrKit.notBlank(movieId) && StrKit.notBlank(userId) && StrKit.notBlank(content)) {
       boolean saved = commServ.addComment(Integer.parseInt(movieId), Integer.parseInt(userId), content);
@@ -300,6 +300,14 @@ public class MovieController extends Controller
       baseResponse.setResult(ResultCodeEnum.FAILED);
     }
     this.renderJson(baseResponse);
+  }
+  
+  /**
+   * 给用户推荐电影
+   */
+  public void recommend() {
+    BaseResponse baseResponse = new BaseResponse();
+    String userId = this.getPara("user_id");
   }
   
 }

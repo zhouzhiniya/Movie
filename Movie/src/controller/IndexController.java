@@ -38,7 +38,7 @@ public class IndexController extends Controller{
 	public void rrr() {
 
     MovieService servvvvv = new MovieService();
-    servvvvv.recommendByUserId(1);
+    servvvvv.getAllMatchesMovie(1);
 	}
 
 }
