@@ -177,13 +177,34 @@ function getAllShowings(movie_id){
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
-				if(data.length == 0){
-					$("#allShowings").html("暂时没有排片哦~~~");
-				}else{
+                $("#allShowings").html("");
+				for(var key in data){
+                    var alltime = data[key];
+                    $("#allShowings").append('<div class="time-select__group group--first">'+
+                                                '<div class="col-sm-3">'+
+                                                  '<p class="time-select__place">'+key+'</p>'+
+                                                '</div>'+
+                                                '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
+                                                '</ul>'+
+                                              '</div>');
+                    for(var i=0; i<alltime.length; i++){
+                        $("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                    }
+                }
+                $('.time-select__item').click(function (){
+                    //visual iteractive for choose
+                    $('.time-select__item').removeClass('active');
+                    $(this).addClass('active');
 
-				}
+                    //data element init
+                    var chooseTime = $(this).attr('data-time');
+                     $('.choose-indector--time').find('.choosen-area').text(chooseTime);
+
+                    //data element init
+                    showing_id = $(this).attr("id");
+                });
 			}else{
-				layer.msg(resp.resultDesc);
+				$("#allShowings").html("暂时没有排片哦~~~");
 			}
 		}
 	})
@@ -201,5 +222,5 @@ function book(){
     }
     $.cookie("bookmovie",movie_id);
     $.cookie("showingid",showing_id);
-    window.href.location = _url + "/views/pages/books/book2.html";
+    window.location.href = _url + "/views/pages/books/book2.html";
 }

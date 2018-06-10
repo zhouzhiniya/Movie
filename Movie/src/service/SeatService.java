@@ -7,8 +7,10 @@ import model.Seat;
 public class SeatService {
   
 	//根据showing_id获取放映厅的座位
-	public List<Seat> getSeatsByShowingId(String showingid) {
-		return Seat.dao.find("select * from seat,showing where seat.auditorium_id = showing.auditorium_id and showing_id = ?",Integer.parseInt(showingid));
+	public Seat getSeatsByShowingId(String showingid) {
+		String sql = "select * from seat,showing where seat.auditorium_id = showing.auditorium_id and showing_id = " + showingid;
+		System.out.print(sql);
+		return Seat.dao.findFirst(sql);
 	}
 	
 	/**
@@ -49,11 +51,11 @@ public class SeatService {
 	  
 	  Seat seat = Seat.dao.findById(seatId);
 	  seat.setSeatState(1);
-	  return seat.save();
+	  return seat.update();
 	}
 	
 	public Seat getSeatByNameAndShowing(String seatName, int showingId) {
-	  Seat result = Seat.dao.findFirst("select * from seat,showing where seat.seat_id = showing.seat_id AND showing.showing_id=? AND seat.seat=?", showingId, seatName);
+	  Seat result = Seat.dao.findFirst("select * from seat,showing where seat.auditorium_id = showing.auditorium_id AND showing.showing_id=? AND seat.seat=?", showingId, seatName);
 	  return result;
 	}
 }

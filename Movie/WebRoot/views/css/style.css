@@ -6048,7 +6048,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 
 .time-select .time-select__item:before {
   content: '';
-  width: 54px;
+  width: 90%;
   height: 28px;
   border: 1px solid #ffffff;
   position: absolute;
@@ -7248,7 +7248,6 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   font-size: 15px;
   font-weight: bold;
   position: absolute;
-  bottom: 20px;
   left: 0;
   width: 100%;
   text-align: center;

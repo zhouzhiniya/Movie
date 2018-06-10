@@ -15,11 +15,11 @@ public class SeatController extends Controller{
 	//根据showing_id获取放映厅的座位
 	public void getSeatsByShowingId() {
 		BaseResponse baseResponse = new BaseResponse();
-		String showingid = this.getSessionAttr("showing_id");
+		String showingid = this.getPara("showing_id");
 		
 		try {
 			//根据showing_id获取放映厅的座位
-			List<Seat> seats = seatService.getSeatsByShowingId(showingid);
+			Seat seats = seatService.getSeatsByShowingId(showingid);
 			if(seats != null) {
 				baseResponse.setData(seats);
 				baseResponse.setResult(ResultCodeEnum.SUCCESS);

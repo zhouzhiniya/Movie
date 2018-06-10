@@ -26,13 +26,9 @@ public class BookingController extends Controller{
 			}
 			else
 			{
-				boolean ifAdd = bookingService.addBooking(user_id, showing_id, seat_id);
-				if(ifAdd)
-				{
-					baseResponse.setResult(ResultCodeEnum.SUCCESS);
-				}else {
-					baseResponse.setResult(ResultCodeEnum.FAILED);
-				}
+				int bookId = bookingService.addBooking(user_id, showing_id, seat_id);
+				baseResponse.setData(bookId);
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
 			}
 			System.out.println(baseResponse);
 			this.renderJson(baseResponse);
@@ -57,6 +53,35 @@ public class BookingController extends Controller{
 			}else
 			{
 				List<Booking> result = bookingService.getUserBookingInfos(Integer.parseInt(uid));
+				if(result!=null)
+				{
+					baseResponse.setData(result);
+					baseResponse.setResult(ResultCodeEnum.SUCCESS);
+				}
+			}
+			System.out.println(baseResponse);
+			this.renderJson(baseResponse);
+		}
+		catch (Exception e)
+		{
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void getBookingInfoByBookid() 
+	{
+		BaseResponse baseResponse = new BaseResponse();
+		try
+		{
+			String bookid = this.getPara("booking_id");
+			if(StrKit.isBlank(bookid))
+			{
+				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
+			}else
+			{
+				Booking result = bookingService.getBookingInfoById(Integer.parseInt(bookid));
 				if(result!=null)
 				{
 					baseResponse.setData(result);

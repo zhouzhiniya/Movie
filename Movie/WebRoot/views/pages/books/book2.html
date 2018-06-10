@@ -83,7 +83,7 @@
           <div class="choose-sits__info choose-sits__info--first">
             <ul>
               <li class="sits-price marker--none"><strong>价格</strong></li>
-              <li class="sits-price sits-price--expensive">￥30</li>
+              <li class="sits-price sits-price--cheap">￥<span id="allprice">30</span></li>
             </ul>
           </div>
 
@@ -238,7 +238,7 @@
       <a href="book1.html" class="booking-pagination__prev">
         <span class="arrow__text arrow--prev">上一步</span> <span class="arrow__info">看什么&amp;在哪看&amp; 什么时候看</span>
       </a>
-      <a href="book3-buy.html" class="booking-pagination__next">
+      <a onclick="pay()" class="booking-pagination__next">
         <span class="arrow__text arrow--next">下一步</span> <span class="arrow__info">结算</span>
       </a>
     </div>
@@ -355,6 +355,7 @@
 
   <!-- Custom -->
   <script src="/Movie/views/js/custom.js"></script>
+  <script type="text/javascript" src="/Movie/views/pages/books/js/book2.js"></script>
 
   <script type="text/javascript">
             $(document).ready(function() {

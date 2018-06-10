@@ -89,7 +89,7 @@
             <div class="ticket__inner">
 
               <div class="ticket-secondary">
-                <span class="ticket__item">票根号：<strong class="ticket__number">a126bym4</strong></span> <span class="ticket__item ticket__date">25/10/2013</span> <span class="ticket__item ticket__time">17:45</span> <span class="ticket__item">影院: <span class="ticket__cinema">Cineworld</span></span> <span class="ticket__item">Hall: <span class="ticket__hall">Visconti</span></span> <span class="ticket__item ticket__price">价格: <strong class="ticket__cost">$60</strong></span>
+                <span class="ticket__item">票根号：<strong class="ticket__number">a126bym4</strong></span> <span class="ticket__item ticket__date" id="time">25/10/2013</span> <span class="ticket__item">影院: <span class="ticket__cinema">Cineworld</span></span><span class="ticket__item ticket__price">价格: <strong class="ticket__cost">￥<span id="allprice">60</span></strong></span>
               </div>
 
               <div class="ticket-primery">
@@ -210,7 +210,10 @@
   <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <!-- Bootstrap 3-->
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-
+  <!-- layer -->
+  <script src="/Movie/views/assetes/layer/layer.js"></script>
+  <!-- cookie -->
+  <script type="text/javascript" src="/Movie/views/assetes/jquery/jquery.cookie.js"></script>
   <!-- Mobile menu -->
   <script src="/Movie/views/js/jquery.mobile.menu.js"></script>
   <!-- Select -->
@@ -223,6 +226,7 @@
 
   <!-- Custom -->
   <script src="/Movie/views/js/custom.js"></script>
+  <script type="text/javascript" src="/Movie/views/pages/books/js/final.js"></script>
 
   <script type="text/javascript">
             $(document).ready(function() {

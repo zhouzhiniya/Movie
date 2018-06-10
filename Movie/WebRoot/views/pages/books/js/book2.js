@@ -1,16 +1,22 @@
 var _url = '/Movie'
+var seatids = new Array()
 
 $(document).ready(function(){
+	var index = layer.load();
 	$.ajax({
 		url: _url + "/seat/getSeatsByShowingId",
 		type: 'post',
 		data: {
-			showing_id: $.cookie("showing_id")
+			showing_id: $.cookie("showingid")
 		},
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
+				layer.close(index);
 				var seats = data.seat.split(",");
+				var price = data.price;
+				$.cookie("ticketprice",price);
+				$("#allprice").html(price);
 				//获取座位的所有行
 				var lines = new Array();
 				var lineslength = 0;
@@ -64,12 +70,73 @@ $(document).ready(function(){
 				for(var i=0; i<lines.length; i++){
 					$("#allseats").append('<div class="sits__row" id="'+lines[i]+'"></div>');
 					var allnum = linesnumbers[lines[i]];
+					var linename = lines[i];
 					for(var j=1; j<=longestrows; j++){
 						for(var k=0; k<allnum.length; k++){
+							var rowname = allnum[k];
 							if(allnum[k] == j){
-								$("#"+line[i]).append('<span class="sits__place sits-price--cheap" data-place="'+lines[i]+allnum[k]+'" data-price="">'+lines[i]+allnum[k]+'</span>');
+								//根据座位名称和showingid获取座位状态及id
+								$.ajax({
+									url: _url + '/seat/getSeatByNameAndShowing',
+									type: 'post',
+									data: {
+										showing_id: $.cookie("showingid"),
+										seat: lines[i] + '-' + allnum[k]
+									},
+									success: function(resp){
+										if(resp.resultCode == "30000"){
+											var seatid = resp.data.seat_id;
+											var state = resp.data.seat_state;
+											console.log(seatid);
+											console.log(linename);
+											if(state == 0){
+												$("#"+linename).append('<span class="sits__place sits-price--cheap" id="'+seatid+'" data-place="'+linename+rowname+'" data-price="'+price+'">'+linename+rowname+'</span>');
+											}else{
+												$("#"+linename).append('<span class="sits-state sits-state--not" id="'+seatid+'" data-place="'+linename+rowname+'" data-price="'+price+'">'+linename+rowname+'</span>');
+											}
+											var sum = 0;
+											$('.sits__place').click(function (e) {
+							                    e.preventDefault();
+							                    var place = $(this).attr('data-place');
+							                    var ticketPrice = $(this).attr('data-price');
+							                    var seatid = $(this).attr('id');
+
+							                    if(! $(e.target).hasClass('sits-state--your')){
+
+							                        if (! $(this).hasClass('sits-state--not') ) {
+							                            $(this).addClass('sits-state--your');
+
+							                            $('.checked-place').prepend('<span class="choosen-place '+place+'">'+ place +'</span>');
+							                            seatids.push(seatid);
+							                            sum += price;
+
+							                            $('.checked-result').text('￥'+sum);
+							                        }
+							                    }
+
+							                    else{
+							                        $(this).removeClass('sits-state--your');
+							                        var arrayindex = seatids.indexOf(seatid);
+							                        if(arrayindex > -1){
+							                        	seatids.splice(arrayindex,1);
+							                        }
+							                        $('.'+place+'').remove();
+
+							                        sum -= price;
+
+							                        $('.checked-result').text('￥'+sum)
+							                    }
+							                })
+										}else{
+											layer.msg(resp.resultDesc);
+										}
+									}
+								})
 							}else{
-								$("#"+line[i]).append('<span class="sits__place sits-price--middle" data-place="'+lines[i]+allnum[k]+'" data-price="">'+lines[i]+allnum[k]+'</span>');
+								//空白格子
+								
+								$("#"+linename).append('<span class="sits-state sits-price--middle" id="'+seatid+'" data-place="'+linename+rowname+'" data-price="'+price+'">'+linename+rowname+'</span>');
+										
 							}
 						}
 					}
@@ -80,3 +147,21 @@ $(document).ready(function(){
 		}
 	})
 })
+
+function pay(){
+	if(seatids.length == 0){
+		layer.msg("请选择座位！");
+		return;
+	}
+	var allseat = "";
+	for(var i=0; i<seatids.length; i++){
+		if(i==(seatids.length-1)){
+			allseat += seatids[i];
+		}else{
+			allseat += seatids[i] + ",";
+		}
+	}
+	$.cookie("allseats",allseat);
+	$.cookie("ticketnum",seatids.length);
+	window.location.href = _url + "/views/pages/books/book3-buy.html";
+}

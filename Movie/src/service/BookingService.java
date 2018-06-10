@@ -9,7 +9,7 @@ public class BookingService {
   
   private SeatService seatServ = new SeatService();
   
-  public boolean addBooking(String user_id, String showing_id, String seat_id) {
+  public int addBooking(String user_id, String showing_id, String seat_id) {
 	  Booking book =new Booking();
 	  Random random = new Random();  
 	  String token="";  
@@ -24,10 +24,10 @@ public class BookingService {
 	  book.setToken(token);
 	  
 	  //预订座位后还要将座位锁定
-	  if(seatServ.lockSeat(seat_id) == false)
-	    return false;
+	  seatServ.lockSeat(seat_id);
 	  
-	  return book.save();
+	  book.save();
+	  return book.getBookingId();
   }
   
   /**
@@ -46,6 +46,6 @@ public class BookingService {
    * @return
    */
   public Booking getBookingInfoById(int bookingId) {
-    return Booking.dao.findFirst("select * from booking where booking_id=?", bookingId);
+    return Booking.dao.findFirst("select * from booking,showing,movie,seat,theater,auditorium where booking.showing_id = showing.showing_id and showing.movie_id = movie.movie_id and auditorium.auditorium_id = seat.auditorium_id and auditorium.theater_id = theater.theater_id and booking.booking_id=?", bookingId);
   }
 }
