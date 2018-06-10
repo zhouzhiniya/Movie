@@ -8,12 +8,17 @@ import com.jfinal.kit.StrKit;
 
 import kit.BaseResponse;
 import kit.ResultCodeEnum;
+import model.Comment;
+import model.DoubanComment;
 import model.Movie;
+import service.MovieCommentService;
 import service.MovieService;
 
 public class MovieController extends Controller
 {
 	MovieService movieService = new MovieService();
+	MovieCommentService commServ = new MovieCommentService();
+	
 	//获取所有的电影信息
 	public void getAllMovies()
 	{
@@ -232,4 +237,67 @@ public class MovieController extends Controller
       e.printStackTrace();
     }
   }
+  
+  /**
+   * 获取电影的豆瓣评论，传入参数movie_id
+   */
+  public void commentDouban() {
+    BaseResponse baseResponse = new BaseResponse();
+    String movieId = this.getPara("movie_id");
+    if(StrKit.notBlank(movieId)) {
+      List<DoubanComment> result = commServ.getDoubanCommentByMovieId(Integer.parseInt(movieId));
+      if(result != null) {
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+        baseResponse.setData(result);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
+  }
+  
+  /**
+   * 获取电影的评论，传入参数movie_id
+   */
+  public void commentOfMovie() {
+    BaseResponse baseResponse = new BaseResponse();
+    String movieId = this.getPara("movie_id");
+    if(StrKit.notBlank(movieId)) {
+      List<Comment> result = commServ.getCommentByMovieId(Integer.parseInt(movieId));
+      if(result != null) {
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+        baseResponse.setData(result);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
+  }
+  
+  
+  /**
+   * 添加评论，传入参数movie_id, user_id, content
+   */
+  public void addComment() {
+    BaseResponse baseResponse = new BaseResponse();
+    String movieId = this.getPara("movie_id");
+    String userId = this.getPara("user_id");
+    String content = this.getPara("content");
+    if(StrKit.notBlank(movieId) && StrKit.notBlank(userId) && StrKit.notBlank(content)) {
+      boolean saved = commServ.addComment(Integer.parseInt(movieId), Integer.parseInt(userId), content);
+      if(saved == true) {
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
+  }
+  
 }
