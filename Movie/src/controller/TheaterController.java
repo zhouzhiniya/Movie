@@ -25,6 +25,7 @@ public class TheaterController extends Controller{
 		String name = this.getPara("name");
 		String seats = this.getPara("seats");
 		String theaterid = this.getSessionAttr("theater_id");
+		System.out.println(theaterid);
 		
 		try {
 			if(StrKit.isBlank(name) || StrKit.isBlank(seats)) {

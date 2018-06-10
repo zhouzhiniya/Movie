@@ -25,25 +25,34 @@ public class ShowingController extends Controller{
 			if(StrKit.isBlank(day)) {
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else {
-				Date date = new Date();
-				Calendar today = Calendar.getInstance();
+				String todayDate = "";
+				Calendar cal = Calendar.getInstance();    
 				if(day.equals("0")) {
-					date = today.getTime();
+					//今天
+					todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
 				}else {
-					int n = today.get(Calendar.DAY_OF_WEEK) - 1;
-			        if (n == 0) {
-			            n = 7;
-			        }
-			        today.add(Calendar.DATE, -(7 + (n - 1)));// 上周一的日期
-			        int Day = Integer.parseInt(day);	//表示上周几
-		        	for(int i=0; i<Day-1; i++) {
-		        		today.add(Calendar.DATE , 1);
-		        	}
-		        	date = today.getTime();
+					// 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了  
+				     int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+				     if (1 == dayWeek) {  
+				        cal.add(Calendar.DAY_OF_MONTH, -1);  
+				     }  
+				     System.out.println("要计算日期为:" + cal.getTime()); // 输出要计算日期  
+				     // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一  
+				     cal.setFirstDayOfWeek(Calendar.MONDAY);  
+				     // 获得当前日期是一个星期的第几天  
+				     int today = cal.get(Calendar.DAY_OF_WEEK);  
+				     // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值  
+				     cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - today);  
+				     Date imptimeBegin = cal.getTime();  
+				     System.out.println("所在周星期一的日期：" + imptimeBegin);
+				     cal.add(Calendar.DATE, Integer.parseInt(day)-1);
+				     System.out.println(cal.get(Calendar.MONTH + 1));
+				     todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
 				}
-				List<Showing> showings = showingService.ifHasShowing(date,theaterId);
+			     
+				List<Showing> showings = showingService.ifHasShowing(todayDate,theaterId);
 				Record result = new Record();
-				if(showings == null) {
+				if(showings.size() == 0) {
 					result.set("haveShowing", 0);
 					baseResponse.setData(result);
 					baseResponse.setResult(ResultCodeEnum.SUCCESS);
@@ -74,25 +83,32 @@ public class ShowingController extends Controller{
 			if(StrKit.isBlank(day) || StrKit.isBlank(movie_id)) {
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else {
-				Date date = new Date();
-				Calendar today = Calendar.getInstance();
+				String todayDate = "";
+				Calendar cal = Calendar.getInstance();    
 				if(day.equals("0")) {
-					date = today.getTime();
+					//今天
+					todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
 				}else {
-					int n = today.get(Calendar.DAY_OF_WEEK) - 1;
-			        if (n == 0) {
-			            n = 7;
-			        }
-			        today.add(Calendar.DATE, -(7 + (n - 1)));// 上周一的日期
-			        int Day = Integer.parseInt(day);	//表示上周几
-		        	for(int i=0; i<Day-1; i++) {
-		        		today.add(Calendar.DATE , 1);
-		        	}
-		        	date = today.getTime();
-				}
-				List<Showing> showings = showingService.getShowingInfoByMovieId(date,movie_id,theaterId);
+					// 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了  
+				     int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+				     if (1 == dayWeek) {  
+				        cal.add(Calendar.DAY_OF_MONTH, -1);  
+				     }  
+				     System.out.println("要计算日期为:" + cal.getTime()); // 输出要计算日期  
+				     // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一  
+				     cal.setFirstDayOfWeek(Calendar.MONDAY);  
+				     // 获得当前日期是一个星期的第几天  
+				     int today = cal.get(Calendar.DAY_OF_WEEK);  
+				     // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值  
+				     cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - today);  
+				     Date imptimeBegin = cal.getTime();  
+				     System.out.println("所在周星期一的日期：" + imptimeBegin);
+				     cal.add(Calendar.DATE, Integer.parseInt(day)-1);
+				     todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
+				} 
+				List<Showing> showings = showingService.getShowingInfoByMovieId(todayDate,movie_id,theaterId);
 				baseResponse.setData(showings);
-				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+				baseResponse.setResult(ResultCodeEnum.SUCCESS); 
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
