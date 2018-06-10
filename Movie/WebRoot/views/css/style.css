@@ -5180,6 +5180,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .movie .movie__images img {
   max-width: 100%;
+  max-height: 300px;
 }
 .movie .movie__title {
   display: inline-block;
@@ -7361,6 +7362,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .movie-best .movie-beta__item {
   width: 16.666666%;
+  height: 270px;
   float: left;
   position: relative;
   z-index: 7;
@@ -7407,7 +7409,8 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   width: 14px;
 }
 .movie-best .movie-beta__item img {
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
 }
 .movie-best .movie-beta__item:hover .movie-beta__info {
   -webkit-transform: translateY(100%);
@@ -8063,7 +8066,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .post--preview--wide .post__title {
   font-size: 16px;
-  max-width: 200px;
+  width: 200px;
 }
 .post--preview--wide .post--btn {
   font-size: 16px;
@@ -8388,6 +8391,7 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 }
 .movie--test {
   width: 50%;
+  height: 300px;
   float: left;
   margin-bottom: 8px;
 }
