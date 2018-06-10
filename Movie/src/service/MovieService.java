@@ -43,6 +43,7 @@ public class MovieService {
   public List<Movie> getTodayMovies(){
     Calendar cal = Calendar.getInstance();
     String today = strDate.format(cal.getTime());
+    System.out.println(today);
     List<Movie> movies = Movie.dao.find("select * from movie where date = ?", today);
     return movies;
   }

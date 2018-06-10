@@ -136,7 +136,8 @@ public class ShowingController extends Controller{
         baseResponse.setData(result);
         baseResponse.setResult(ResultCodeEnum.SUCCESS);
       }else {
-        baseResponse.setResult(ResultCodeEnum.FAILED);
+        baseResponse.setData(null);
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
       }
     }else {
       baseResponse.setResult(ResultCodeEnum.FAILED);

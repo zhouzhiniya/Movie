@@ -344,4 +344,8 @@ public class MovieController extends Controller
     this.renderJson(baseResponse);
   }
   
+  public void movieTags() {
+    
+  }
+  
 }
