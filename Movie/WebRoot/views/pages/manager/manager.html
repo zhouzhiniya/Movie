@@ -32,7 +32,11 @@
     
         <!-- Custom -->
         <link href="../../css/style.css?v=1" rel="stylesheet" />
+		<link href="../../css/manager.css" rel="stylesheet" />
 
+		<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+
+        <link rel="stylesheet" href="../../assetes/css3-fullscreen-accordion-image/css/style.css">
 
         <!-- Modernizr --> 
         <script src="../../js/external/modernizr.custom.js"></script>
@@ -52,39 +56,475 @@
                 <a href='index.html' class="logo">
                     <img alt='logo' src="../../images/logo.png">
                 </a>
-             
+
+				<div class="function-block">
+					<div class="function-block-item" id="this-week">本周历史排片</div>
+					<div class="function-block-item" id="do-it">今日排片</div>
+					<div class="function-block-item" id="room-setting">影厅设置</div>
+				</div>
                 
                 <!-- Additional header buttons / Auth and direct link to booking-->
                 <div class="control-panel">
-                    <div class="auth auth--home">
+                    <div class="auth auth--home" style="right:100px;">
                       <div class="auth__show">
                         <span class="auth__image">
-                          <img alt="" src="images/31-31.png">
+                          <img alt="" src="../../images/31-31.png">
                         </span>
                       </div>
                       <a href="#" class="btn btn--sign btn--singin">
-                          我的
+                          银兴国际影城（南湖时尚城店）
                       </a>
                         <ul class="auth__function">
-                            <li><a href="#" class="auth__function-item">观看清单</a></li>
-                            <li><a href="#" class="auth__function-item">订单记录</a></li>
-                            <li><a href="#" class="auth__function-item">评论</a></li>
-                            <li><a href="#" class="auth__function-item">个人设置</a></li>
+                            <li><a href="#" class="auth__function-item">影院信息</a></li>
+                            <li><a href="#" class="auth__function-item">退出登录</a></li>
                         </ul>
 
                     </div>
                     <!-- <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">购票</a> -->
-                    <a href="pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a>
+                    <!-- <a href="pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a> -->
                 </div>
 
             </div>
         </header>
+        <section id="this-week-tab" class="container my-tab" style="display: none;">
+
+        	<h2 id='target' class="page-heading heading--outcontainer today-movie">本周排片</h2>
+
+        	<div style="text-align:center;clear:both">
+<!--         		<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+				<script src="/follow.js" type="text/javascript"></script> -->
+			</div>
+			  <div class="cont s--inactive">
+			  <!-- cont inner start -->
+			  <div class="cont__inner">
+			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 一<br/><br/>Monday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期一</div>
+			            <div class="el__close-btn"></div>
+			            <div class="el__data">
+			            	<div class="each-movie">
+			            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            					            		<div class="movie-base">
+			            			<span class="movie-name">复仇者联盟3：无限战争</span>
+			            			<span class="movie-duration">141min</span>
+			            		</div>
+			            	</div>
+			            	<div class="each-movie-session">
+								
+			            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            					            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            					            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            					            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            					            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            					            		<span class="movie-session">
+			            			<span class="session-time">19：00 - 22：21</span> 
+			            			<span class="session-place">五号厅</span>
+			            			<span class="session-att-rate">上座率： 61%</span>
+			            		</span>
+			            	</div>
+
+			            	
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">1</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="1">1</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 二<br/><br/>Tuesday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期二</div>
+			            <div class="el__close-btn"></div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">2</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="2">2</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 三<br/><br/>Wednesday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期三</div>
+			            <div class="el__close-btn"></div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">3</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="3">3</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 四<br/><br/>Thursday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期四</div>
+			            <div class="el__close-btn"></div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">4</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="4">4</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 五<br/><br/>Firday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期五</div>
+			            <div class="el__close-btn"></div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">5</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="5">5</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			    			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 六<br/><br/>Saturday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期六</div>
+			            <div class="el__close-btn"></div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">6</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="6">6</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			    			    <!-- el start -->
+			    <div class="el">
+			      <div class="el__overflow">
+			        <div class="el__inner">
+			          <div class="el__bg"></div>
+			          <div class="el__preview-cont">
+			            <h2 class="el__heading">星 期 日<br/><br/>Sunday</h2>
+			          </div>
+			          <div class="el__content">
+			            <div class="el__text">星期日</div>
+			            <div class="el__close-btn"></div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="el__index">
+			        <div class="el__index-back">7</div>
+			        <div class="el__index-front">
+			          <div class="el__index-overlay" data-index="7">7</div>
+			        </div>
+			      </div>
+			    </div>
+			    <!-- el end -->
+			  </div>
+			  <!-- cont inner end -->
+			</div>
+        </section>
+        <section id="do-it-tab" class="container my-tab" >
+        	<h2 id='target' class="page-heading heading--outcontainer today-movie">排片</h2>
+        	<div id="do"  style="display: none">
+        		<div class="step-title">今日已完成排片</div>
+        		<hr/>
+					<div class="el__data" style="width: calc(100% - 45px);margin-left: 45px;">
+		            	<div class="each-movie">
+		            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            					            		<div class="movie-base">
+		            			<span class="movie-name">复仇者联盟3：无限战争</span>
+		            			<span class="movie-duration">141min</span>
+		            		</div>
+		            	</div>
+		            	<div class="each-movie-session">
+							
+		            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            					            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            					            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            					            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            					            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            					            		<span class="movie-session">
+		            			<span class="session-time">19：00 - 22：21</span> 
+		            			<span class="session-place">五号厅</span>
+		            			<span class="session-att-rate">上座率： 61%</span>
+		            		</span>
+		            	</div>
+		            </div>
+        	</div>
+        	<div id="no-do">
+	        	<div class="step-title">请先选择排片电影</div>
+	        	<div class="choose-movie-list">   
+
+	<!--           		<div class="each-choose-movie" moive-id="" moive-confirm="" >
+	        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+	        				<div class="movie-delete-btn"></div>
+	        				<div class="each-movie-name">超能陆战队</div>
+	        			</div>
+	        		</div> -->
+	        		<img id="add-movie-btn"  src="../../images/add.png" style="cursor: pointer;">
+	        	</div>
+				<br/><br/>
+	        	<div class="step-title" style="margin-top:15px;">场次安排</div>
+	        	<div id="add-showing" class="btn btn-md btn--warning btn--book login-window">添加场次</div>
+				<div id="showings">
+	<!-- 				<div class="showing-each">
+		        		<select class="showing-movie" style="float: left;"><option value ="">电影</option></select>
+		        		<select class="showing-room" style="float: left;"><option value ="">放映厅</option><option value ="volvo">Volvo</option></select>
+		        		<input class="showing-time" type="text" style="float: left;" placeholder="开始时间">
+		        		<input class="showing-price" type="text" style="float: left;" placeholder="票价" />
+
+		        		<span class="delete-showing-icon"></span>
+		        		<div style="clear: both;"></div>
+		        	</div> -->
+				</div>
+				<div id="complete" class="btn btn-md btn--warning btn--book login-window">完成排片</div>
+				<div style="clear: both"></div>
+	        </section>
+	    </div>
 	</div>
 
 
 
 
 </body>
+        <div id="add-movie-div" style="display: none;">
+        	<div class="choose-movie-list" style="margin-left:10px;">
+
+        		<div class="each-choose-movie" movie-id="1" movie-confirm="" movie-pic-url="../../images/m4.jpg">
+        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+        				<div class="movie-add-btn-not"></div>
+        				<div class="movie-add-btn-confirm" style="display: none;"></div>
+        				<div class="each-movie-name">666</div>
+        			</div>
+        			
+        		</div>
+        		<div class="each-choose-movie" movie-id="2" movie-confirm="" movie-pic-url="../../images/m4.jpg">
+        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+        				<div class="movie-add-btn-not"></div>
+        				<div class="movie-add-btn-confirm" style="display: none;"></div>
+        				<div class="each-movie-name">666</div>
+        			</div>
+        			
+        		</div>
+        		        		<div class="each-choose-movie" movie-id="3" movie-confirm="" movie-pic-url="../../images/m4.jpg">
+        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+        				<div class="movie-add-btn-not"></div>
+        				<div class="movie-add-btn-confirm" style="display: none;"></div>
+        				<div class="each-movie-name">666</div>
+        			</div>
+        			
+        		</div>
+        		        		<div class="each-choose-movie" movie-id="4" movie-confirm="" movie-pic-url="../../images/m4.jpg">
+        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+        				<div class="movie-add-btn-not"></div>
+        				<div class="movie-add-btn-confirm" style="display: none;"></div>
+        				<div class="each-movie-name">666</div>
+        			</div>
+        			
+        		</div>
+        		        		<div class="each-choose-movie" movie-id="5" movie-confirm="" movie-pic-url="../../images/m4.jpg">
+        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+        				<div class="movie-add-btn-not"></div>
+        				<div class="movie-add-btn-confirm" style="display: none;"></div>
+        				<div class="each-movie-name">666</div>
+        			</div>
+        			
+        		</div>
+        		        		<div class="each-choose-movie" movie-id="6" movie-confirm="" movie-pic-url="../../images/m4.jpg">
+        			<div class="each-movie-pic" style="background-image: url('../../images/m4.jpg')">
+        				<div class="movie-add-btn-not"></div>
+        				<div class="movie-add-btn-confirm" style="display: none;"></div>
+        				<div class="each-movie-name">666</div>
+        			</div>
+        			
+        		</div>
+        		<div id="confirm-btn" class="btn btn-md btn--warning btn--book login-window"> 确定</div>
+        	</div>
+        </div>
+
+
+
+<!--         <div id="add-showing-div" style="display: none;">
+
+
+        	<div id="showing-confirm-btn" class="btn btn-md btn--warning btn--book login-window"> 确定</div>
+        </div> -->
 	<!-- JavaScript-->
         <!-- jQuery 1.9.1--> 
         <script src="../../assetes/jquery/jquery-1.10.2.min.js"></script>
@@ -113,8 +553,14 @@
         <!-- Twitter feed -->
         <script src="../../js/external/twitterfeed.js"></script>
 
+        <!-- Custom assetes -->
+		<script src="../../assetes/layer/layer/layer.js" type="text/javascript"></script>
+		<script src="../../assetes/layDate/laydate/laydate.js" type="text/javascript"></script>
+        <script src="../../assetes/css3-fullscreen-accordion-image/js/index.js" type="text/javascript"></script>
+
         <!-- Custom -->
         <script src="../../js/custom.js"></script>
+        <script src="../../js/manager.js"></script>
 		
 	      <script type="text/javascript">
               $(document).ready(function() {
