@@ -314,6 +314,8 @@ public class MovieController extends Controller
       if(recommendations != null) {
         baseResponse.setResult(ResultCodeEnum.SUCCESS);
         baseResponse.setData(recommendations);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
       }
     }else {
       baseResponse.setResult(ResultCodeEnum.FAILED);

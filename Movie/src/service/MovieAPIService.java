@@ -351,10 +351,10 @@ public class MovieAPIService {
         }
       }
       
-      List<String> keywordList = HanLP.extractKeyword(totalComment, 30);
+      List<String> keywordList = HanLP.extractKeyword(totalComment, 100);
       Map<String, Integer> keywordMap = new HashMap<String, Integer>();
       int count = 0;
-      for (Iterator iterator = keywordList.iterator(); iterator.hasNext()&&count<9;) {
+      for (Iterator iterator = keywordList.iterator(); iterator.hasNext()&&count<20;) {
 	    String sbject = (String) iterator.next();
     	if (sbject.length()>2) {
           keywordMap.put(sbject, 0);
@@ -381,6 +381,7 @@ public class MovieAPIService {
         Db.update("update movie set tag_json=? where movie_id=?", JSON.toJSON(keywordMap), todayMovie.getMovieId());
       } catch (Exception e) {
         // TODO: handle exception
+        System.out.println("false");
         continue;
       }
     }
@@ -441,6 +442,7 @@ public class MovieAPIService {
         Db.update("update movie_top250 set tag_json=? where id=?", JSON.toJSON(keywordMap), topMovie.getId());
       } catch (Exception e) {
         // TODO: handle exception
+        System.out.println("false");
         continue;
       }
     }
