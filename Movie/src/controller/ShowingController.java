@@ -1,7 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.jfinal.core.Controller;
@@ -11,6 +13,7 @@ import com.jfinal.plugin.activerecord.Record;
 import kit.BaseResponse;
 import kit.ResultCodeEnum;
 import model.Showing;
+import model.Theater;
 import service.ShowingService;
 
 public class ShowingController extends Controller{
@@ -117,5 +120,27 @@ public class ShowingController extends Controller{
 		}
 		
 		this.renderJson(baseResponse);
+	}
+	
+	/**
+	 * 通过 movie_id 和 城市 获取所有电影院的该影片的场次列表
+	 */
+	public void showingsOfTheaters() {
+    BaseResponse baseResponse  = new BaseResponse();
+    String movieId = this.getPara("movie_id");
+    String city = this.getPara("city");
+    
+    if(StrKit.notBlank(movieId) && StrKit.notBlank(city)) {
+      HashMap<Theater, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city);
+      if(result != null && !result.isEmpty()) {
+        baseResponse.setData(result);
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.FAILED);
+    }
+    this.renderJson(baseResponse);
 	}
 }
