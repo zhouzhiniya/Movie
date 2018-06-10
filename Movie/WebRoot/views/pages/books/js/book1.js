@@ -118,7 +118,7 @@ $(document).ready(function(){
 				var data = resp.data;
 				$("#select-sort").html("");
 				for(var i=0; i<data.length; i++){
-					$("#select-sort").append()
+					$("#select-sort").append('');
 				}
 			}else{
 				layer.msg(resp.resultDesc);
