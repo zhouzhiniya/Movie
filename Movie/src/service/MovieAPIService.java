@@ -340,7 +340,11 @@ public class MovieAPIService {
         List<String> keywordList = HanLP.extractKeyword(sbject.getString("content"), 9);
         totalComment += sbject.getString("content");
         comment.setTags(String.join(",", keywordList));
-        comment.save();
+        try {
+          comment.save();
+        } catch (Exception e) {
+          continue;
+        }
       }
       
       
