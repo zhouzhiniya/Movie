@@ -34,7 +34,7 @@ public class ShowingService {
 	  return theater.getTheaterId();
 	}
 	
-	public HashMap<Theater, ArrayList<Showing>> getShowingsOfTheaters(int movieId, String city){
+	public HashMap<String, ArrayList<Showing>> getShowingsOfTheaters(int movieId, String city){
 	  HashMap<Integer, ArrayList<Showing>> map = new HashMap<>();
 //	  sql_theater = "select theater, theater.theater_id from showing,auditorium,movie,theater where showing.movie_id = movie.movie_id   AND showing.auditorium_id = auditorium.auditorium_id   AND auditorium.theater_id = theater.theater_id   AND theater.city = ?   AND showing.movie_id = ?";
 	  ArrayList<Showing> showings = (ArrayList<Showing>)Showing.dao.find("select showing.showing_id,movie.title,showing.show_time from showing,movie,auditorium,theater where showing.movie_id = movie.movie_id   AND showing.auditorium_id = auditorium.auditorium_id   AND auditorium.theater_id = theater.theater_id   AND showing.movie_id = ?   AND theater.city = ?", movieId, city);;
@@ -51,9 +51,9 @@ public class ShowingService {
       }
     }
 	  
-	  HashMap<Theater, ArrayList<Showing>> result = new HashMap<>();
+	  HashMap<String, ArrayList<Showing>> result = new HashMap<>();
 	  for (HashMap.Entry<Integer, ArrayList<Showing>> keyValue : map.entrySet()) {
-      Theater newTheater = Theater.dao.findById(keyValue.getKey());
+      String newTheater = Theater.dao.findById(keyValue.getKey()).getTheater();
       result.put(newTheater, keyValue.getValue());
     }
 	  

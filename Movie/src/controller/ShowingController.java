@@ -131,7 +131,7 @@ public class ShowingController extends Controller{
     String city = this.getPara("city");
     
     if(StrKit.notBlank(movieId) && StrKit.notBlank(city)) {
-      HashMap<Theater, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city);
+      HashMap<String, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city);
       if(result != null && !result.isEmpty()) {
         baseResponse.setData(result);
         baseResponse.setResult(ResultCodeEnum.SUCCESS);
