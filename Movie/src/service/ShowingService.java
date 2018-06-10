@@ -9,7 +9,9 @@ import model.Showing;
 public class ShowingService {
 	//根据时间获取所有的放映厅及放映时间
 	public List<Showing> getAllAuditoriums(String time,String city,String movie_id) {
-		return Showing.dao.find("select theater.theater_id,show_time,showing_id from showing,auditorium,theater where showing.auditorium_id = auditorium.auditorium_id and auditorium.theater_id = theater.theater_id and date_format(show_time,'%Y-%m-%d') = ? and movie_id = ? and city = ?",time,Integer.parseInt(movie_id),city); 
+		String sql = "select theater.theater_id,theater,show_time,showing_id from showing,auditorium,theater where showing.auditorium_id = auditorium.auditorium_id and auditorium.theater_id = theater.theater_id and Date(show_time) = '"+time+"' and movie_id = "+Integer.parseInt(movie_id)+" and city = '"+city+"'";
+		System.out.println(sql);
+		return Showing.dao.find(sql); 
 	}
 	
 	//判断某天是否有排片
