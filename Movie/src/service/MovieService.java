@@ -132,7 +132,19 @@ public class MovieService {
     return result;
   }
   
-  public ArrayList<Movie> getExoMoviesByUserId(int userId) {
+  /**
+   * 根据用户id推荐电影
+   * @param userId
+   * @return
+   */
+  public ArrayList<MovieTop250> recommendByUserId(int userId){
+    ArrayList<MovieTop250> result = new ArrayList<>();
+    ArrayList<MovieTop250> matchMovies = this.getExoMoviesByUserId(userId);
+    //TODO
+    return result;
+  }
+  
+  public ArrayList<MovieTop250> getExoMoviesByUserId(int userId) {
     List<Booking> userBookings = Booking.dao.find("select * from booking where user_id=?", userId);
     ArrayList<String> userFaTypeses = new ArrayList<>();
     for (Booking booking : userBookings) {
@@ -158,6 +170,7 @@ public class MovieService {
     }
     return null;
   }
+  
   
   //根据订票记录筛选电影类型
   public List<Movie> getMovieType(Integer uid) 
