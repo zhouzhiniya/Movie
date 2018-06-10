@@ -7,8 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import model.Booking;
 import model.DoubanComment;
 import model.Movie;
+import model.MovieTop250;
+import model.Showing;
 
 /**
  * 这个类是用来【从数据库里】获取电影信息的，Movie表会每天自动更新，一般情况下电影数据只需从此类中获取
@@ -129,9 +132,32 @@ public class MovieService {
     return result;
   }
   
-//  public getExoMoviesByUserId(int userId) {
-//    
-//  }
+  public ArrayList<Movie> getExoMoviesByUserId(int userId) {
+    List<Booking> userBookings = Booking.dao.find("select * from booking where user_id=?", userId);
+    ArrayList<String> userFaTypeses = new ArrayList<>();
+    for (Booking booking : userBookings) {
+      Showing showing = Showing.dao.findById(booking.getShowingId());
+      Movie moive = Movie.dao.findById(showing.getMovieId());
+      userFaTypeses.add(moive.getType());
+    }
+    ArrayList<String> userFaTypes = new ArrayList<>();
+    for (String str : userFaTypeses) {
+      String[] types = str.split(",");
+      for (String string : types) {
+        userFaTypes.add(string);
+      }
+    }
+    ArrayList<MovieTop250> relaMovs = new ArrayList<>();
+    for (String type : userFaTypes) {
+      String sql = "select * from movie_top250 where type like %" + type + "%";
+      List<MovieTop250> match = MovieTop250.dao.find(sql);
+      relaMovs.addAll(match);
+    }
+    for (MovieTop250 movieTop250 : relaMovs) {
+      System.out.println(movieTop250);
+    }
+    return null;
+  }
   
   //根据订票记录筛选电影类型
   public List<Movie> getMovieType(Integer uid) 
