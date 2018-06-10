@@ -381,10 +381,11 @@ public class MovieAPIService {
       }
       System.out.println(JSON.toJSON(keywordMap));
       try {
-        Db.update("update movie set tag_json=? where movie_id=?", JSON.toJSON(keywordMap), todayMovie.getMovieId());
+        Db.update("update movie set tag_json=? where movie_id=?", JSON.toJSON(keywordMap).toString(), todayMovie.getMovieId());
       } catch (Exception e) {
         // TODO: handle exception
         System.out.println("false");
+      e.printStackTrace();
         continue;
       }
     }

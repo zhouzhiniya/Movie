@@ -105,7 +105,7 @@ public class ShowingController extends Controller{
 				     System.out.println("所在周星期一的日期：" + imptimeBegin);
 				     cal.add(Calendar.DATE, Integer.parseInt(day)-1);
 				     todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
-				} 
+				}  
 				List<Showing> showings = showingService.getShowingInfoByMovieId(todayDate,movie_id,theaterId);
 				baseResponse.setData(showings);
 				baseResponse.setResult(ResultCodeEnum.SUCCESS); 

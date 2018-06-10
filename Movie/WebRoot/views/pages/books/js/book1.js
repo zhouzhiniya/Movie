@@ -4,6 +4,7 @@ var showing_id = ""		//记录选择的场次
 
 $(document).ready(function(){
 	//获取所有电影
+    var layerindex = layer.load();
 	$.ajax({
 		url: _url + '/movie/getAllMovies',
 		type: 'post',
@@ -91,6 +92,7 @@ $(document).ready(function(){
                         mySwiper.reInit();
                     }
                  });
+                layer.close(layerindex);
                 //choose film
                 $('.film-images').click(function (e) {
                 	 //visual iteractive for choose
@@ -104,6 +106,9 @@ $(document).ready(function(){
                      //data element set
                      $('.choosen-movie').val(chooseFilm);
                      movie_id = $(this).parent().attr("id");
+
+                     //获取对应电影对应时间的放映场次
+                     getAllShowings(movie_id);
 
                 })
 			}else{
@@ -120,8 +125,18 @@ $(document).ready(function(){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
 				$("#select-sort").html("");
+                //时间选择器
+                var today = new Date();
+                var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+                laydate.render({
+                  elem: '#date' ,//指定元素
+                  value: val
+                });
+                $("#date").change(function(){
+                    getAllShowings(movie_id);
+                })
 				for(var i=0; i<data.length; i++){
-					$("#select-sort").append('<option value="'+data[i]+'">'+data[i]+'</option>');
+					$("#select-sort").append('<option value="'+data[i].city+'">'+data[i].city+'</option>');
 				}
 				$("#select-sort").selectbox({
                     onChange: function (val, inst) {
@@ -130,6 +145,7 @@ $(document).ready(function(){
                             $(this).removeAttr('selected');
                         })
                         $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+                        getAllShowings(movie_id);
                     }
 
                 });
@@ -139,19 +155,17 @@ $(document).ready(function(){
 		}
 	})
 
-	//时间选择器
-	var today = new Date();
-	var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-	laydate.render({
-	  elem: '#date' ,//指定元素
-	  value: val
-	});
+	
 
-	getAllShowings();
+	
 })
 
 //根据城市和时间获取所有场次
-function getAllShowings(){
+function getAllShowings(movie_id){
+    if(movie_id == ""){
+        layer.msg("请选择电影！");
+        return;
+    }
 	$.ajax({
 		url: _url + "/theater/getTheaterByCityAndTime",
 		type: 'post',
@@ -173,4 +187,18 @@ function getAllShowings(){
 			}
 		}
 	})
+}
+
+//确认购票
+function book(){
+    if(movie_id == ""){
+        layer.msg("请选择要购买的电影！");
+        return;
+    }
+    if(showing_id == ""){
+        layer.msg("请选择场次！");
+        return;
+    }
+    $.cookie("bookmovie",movie_id);
+    $.cookie("showingid",showing_id)
 }

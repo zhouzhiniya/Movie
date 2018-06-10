@@ -5,7 +5,7 @@ $(document).ready(function(){
 	var layerindex = layer.load();
 	var movie_id = $.cookie("movie_id");
 	$.ajax({
-		url: _url + "/movie/getMovieInfoById",
+		url: _url + "/movie/recommendMovieDetail",
 		type: 'post',
 		data: {
 			movie_id: movie_id
@@ -18,6 +18,9 @@ $(document).ready(function(){
 				$("#movierate").html(data.douban_rating);
 				$("#movietime").html(data.duration);
 				var releasetime = data.release_date;
+				if(releasetime == null){
+					releasetime = "";
+				}
 				$("#movieyear").html(releasetime.split("-")[0]);
 				$("#movietype").html(data.type);
 				$("#moviedate").html(releasetime);
@@ -30,62 +33,6 @@ $(document).ready(function(){
 			}else{
 				layer.msg(resp.resultDesc);
 				layer.close(layerindex);
-			}
-		}
-	})
-
-	//获取所有的城市
-	$.ajax({
-		url: _url + '/theater/getAllCity',
-		type: 'post',
-		success: function(resp){
-			if(resp.resultCode == "30000"){
-				var data = resp.data;
-				//时间选择器
-				var today = new Date();
-				var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-				laydate.render({
-				  elem: '#date' ,//指定元素
-				  value: val
-				});
-				$("#select-sort").html("");
-				for(var i=0; i<data.length; i++){
-					$("#select-sort").append("<option value='"+data[i].city+"'>"+data[i].city+"</option>");
-				}
-				//根据城市和时间获取所有场次
-				$.ajax({
-					url: _url + "/theater/getTheaterByCityAndTime",
-					type: 'post',
-					data: {
-						movie_id: $.cookie("movie_id"),
-						city: data[0].city,
-						time: val
-					},
-					success: function(resp){
-						if(resp.resultCode == "30000"){
-							var data = resp.data;
-							if(data.length == 0){
-								$("#allShowings").html("暂时没有排片哦~~~");
-							}else{
-								
-							}
-						}else{
-							layer.msg(resp.resultDesc);
-						}
-					}
-				})
-				$("#select-sort").selectbox({
-                    onChange: function (val, inst) {
-                        $(inst.input[0]).children().each(function(item){
-                            $(this).removeAttr('selected');
-                        })
-                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
-                    	getAllShowings();
-                    }
-
-                });
-			}else{
-				layer.msg(resp.resultDesc);
 			}
 		}
 	})
