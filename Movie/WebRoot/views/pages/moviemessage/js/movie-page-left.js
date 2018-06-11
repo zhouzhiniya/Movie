@@ -1,9 +1,15 @@
 var _url = "/Movie"
+	
+	function getQueryString(name) {  
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+    var r = window.location.search.substr(1).match(reg);  
+    if (r != null) return unescape(r[2]); return null;  
+} 
 
 $(document).ready(function(){
 	//根据电影id获取所有信息
 	var layerindex = layer.load();
-	var movie_id = $.cookie("movie_id");
+	var movie_id = getQueryString('movie_id');
 	$.ajax({
 		url: _url + "/movie/getMovieInfoById",
 		type: 'post',
@@ -152,7 +158,17 @@ $(document).ready(function(){
 	
 	
 	
-	
+	function createRandomItemStyle() {
+    return {
+        normal: {
+            color: 'rgb(' + [
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160)
+            ].join(',') + ')'
+        }
+    };
+}
 	
 	
 	//文字云
@@ -164,8 +180,13 @@ $(document).ready(function(){
     },
     success: function(resp){
       if (resp.resultCode == "30000"){
-        $("#movietags").html("")
+        $("#movietags").html("");
         var data = resp.data;
+        
+        
+        
+        
+        
         var option = {
           tooltip: {//鼠标划入的提示框
             show: true
@@ -176,19 +197,13 @@ $(document).ready(function(){
             height:"100%",//所占整体高度
             gridSize: 15,//文字间距
             sizeRange: [20, 100],//文字大小[最小，最大]
-            rotationRange: [0,120],//旋转最大和最小角度
+            rotationRange: [0,0],//旋转最大和最小角度
             //rotationStep:30,//文字旋转单位，30表示30°的倍数
             shape: 'ellipse',//整体字符云展现的图形
             textStyle: {//文字样式设置
               normal: {
-                color: function() {//颜色
-                  return 'rgb(' + [//返回随机生成的颜色
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160)
-                  ].join(',') + ')';
-                }
-              },
+                color: createRandomItemStyle() 
+                },
               emphasis: {//鼠标划入样式
                 shadowBlur: 10,//文字阴影模糊度
                 shadowColor: '#333'//文字阴影颜色
