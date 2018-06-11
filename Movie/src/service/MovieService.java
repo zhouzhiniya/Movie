@@ -1,10 +1,12 @@
 package service;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +25,11 @@ import model.Movie;
 import model.MovieTop250;
 import model.Recommendation;
 import model.Showing;
+
+import com.hankcs.hanlp.corpus.io.IOUtil;
+import com.hankcs.hanlp.mining.word2vec.DocVectorModel;
+import com.hankcs.hanlp.mining.word2vec.Word2VecTrainer;
+import com.hankcs.hanlp.mining.word2vec.WordVectorModel;
 
 /**
  * 这个类是用来【从数据库里】获取电影信息的，Movie表会每天自动更新，一般情况下电影数据只需从此类中获取
@@ -232,6 +239,39 @@ public class MovieService {
       newRecomm.save();
     }
     return true;
+  }
+  
+  
+  /**
+   * 计算一个ArrayList中所有文本两两之间的相似度。
+   * @param movieTags
+   * @return HashMap<String,ArrayList<Float>>
+   */
+  public HashMap<String,ArrayList<Float>> similarity(ArrayList<String> movieTags) {
+    HashMap<String,ArrayList<Float>> ranks = new HashMap<>();
+    DocVectorModel docVectorModel;
+    try {
+      docVectorModel = new DocVectorModel(new WordVectorModel("data/msr_vectors.txt"));
+    
+    for (String tag1 : movieTags) {
+      ArrayList<Float> similarities = new ArrayList<>();
+      for (String tag2 : movieTags) {
+        float similarity = docVectorModel.similarity(tag1, tag2);
+        similarities.add(similarity);
+      }
+      if(!ranks.containsKey(tag1)) {
+        ranks.put(tag1, similarities);
+      }else {
+        ArrayList<Float> temp = ranks.get(tag1);
+        temp.addAll(similarities);
+        ranks.put(tag1, temp);
+      }
+    }
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return ranks;
   }
   
   public ArrayList<MovieTop250> getRecommendationsByUserId(int userId){
