@@ -925,10 +925,11 @@ $('#log-out').click(function(){
 		success: function(resp){
 			if(resp.resultCode == "30000")
 			{
-				window.location.reload();
+				
 			}	
 		}
 	});
+	window.location.reload();
 	
 });
 //====================== Date Function=========================

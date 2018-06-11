@@ -1,9 +1,13 @@
 var _url = "/Movie"
-
+	function getQueryString(name) {  
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+    var r = window.location.search.substr(1).match(reg);  
+    if (r != null) return unescape(r[2]); return null;  
+}
 $(document).ready(function(){
 	//根据电影id获取所有信息
 	var layerindex = layer.load();
-	var movie_id = $.cookie("movie_id");
+	var movie_id = getQueryString('movie_id');
 	$.ajax({
 		url: _url + "/movie/recommendMovieDetail",
 		type: 'post',
