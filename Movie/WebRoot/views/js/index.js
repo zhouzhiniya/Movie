@@ -261,13 +261,13 @@ $(document).ready(function(){
 
 //点击今日最佳中的更多
 function moreMovie(movieid){
-//	$.cookie("movie_id",movieid);
+	$.cookie("movie_id",movieid);
 	window.location.href = "/Movie/views/pages/moviemessage/movie-page-left.html?movie_id=" + movieid;
 }
 
 //点击推荐的更多
 function moreRecommendMovie(movieid){
-//	$.cookie("movie_id",movieid);
+	$.cookie("movie_id",movieid);
 	window.location.href = "/Movie/views/pages/moviemessage/movie-page-left-recommend.html?movie_id=" + movieid;
 }
 

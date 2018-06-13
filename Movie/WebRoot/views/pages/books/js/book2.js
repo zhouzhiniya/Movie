@@ -40,26 +40,26 @@ $(document).ready(function(){
 				var linesnumbers = {};
 				for(var i=0; i<lines.length; i++){
 					var linename = lines[i];
-					var rownum = 0;
 					var linenumber = new Array();
 					for(var j=0; j<data.length; j++){
 						var seat = data[j].seat;
 						var line = seat.split("-")[0];
 						var row = seat.split("-")[1];
 						if(line == linename){
-							rownum++;
 							linenumber.push(row);
 						}
 					}
-					allrows.push(rownum);
+					allrows.push(linenumber[linenumber.length-1]);
 					linesnumbers[linename]=linenumber;
 				}
+				console.log(allrows);
 				var longestrows = allrows[0];
 				for(var i=1; i<allrows.length; i++){
 					if(allrows[i]>longestrows){
 						longestrows = allrows[i];
 					}
 				}
+				console.log(longestrows);
 				$("#rows").html("");
 				for(var i=1; i<=longestrows; i++){
 					$("#rows").append('<span class="sits__indecator">'+i+'</span> ');
@@ -70,11 +70,11 @@ $(document).ready(function(){
 					$("#allseats").append('<div class="sits__row" id="'+lines[i]+'"></div>');
 					var allnum = linesnumbers[lines[i]];
 					var linename = lines[i];
-					for(var j=0; j<allnum.length; j++){
-						var onenum = allnum[j];
+					for(var j=1; j<=longestrows; j++){
 						var flag = false;	//判断是否已经在该位置画过格子
-						for(var k=1; k<=longestrows; k++){
-							if(onenum == k){
+						for(var k=0; k<=allnum.length; k++){
+							var onenum = allnum[k];
+							if(onenum == j){
 								//根据座位名称和showingid获取座位状态及id
 								flag = true;
 								$.ajax({
@@ -94,39 +94,7 @@ $(document).ready(function(){
 											}else{
 												$("#"+linename).append('<span class="sits__place sits-state--not" id="'+seatid+'" data-place="'+linename+onenum+'" data-price="'+price+'">'+linename+onenum+'</span>');
 											}
-											var sum = 0;
-											$('.sits__place').click(function (e) {
-							                    e.preventDefault();
-							                    var place = $(this).attr('data-place');
-							                    var ticketPrice = $(this).attr('data-price');
-							                    var seatid = $(this).attr('id');
-
-							                    if(! $(e.target).hasClass('sits-state--your')){
-
-							                        if (! $(this).hasClass('sits-state--not') ) {
-							                            $(this).addClass('sits-state--your');
-
-							                            $('.checked-place').prepend('<span class="choosen-place '+place+'">'+ place +'</span>');
-							                            seatids.push(seatid);
-							                            sum += price;
-
-							                            $('.checked-result').text('￥'+sum);
-							                        }
-							                    }
-
-							                    else{
-							                        $(this).removeClass('sits-state--your');
-							                        var arrayindex = seatids.indexOf(seatid);
-							                        if(arrayindex > -1){
-							                        	seatids.splice(arrayindex,1);
-							                        }
-							                        $('.'+place+'').remove();
-
-							                        sum -= price;
-
-							                        $('.checked-result').text('￥'+sum)
-							                    }
-							                })
+											
 										}else{
 											layer.msg(resp.resultDesc);
 										}
@@ -134,12 +102,45 @@ $(document).ready(function(){
 								})
 							}
 						}
+						console.log(flag);
 						//循环完判断flag决定是否画空白格子
 						if(!flag){
-							$("#"+linename).append('<span class="sits__place sits-price--middle" data-place="'+linename+onenum+'" data-price="'+price+'">空白格子</span>');
+							$("#"+linename).append('<span class="sits__not">1</span>');
 						}
 					}
 				}
+				var sum = 0;
+				$('.sits-price--cheap').click(function (e) {
+                    var place = $(this).attr('data-place');
+                    var ticketPrice = $(this).attr('data-price');
+                    var seatid = $(this).attr('id');
+
+                    if(! $(e.target).hasClass('sits-state--your')){
+
+                        if (! $(this).hasClass('sits-state--not') ) {
+                            $(this).addClass('sits-state--your');
+
+                            $('.checked-place').prepend('<span class="choosen-place '+place+'">'+ place +'</span>');
+                            seatids.push(seatid);
+                            sum += price;
+
+                            $('.checked-result').text('￥'+sum);
+                        }
+                    }
+
+                    else{
+                        $(this).removeClass('sits-state--your');
+                        var arrayindex = seatids.indexOf(seatid);
+                        if(arrayindex > -1){
+                        	seatids.splice(arrayindex,1);
+                        }
+                        $('.'+place+'').remove();
+
+                        sum -= price;
+
+                        $('.checked-result').text('￥'+sum)
+                    }
+                })
 			}else{
 				layer.msg(resp.resultDesc);
 			}
