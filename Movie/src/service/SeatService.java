@@ -7,10 +7,10 @@ import model.Seat;
 public class SeatService {
   
 	//根据showing_id获取放映厅的座位
-	public Seat getSeatsByShowingId(String showingid) {
+	public List<Seat> getSeatsByShowingId(String showingid) {
 		String sql = "select * from seat,showing where seat.auditorium_id = showing.auditorium_id and showing_id = " + showingid;
 		System.out.print(sql);
-		return Seat.dao.findFirst(sql);
+		return Seat.dao.find(sql);
 	}
 	
 	/**

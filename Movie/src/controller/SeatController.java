@@ -19,7 +19,7 @@ public class SeatController extends Controller{
 		
 		try {
 			//根据showing_id获取放映厅的座位
-			Seat seats = seatService.getSeatsByShowingId(showingid);
+			List<Seat> seats = seatService.getSeatsByShowingId(showingid);
 			if(seats != null) {
 				baseResponse.setData(seats);
 				baseResponse.setResult(ResultCodeEnum.SUCCESS);

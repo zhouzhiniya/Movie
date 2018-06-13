@@ -11,24 +11,23 @@ $(document).ready(function(){
 		},
 		success: function(resp){
 			if(resp.resultCode == "30000"){
-				var data = resp.data;
+				var data = resp.data;	//所有座位信息拼成的数组
 				layer.close(index);
-				var seats = data.seat.split(",");
-				var price = data.price;
+				var price = data[0].price;	//所有座位的价格相同
 				$.cookie("ticketprice",price);
 				$("#allprice").html(price);
 				//获取座位的所有行
 				var lines = new Array();
 				var lineslength = 0;
-				for(var i=0; i<seats.length; i++){
-					var seat = seats[i];
-					var line = seat.split("-")[0];
-					if(i==0){
+				for(var i=0; i<data.length; i++){
+					var seat = data[i].seat;
+					var line = seat.split("-")[0];	//行的标志，A、B、C...
+					if(i == 0){
 						lines.push(line);
 					}else{
-						if(lines!=lines[lineslength]){
+						if(lines[lineslength] != line){
 							lines.push(line);
-							lineslength++;
+							lineslength ++ ;
 						}
 					}
 				}
@@ -43,8 +42,8 @@ $(document).ready(function(){
 					var linename = lines[i];
 					var rownum = 0;
 					var linenumber = new Array();
-					for(var j=0; j<seats.length; j++){
-						var seat = seats[i];
+					for(var j=0; j<data.length; j++){
+						var seat = data[j].seat;
 						var line = seat.split("-")[0];
 						var row = seat.split("-")[1];
 						if(line == linename){
@@ -71,28 +70,29 @@ $(document).ready(function(){
 					$("#allseats").append('<div class="sits__row" id="'+lines[i]+'"></div>');
 					var allnum = linesnumbers[lines[i]];
 					var linename = lines[i];
-					for(var j=1; j<=longestrows; j++){
-						for(var k=0; k<allnum.length; k++){
-							var rowname = allnum[k];
-							if(allnum[k] == j){
+					for(var j=0; j<allnum.length; j++){
+						var onenum = allnum[j];
+						var flag = false;	//判断是否已经在该位置画过格子
+						for(var k=1; k<=longestrows; k++){
+							if(onenum == k){
 								//根据座位名称和showingid获取座位状态及id
+								flag = true;
 								$.ajax({
 									url: _url + '/seat/getSeatByNameAndShowing',
 									type: 'post',
+									async: false,
 									data: {
 										showing_id: $.cookie("showingid"),
-										seat: lines[i] + '-' + allnum[k]
+										seat: linename + '-' + onenum
 									},
 									success: function(resp){
 										if(resp.resultCode == "30000"){
 											var seatid = resp.data.seat_id;
 											var state = resp.data.seat_state;
-											console.log(seatid);
-											console.log(linename);
 											if(state == 0){
-												$("#"+linename).append('<span class="sits__place sits-price--cheap" id="'+seatid+'" data-place="'+linename+rowname+'" data-price="'+price+'">'+linename+rowname+'</span>');
+												$("#"+linename).append('<span class="sits__place sits-price--cheap" id="'+seatid+'" data-place="'+linename+onenum+'" data-price="'+price+'">'+linename+onenum+'</span>');
 											}else{
-												$("#"+linename).append('<span class="sits-state sits-state--not" id="'+seatid+'" data-place="'+linename+rowname+'" data-price="'+price+'">'+linename+rowname+'</span>');
+												$("#"+linename).append('<span class="sits__place sits-state--not" id="'+seatid+'" data-place="'+linename+onenum+'" data-price="'+price+'">'+linename+onenum+'</span>');
 											}
 											var sum = 0;
 											$('.sits__place').click(function (e) {
@@ -132,12 +132,11 @@ $(document).ready(function(){
 										}
 									}
 								})
-							}else{
-								//空白格子
-								
-								$("#"+linename).append('<span class="sits-state sits-price--middle" id="'+seatid+'" data-place="'+linename+rowname+'" data-price="'+price+'">'+linename+rowname+'</span>');
-										
 							}
+						}
+						//循环完判断flag决定是否画空白格子
+						if(!flag){
+							$("#"+linename).append('<span class="sits__place sits-price--middle" data-place="'+linename+onenum+'" data-price="'+price+'">空白格子</span>');
 						}
 					}
 				}
