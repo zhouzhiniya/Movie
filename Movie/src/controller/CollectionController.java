@@ -1,36 +1,34 @@
 package controller;
 
 import java.util.List;
-
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
-
 import kit.BaseResponse;
 import kit.ResultCodeEnum;
-import model.Booking;
-import service.BookingService;
+import model.Collection;
+import service.CollectionService;
 
-public class BookingController extends Controller{
-	BookingService bookingService = new BookingService();
-	public void addOneBooking() {
+public class CollectionController  extends Controller{
+	CollectionService collectionService = new CollectionService();
+	
+	public void addOneColletion() {
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
 			String user_id = this.getSessionAttr("user_id");
-			String showing_id = this.getPara("showing_id");
-			String seat_id = this.getPara("seat_id");
+			String movie_id = this.getPara("movie_id");
 			
-			if (StrKit.isBlank(user_id)||StrKit.isBlank(showing_id)||StrKit.isBlank(seat_id))
+			if (StrKit.isBlank(user_id)||StrKit.isBlank(movie_id))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
 			else
 			{
-				String str = seat_id;
-				String[] seatid = str.split(",");
-				for(int i=0;i<seatid.length;i++) {
-					int bookId = bookingService.addBooking(user_id, showing_id, seatid[i]);
-					baseResponse.setData(bookId);
+				String str = movie_id;
+				String[] movieid = str.split(",");
+				for(int i=0;i<movieid.length;i++) {
+					int collectionId = collectionService.addCollection(user_id, movieid[i]);
+					baseResponse.setData(collectionId);
 				}
 			
 				baseResponse.setResult(ResultCodeEnum.SUCCESS);
@@ -45,8 +43,8 @@ public class BookingController extends Controller{
 		}
 		
 	}
-	//根据用户ID查询订单
-	public void getBookingInfoByUid() 
+	//根据用户id查询收藏夹
+	public void getCollectionByUid() 
 	{
 		BaseResponse baseResponse = new BaseResponse();
 		try
@@ -57,7 +55,7 @@ public class BookingController extends Controller{
 				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
 			}else
 			{
-				List<Booking> result = bookingService.getUserBookingInfos(Integer.parseInt(uid));
+				List<Collection> result = collectionService.getCollectionInfos(Integer.parseInt(uid));
 				if(result!=null)
 				{
 					baseResponse.setData(result);
@@ -72,26 +70,27 @@ public class BookingController extends Controller{
 			baseResponse.setResult(ResultCodeEnum.FAILED);
 			e.printStackTrace();
 		}
-		
 	}
-	//根据订单号查询订单
-	public void getBookingInfoByBookid() 
+	
+	//删除收藏夹的内容
+	public void deleteCollectionById() 
 	{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String bookid = this.getPara("booking_id");
-			if(StrKit.isBlank(bookid))
+			String collectionId = this.getPara("collection_id");
+			if(StrKit.isBlank(collectionId))
 			{
-				baseResponse.setResult(ResultCodeEnum.UN_LOGIN);
+				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else
 			{
-				Booking result = bookingService.getBookingInfoById(Integer.parseInt(bookid));
-				if(result!=null)
-				{
-					baseResponse.setData(result);
-					baseResponse.setResult(ResultCodeEnum.SUCCESS);
+				String str =collectionId;
+				String[] collection_id = str.split(",");
+				for(int i=0;i<collection_id.length;i++) {
+					boolean cId = collectionService.deleteCollection(collection_id[i]);
+					baseResponse.setData(cId);
 				}
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
 			}
 			System.out.println(baseResponse);
 			this.renderJson(baseResponse);
@@ -101,6 +100,6 @@ public class BookingController extends Controller{
 			baseResponse.setResult(ResultCodeEnum.FAILED);
 			e.printStackTrace();
 		}
-		
 	}
+	
 }
