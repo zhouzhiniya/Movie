@@ -18,6 +18,7 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("auditorium", "auditorium_id", Auditorium.class);
 		arp.addMapping("booking", "booking_id", Booking.class);
+		arp.addMapping("collection", "collection_id", Collection.class);
 		arp.addMapping("comment", "comment_id", Comment.class);
 		arp.addMapping("douban_comment", "comment_id", DoubanComment.class);
 		arp.addMapping("douban_review_top250", "review_id", DoubanReviewTop250.class);
