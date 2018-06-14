@@ -17,6 +17,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
 import controller.BookingController;
+import controller.CollectionController;
 import controller.IndexController;
 import controller.MovieController;
 import controller.SeatController;
@@ -57,6 +58,7 @@ public class CommonConfig extends JFinalConfig
 		me.add("/seat",SeatController.class);
 		me.add("/user",UserController.class);
 		me.add("/booking",BookingController.class);
+		me.add("/Collection",CollectionController.class);
 	}
 
 	@Override
