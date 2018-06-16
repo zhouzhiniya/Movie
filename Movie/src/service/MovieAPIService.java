@@ -188,20 +188,31 @@ public class MovieAPIService {
     return result;
   }
   
+  public Movie searchMovieByName(String movieTitle) {
+    return Movie.dao.findFirst("select * from movie where movie.title = ?", movieTitle);
+  }
+  
   /**
-   * 向数据库保存今日上映的电影
+   * 向数据库保存今日上映的电影，若电影已存在则修改其日期
    * @return
    */
   public boolean saveTodayMovies() {
+    Calendar cal = Calendar.getInstance();
     ArrayList<Movie> todayMovies = this.getTodayMovies();
-    boolean saved = false;
     for (Movie movie : todayMovies) {
-      saved = movie.save();
+      Movie existed = this.searchMovieByName(movie.getTitle());
+      if(existed != null) {
+        existed.setDate(cal.getTime());
+        if(!existed.update()) {
+          return false;
+        }
+      }else {
+        if(!movie.save()) {
+          return false;
+        }
+      }
     }
-    if(saved) {
-      return true;
-    }
-    return false;
+    return true;
   }
   
   /**
