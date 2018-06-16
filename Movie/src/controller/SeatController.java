@@ -53,5 +53,25 @@ public class SeatController extends Controller{
     this.renderJson(baseResponse);
 	  
 	}
+	
+	
+	//根据影厅id获取位置
+	public void getSeatsByAuditoriumId() {
+		BaseResponse baseResponse = new BaseResponse();
+		String roomid = this.getPara("roomId");
+		
+		if(StrKit.isBlank(roomid)) {
+			baseResponse.setResult(ResultCodeEnum.MISS_PARA);
+		}else {
+			List<Seat> result = seatService.getSeatsByAuditoriumId(roomid);
+			if(result == null) {
+				baseResponse.setResult(ResultCodeEnum.FAILED);
+			}else {
+				baseResponse.setData(result);
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+			}
+		}
+		this.renderJson(baseResponse);
+	}
 
 }

@@ -47,13 +47,13 @@
   font-weight: 500;
 }
 .each-movie{
-  float: left;
   margin-top: 10px;
   color: white;
-  width: 350px;
+  width: 20%;
+  display: inline-block;
+  vertical-align: top;
 }
 .el__data{
-  float: left;
   width: 100%;
 }
 
@@ -68,7 +68,7 @@
 }
 .each-movie-session{
   color: white;
-  float: left;
+  display: inline-block;
   width: calc(100% - 350px);
   height: 335px;
   margin-top: 25px;

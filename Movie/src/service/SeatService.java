@@ -82,4 +82,8 @@ public class SeatService {
     }
     return seats;
   }
+  
+  public List<Seat> getSeatsByAuditoriumId(String roomid){
+	  return Seat.dao.find("select * from seat,auditorium where seat.auditorium_id = auditorium.auditorium_id and seat.auditorium_id = ",Integer.parseInt(roomid));
+  }
 }
