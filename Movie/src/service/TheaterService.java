@@ -84,7 +84,7 @@ public Record validateTheaterByPhone(String phone)
 				Seat seat = new Seat();
 				seat.set("seat", allSeats[i]);
 				seat.set("auditorium_id", auditoriumId);
-				seat.set("seat_state", 0);
+
 				boolean setSeat = seat.save();
 				if(!setSeat) {
 					return false;
