@@ -320,6 +320,11 @@ public class MovieAPIService {
   public boolean saveMovieComments100_Douban() {
     List<Movie> todayMovies = getAllTodayMovies();
     
+    //清空表
+    if(todayMovies != null) {
+      Db.update("truncate table douban_comment"); 
+    }
+    
     //保存记录
     for (Movie todayMovie : todayMovies) {
       JSONObject DoubanComments = this.movieComments100_Douban(todayMovie.getDoubanId());
