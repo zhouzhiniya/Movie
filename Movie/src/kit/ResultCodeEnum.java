@@ -26,8 +26,10 @@ public enum ResultCodeEnum
 	IMG_WRITE_ERROR("50002","文件写入服务器出现错误"),
 	IMG_URL_ERROR("50003","文件不存在"),
 	
-	RECO_ERROR("50004","人脸识别失败");
-	
+	RECO_ERROR("50004","人脸识别失败"),
+  
+  
+	SHOWTIME_CONFLICT("60000", "放映时间冲突");
 	
 	private String code;
     private String desc;

@@ -59,4 +59,25 @@ public class ShowingService {
 	  
 	  return result;
 	}
+	
+	
+	public boolean showTimeAvailable(String time, int auditoriumId) {
+	  if(Showing.dao.find("select * from showing where auditorium_id=? AND show_time <= ? AND end_time >= ?",auditoriumId, time, time) != null) {
+	    return false;
+	  }
+	  return true;
+	}  
+	
+  //新增排片
+  public boolean addShowing(String movie_id,String show_time,String auditorium_id,String price) {
+    if(!this.showTimeAvailable(show_time, Integer.parseInt(auditorium_id))) {
+      return false;
+    }
+    Showing showing = new Showing();
+    showing.set("movie_id", Integer.parseInt(movie_id));
+    showing.set("show_time", show_time);
+    showing.set("auditorium_id", Integer.parseInt(auditorium_id));
+    showing.set("price", price);
+    return showing.save();
+  }
 }

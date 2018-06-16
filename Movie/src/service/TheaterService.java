@@ -84,7 +84,7 @@ public Record validateTheaterByPhone(String phone)
 				Seat seat = new Seat();
 				seat.set("seat", allSeats[i]);
 				seat.set("auditorium_id", auditoriumId);
-				seat.set("seat_state", 0);
+
 				boolean setSeat = seat.save();
 				if(!setSeat) {
 					return false;
@@ -95,16 +95,7 @@ public Record validateTheaterByPhone(String phone)
 			return ifAddAuditorium;
 		}
 	}
-	
-	//新增排片
-	public boolean addShowing(String movie_id,String show_time,String auditorium_id,String price) {
-		Showing showing = new Showing();
-		showing.set("movie_id", Integer.parseInt(movie_id));
-		showing.set("show_time", show_time);
-		showing.set("auditorium_id", Integer.parseInt(auditorium_id));
-		showing.set("price", price);
-		return showing.save();
-	}
+
 	
 	//获取所有 影院所在的城市
 	public List<Theater> getAllCity() {
