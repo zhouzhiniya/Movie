@@ -33,11 +33,11 @@ public abstract class BaseBooking<M extends BaseBooking<M>> extends Model<M> imp
 		return get("showing_id");
 	}
 
-	public void setSeatId(java.lang.Integer seatId) {
+	public void setSeatId(java.lang.String seatId) {
 		set("seat_id", seatId);
 	}
 
-	public java.lang.Integer getSeatId() {
+	public java.lang.String getSeatId() {
 		return get("seat_id");
 	}
 
