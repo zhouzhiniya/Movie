@@ -69,12 +69,14 @@ public class SeatService {
       seats.addAll(available);
       for (Seat seat : seats) {
         seat.put("available", 0);
+        System.out.println(seat);
       }
     }
     if(notAvailable != null && !notAvailable.isEmpty()) {
       seats.addAll(notAvailable);
       for (Seat seat : seats) {
         seat.put("available", 1);
+        System.out.println(seat);
       }
     }
     if(seats.isEmpty()) {
@@ -88,6 +90,6 @@ public class SeatService {
   }
   
   public List<Seat> getSeatsByAuditoriumId(String roomid){
-	  return Seat.dao.find("select * from seat,auditorium where seat.auditorium_id = auditorium.auditorium_id and seat.auditorium_id = ",Integer.parseInt(roomid));
+	  return Seat.dao.find("select * from seat,auditorium where seat.auditorium_id = auditorium.auditorium_id and seat.auditorium_id = ?",Integer.parseInt(roomid));
   }
 }

@@ -72,7 +72,7 @@ $(document).ready(function(){
 					var linename = lines[i];
 					for(var j=1; j<=longestrows; j++){
 						var flag = false;	//判断是否已经在该位置画过格子
-						for(var k=0; k<=allnum.length; k++){
+						for(var k=0; k<allnum.length; k++){
 							var onenum = allnum[k];
 							if(onenum == j){
 								//根据座位名称和showingid获取座位状态及id
