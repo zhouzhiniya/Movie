@@ -29,8 +29,8 @@ public class ShowingService {
 	
 	//判断某天是否有排片
 	public List<Showing> ifHasShowing(String date,String theaterid){
-		String sql = ("select showing.movie_id,show_time,title from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+theaterid);
-		return Showing.dao.find(sql);
+		String sql = ("select showing.movie_id,title from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = ? and theater_id = ? GROUP BY showing.movie_id,title");
+		return Showing.dao.find(sql, date, theaterid);
 	}
 	
 	public List<Showing> getShowingInfoByMovieId(String date,String movie_id,String theaterid){
