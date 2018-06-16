@@ -307,9 +307,9 @@ public class MovieService {
     return newTags;
   }
   
-  public boolean setMovieDate(int movieId, Date date) {
+  public boolean setMovieDate(int movieId, String date) {
     Movie movie = Movie.dao.findById(movieId);
-    movie.setDate(date);
+    movie.set("date", date);
     return movie.update();
   }
 
