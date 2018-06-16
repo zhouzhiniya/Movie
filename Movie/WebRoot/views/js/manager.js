@@ -156,7 +156,7 @@ var allAuditoriumInfoId = new Array();
 					}else{//如果今天排了片子			
 						
 						$('#do').show();
-						$('#no-do').hide();			
+						//$('#no-do').hide();			
 						
 						var result = resp.data.showinginfo;
 						$('#do').find('.el__data').children('.each-movie').html('');

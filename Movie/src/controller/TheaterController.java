@@ -97,6 +97,7 @@ public class TheaterController extends Controller{
 	        baseResponse.setData(conflicts);
 				}else {
 				  for (Showing showing : showings) {
+				    System.out.println(showing.getStr("show_time"));
 				    movieService.setMovieDate(showing.getMovieId(), showing.getShowTime());
           }
           baseResponse.setResult(ResultCodeEnum.SUCCESS);
