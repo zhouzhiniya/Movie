@@ -6,10 +6,13 @@ var _url = "/Movie"
     if (r != null) return unescape(r[2]); return null;  
 } 
 
+var movie_id = ""
+
 $(document).ready(function(){
+	$("#commentcontent").val("");
 	//根据电影id获取所有信息
 	var layerindex = layer.load();
-	var movie_id = getQueryString('movie_id');
+	movie_id = getQueryString('movie_id');
 	$.ajax({
 		url: _url + "/movie/getMovieInfoById",
 		type: 'post',
@@ -52,7 +55,11 @@ $(document).ready(function(){
 				var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
 				laydate.render({
 				  elem: '#date' ,//指定元素
-				  value: val
+				  value: val,
+				  min: val,
+				  done: function(value){
+                    getAllShowings();
+                  }
 				});
 				$("#date").change(function(){
 					getAllShowings();
@@ -116,7 +123,7 @@ $(document).ready(function(){
                                 '<div class="comment__images">'+
                                     '<img src="http://placehold.it/50x50">'+
                                 '</div>'+
-                                '<a class="comment__author"><span class="social-used fa fa-facebook"></span>'+data[i].user_name+'</a>'+
+                                '<a class="comment__author"><span class="social-used fa fa-facebook"></span>'+data[i].name+'</a>'+
                                 '<p class="comment__date">'+data[i].created_at+'</p>'+
                                 '<p class="comment__message">'+data[i].content+'</p>'+
                             '</div>')
@@ -238,7 +245,7 @@ function getAllShowings(){
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
-				if(data.length == 0){
+				if(data.length == 0 || data==null){
 					$("#allShowings").html("暂时没有排片哦~~~");
 				}else{
 
@@ -252,6 +259,7 @@ function getAllShowings(){
 
 //评论
 function addcomment(){
+	var index = layer.load();
 	var content = $("#commentcontent").val();
 	if(content == ""){
 		layer.msg("请输入评论内容！");
@@ -266,10 +274,26 @@ function addcomment(){
 		},
 		success: function(resp){
 			if(resp.resultCode == "30000"){
+				layer.close(index);
 				layer.msg("评论成功！");
-				window.href.reload();
+				window.location.reload();
 			}else{
 				layer.msg(resp.resultDesc);
+			}
+		}
+	})
+}
+
+function bookMovie(){
+	$.ajax({
+		url: _url + "/user/checkLogin",
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30002"){
+				//未登录
+				layer.msg("还未登录，请登录！");
+			}else if(resp.resultCode == "30007"){
+				window.location.href = _url + "/views/pages/books/book1.html";
 			}
 		}
 	})

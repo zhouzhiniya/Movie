@@ -131,7 +131,8 @@ $(document).ready(function(){
                 laydate.render({
                   elem: '#date' ,//指定元素
                   value: val,
-                  change: function(value){
+                  min: val,
+                  done: function(value){
                     getAllShowings(movie_id);
                   }
                 });
@@ -178,33 +179,37 @@ function getAllShowings(movie_id){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
                 $("#allShowings").html("");
-				for(var key in data){
-                    var alltime = data[key];
-                    $("#allShowings").append('<div class="time-select__group group--first">'+
-                                                '<div class="col-sm-3">'+
-                                                  '<p class="time-select__place">'+key+'</p>'+
-                                                '</div>'+
-                                                '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
-                                                '</ul>'+
-                                              '</div>');
-                    for(var i=0; i<alltime.length; i++){
-                        $("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+				if(data!=null){
+                    for(var key in data){
+                        var alltime = data[key];
+                        $("#allShowings").append('<div class="time-select__group group--first">'+
+                                                    '<div class="col-sm-3">'+
+                                                      '<p class="time-select__place">'+key+'</p>'+
+                                                    '</div>'+
+                                                    '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
+                                                    '</ul>'+
+                                                  '</div>');
+                        for(var i=0; i<alltime.length; i++){
+                            $("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                        }
                     }
+                    $('.time-select__item').click(function (){
+                        //visual iteractive for choose
+                        $('.time-select__item').removeClass('active');
+                        $(this).addClass('active');
+
+                        //data element init
+                        var chooseTime = $(this).attr('data-time');
+                         $('.choose-indector--time').find('.choosen-area').text(chooseTime);
+
+                        //data element init
+                        showing_id = $(this).attr("id");
+                    });
+                }else{
+                    $("#allShowings").html("暂时没有排片哦~~~");
                 }
-                $('.time-select__item').click(function (){
-                    //visual iteractive for choose
-                    $('.time-select__item').removeClass('active');
-                    $(this).addClass('active');
-
-                    //data element init
-                    var chooseTime = $(this).attr('data-time');
-                     $('.choose-indector--time').find('.choosen-area').text(chooseTime);
-
-                    //data element init
-                    showing_id = $(this).attr("id");
-                });
 			}else{
-				$("#allShowings").html("暂时没有排片哦~~~");
+				layer.msg(resp.resultDesc);
 			}
 		}
 	})
