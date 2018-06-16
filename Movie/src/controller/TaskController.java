@@ -12,6 +12,7 @@ public class TaskController implements ITask{
 		System.out.println("----任务开始调度----");
 		MovieAPIService ser = new MovieAPIService();
 		ser.saveTodayMovies();
+		ser.saveMovieComments100_Douban();
 	}
 
 	@Override
