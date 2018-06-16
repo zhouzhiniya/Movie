@@ -493,7 +493,7 @@ public class TheaterController extends Controller{
 		try
 		{
 			this.removeSessionAttr("theater_id");
-			//this.redirect("/"); // 璺宠浆鍒發ogin鐣岄潰
+			this.redirect("/views/pages/manager/manager.html"); // 璺宠浆鍒發ogin鐣岄潰
 		}
 		catch (Exception e)
 		{

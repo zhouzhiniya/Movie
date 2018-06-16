@@ -26,7 +26,7 @@ public class MovieCommentService {
    * @return
    */
   public List<Comment> getCommentByMovieId(int movieId){
-    List<Comment> result = Comment.dao.find("select * from comment where movie_id = ?", movieId);
+    List<Comment> result = Comment.dao.find("select * from comment,user_info where comment.user_id = user_info.user_id and movie_id = ?", movieId);
     return result;
   }
   

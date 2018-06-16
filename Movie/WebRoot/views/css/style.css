@@ -4505,9 +4505,9 @@ ul#navigation a:hover {
 
 .comment .comment__message {
   clear: both;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 21px;
-  margin-top: 7px;
+  padding-top: 10px;
 }
 
 .comment .comment__reply {
