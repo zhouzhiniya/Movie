@@ -40,7 +40,7 @@ public class SeatService {
 	 */
 	public List<Seat> availableSeats(int showingId){
 	  String sql = "SELECT seat.seat_id,seat.auditorium_id,seat.seat FROM seat, auditorium, showing WHERE seat.seat_id NOT IN ( SELECT seat_id FROM booking WHERE booking.showing_id = ? ) AND seat.auditorium_id = auditorium.auditorium_id AND showing.auditorium_id = auditorium.auditorium_id AND showing.showing_id = ?";
-	  List<Seat> seats = Seat.dao.find(sql, showingId);
+	  List<Seat> seats = Seat.dao.find(sql, showingId, showingId);
 	  return seats;
 	}  
 	

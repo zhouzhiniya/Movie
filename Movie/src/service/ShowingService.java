@@ -29,12 +29,12 @@ public class ShowingService {
 	
 	//判断某天是否有排片
 	public List<Showing> ifHasShowing(String date,String theaterid){
-		String sql = ("select showing.movie_id,show_time,title from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+theaterid);
+		String sql = ("select showing.movie_id,show_time,title from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+Integer.parseInt(theaterid));
 		return Showing.dao.find(sql);
 	}
 	
 	public List<Showing> getShowingInfoByMovieId(String date,String movie_id,String theaterid){
-		String sql = ("select * from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+theaterid+" and movie.movie_id = "+movie_id);
+		String sql = ("select * from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+Integer.parseInt(theaterid)+" and movie.movie_id = "+Integer.parseInt(movie_id));
 		return Showing.dao.find(sql);
 	}
 	

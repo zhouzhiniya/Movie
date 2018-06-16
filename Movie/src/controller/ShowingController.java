@@ -49,7 +49,7 @@ public class ShowingController extends Controller{
 				     Date imptimeBegin = cal.getTime();  
 				     System.out.println("所在周星期一的日期：" + imptimeBegin);
 				     cal.add(Calendar.DATE, Integer.parseInt(day)-1);
-				     System.out.println(cal.get(Calendar.MONTH + 1));
+				     System.out.println(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE));
 				     todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
 				}
 			     
@@ -75,7 +75,7 @@ public class ShowingController extends Controller{
 		this.renderJson(baseResponse);
 	}
 	
-	//获取某部电影在某天的排片情况
+	//获取某部电影在某天的排片情况 
 	public void getShowingInfoByMovieId() {
 		BaseResponse baseResponse  = new BaseResponse();
 		String day = this.getPara("day");
