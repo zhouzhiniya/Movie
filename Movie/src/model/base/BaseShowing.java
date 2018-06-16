@@ -33,6 +33,14 @@ public abstract class BaseShowing<M extends BaseShowing<M>> extends Model<M> imp
 		return get("show_time");
 	}
 
+	public void setEndTime(java.util.Date endTime) {
+		set("end_time", endTime);
+	}
+
+	public java.util.Date getEndTime() {
+		return get("end_time");
+	}
+
 	public void setAuditoriumId(java.lang.Integer auditoriumId) {
 		set("auditorium_id", auditoriumId);
 	}
