@@ -56,7 +56,7 @@
 
         <div class="function-block" id="menu-list" >
           <div class="function-block-item" id="this-week">本周历史排片</div>
-          <div class="function-block-item" id="do-it">今日排片</div>
+          <div class="function-block-item" id="do-it">排片</div>
           <div class="function-block-item" id="room-setting">影厅设置</div>
         </div>
                 
@@ -312,9 +312,13 @@
       </div>
         </section>
         <section id="do-it-tab" class="container my-tab" style="display: none;">
-          <h2 id='target' class="page-heading heading--outcontainer today-movie">排片</h2>
+          <h2 id='target' class="page-heading heading--outcontainer today-movie">排片日期</h2>
+          <div class="login" style="background-color: unset;padding-top: 0">
+            <input class="login__input" id="showtime" style="width:unset;color: #000;margin-left: 40px" type="text" placeholder="请选择时间">
+          </div>
+          <h2 id='target' class="page-heading heading--outcontainer today-movie" style="margin-top: 10px">排片</h2>
           <div id="do"  style="display: none">
-            <div class="step-title">今日已完成排片</div>
+            <div class="step-title">已完成排片</div>
             <hr style="margin-left:45px;" />
           <div class="el__data" style="width: calc(100% - 45px);margin-left: 45px;">
                   <div class="each-movie">

@@ -6,6 +6,16 @@ $(document).ready(function(){
   		elem: '.showing-time' ,
   		type: 'time'//指定元素
 	});
+
+	//时间选择器
+	var today = new Date();
+	var val = today.getFullYear() + "/" + (today.getMonth()+1) + "/" + today.getDate();
+	laydate.render({
+	  elem: '#showtime' ,//指定元素
+	  value: val,
+	  min: val,
+	  format: 'yyyy/MM/dd'
+	});
 	
 //	$("#login-form").show();
 //	$("#register-form").hide();
@@ -522,7 +532,15 @@ $('#add-showing').click(function(){
 	}
 	
 
-	refreshMovie();
+	// refreshMovie();
+	$('#showingmovie'+growing_id).html('<option value ="">电影</option>');
+
+	$('#do-it-tab').find('.each-choose-movie').each(function(){
+		var id_value = $(this).attr('movie-id');
+		var name = $(this).find('.each-movie-name').text();
+
+		$('#showingmovie'+growing_id).append('<option value ="' + id_value + '">' + name + '</option>');
+	});
 	var id = "#test" + growing_id ;
 
 	laydate.render({
@@ -556,6 +574,7 @@ $('body').on('click','.delete-showing-icon',function(){
 });
 
 $('#complete').click(function(){
+	var showdate = $("#showtime").val();
 	layer.confirm(
 		'确定完成吗？',
 		{title:'操作确认'},
@@ -567,25 +586,25 @@ $('#complete').click(function(){
 			var movies = "";
 			var empty = false;
 			$('#showings').find('.showing-each').each(function(){
-			  if($(this).children('.showing-movie').val() == ''){
-			    layer.msg('不能空！！！！！！！！！！');
-			    empty = true;
-			  }
-        if($(this).children('.showing-room').val() == ''){
-          layer.msg('不能空！！！！！！！！！！');
-          empty = true;
-        }
-        if($(this).children('.showing-time').val() == ''){
-          layer.msg('不能空！！！！！！！！！！');
-          empty = true;
-        }
-        if($(this).children('.showing-price').val() == ''){
-          layer.msg('不能空！！！！！！！！！！');
-          empty = true;
-        }
+				if($(this).children('.showing-movie').val() == ''){
+				layer.msg('不能空！！！！！！！！！！');
+				empty = true;
+				}
+		        if($(this).children('.showing-room').val() == ''){
+		          layer.msg('不能空！！！！！！！！！！');
+		          empty = true;
+		        }
+		        if($(this).children('.showing-time').val() == ''){
+		          layer.msg('不能空！！！！！！！！！！');
+		          empty = true;
+		        }
+		        if($(this).children('.showing-price').val() == ''){
+		          layer.msg('不能空！！！！！！！！！！');
+		          empty = true;
+		        }
 
 				//每个场次的字符串
-				var each_showing = $(this).children('.showing-movie').val() + '-' + $(this).children('.showing-room').val() + '-' + 
+				var each_showing = $(this).children('.showing-movie').val() + '-' + $(this).children('.showing-room').val() + '-' + showdate + '-' +
 				$(this).children('.showing-time').val() + '-' + $(this).children('.showing-price').val() + ',';
 
 				movies += each_showing;
