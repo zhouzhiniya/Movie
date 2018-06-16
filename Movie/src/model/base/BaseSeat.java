@@ -33,12 +33,4 @@ public abstract class BaseSeat<M extends BaseSeat<M>> extends Model<M> implement
 		return get("auditorium_id");
 	}
 
-	public void setSeatState(java.lang.Integer seatState) {
-		set("seat_state", seatState);
-	}
-
-	public java.lang.Integer getSeatState() {
-		return get("seat_state");
-	}
-
 }

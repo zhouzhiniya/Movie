@@ -19,13 +19,17 @@ public class BookingService {
 	  }  
 	  System.out.println(token);
 	  book.setUserId(Integer.parseInt(user_id));
-	  book.setSeatId(Integer.parseInt(seat_id));
+	  book.setSeatId(seat_id);
 	  book.setShowingId(Integer.parseInt(showing_id));
 	  book.setToken(token);
 	  
 	  //预订座位后还要将座位锁定
-	  seatServ.lockSeat(seat_id);
-	  
+	  String str = seat_id;
+	  String[] seatid = str.split(",");
+		for(int i=0;i<seatid.length;i++) {
+			 seatServ.lockSeat(seatid[i]);	
+		}
+	 
 	  book.save();
 	  return book.getBookingId();
   }
