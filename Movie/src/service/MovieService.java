@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -306,9 +307,9 @@ public class MovieService {
     return newTags;
   }
   
-  public boolean setMovieDate(int movieId, String date) {
+  public boolean setMovieDate(int movieId, Date date) {
     Movie movie = Movie.dao.findById(movieId);
-    movie.set("date", date);
+    movie.setDate(date);
     return movie.update();
   }
 
