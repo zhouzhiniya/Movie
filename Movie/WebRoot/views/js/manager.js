@@ -565,7 +565,24 @@ $('#complete').click(function(){
 			layer.close(index);
 
 			var movies = "";
+			var empty = false;
 			$('#showings').find('.showing-each').each(function(){
+			  if($(this).children('.showing-movie').val() == ''){
+			    layer.msg('不能空！！！！！！！！！！');
+			    empty = true;
+			  }
+        if($(this).children('.showing-room').val() == ''){
+          layer.msg('不能空！！！！！！！！！！');
+          empty = true;
+        }
+        if($(this).children('.showing-time').val() == ''){
+          layer.msg('不能空！！！！！！！！！！');
+          empty = true;
+        }
+        if($(this).children('.showing-price').val() == ''){
+          layer.msg('不能空！！！！！！！！！！');
+          empty = true;
+        }
 
 				//每个场次的字符串
 				var each_showing = $(this).children('.showing-movie').val() + '-' + $(this).children('.showing-room').val() + '-' + 
@@ -573,6 +590,9 @@ $('#complete').click(function(){
 
 				movies += each_showing;
 			});
+			if(empty == true){
+			  return;
+			}
 
 			movies = movies.substring(0,movies.length - 1);
 			//alert(movies);
