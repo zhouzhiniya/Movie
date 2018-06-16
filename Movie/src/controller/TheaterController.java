@@ -80,7 +80,7 @@ public class TheaterController extends Controller{
 //					int month = cal.get(Calendar.MONTH) + 1;
 //					int today = cal.get(Calendar.DATE);
 					
-					show_time = show_date + show_time;
+					show_time = show_date + " " + show_time;
 					System.out.println(show_time);
 					if(!showingService.showTimeAvailable(show_time, Integer.parseInt(auditorium_id))) {
 					  conflicts.add(i);
