@@ -45,7 +45,7 @@ public class SeatService {
 	}  
 	
   /**
-   * 根据showing_id获取所有可用的seat
+   * 根据showing_id获取所有不可用的seat
    * @param showingId
    * @return
    */

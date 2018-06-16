@@ -7,7 +7,6 @@ import model.Booking;
 
 public class BookingService {
   
-  private SeatService seatServ = new SeatService();
   
   public int addBooking(String user_id, String showing_id, String seat_id) {
 	  Booking book =new Booking();
@@ -24,11 +23,6 @@ public class BookingService {
 	  book.setToken(token);
 	  
 	  //预订座位后还要将座位锁定
-	  String str = seat_id;
-	  String[] seatid = str.split(",");
-		for(int i=0;i<seatid.length;i++) {
-			 seatServ.lockSeat(seatid[i]);	
-		}
 	 
 	  book.save();
 	  return book.getBookingId();
@@ -39,6 +33,7 @@ public class BookingService {
    * @param uid
    * @return
    */
+  
   public List<Booking> getUserBookingInfos(Integer uid) 
 	{
 		return Booking.dao.find("select * from booking where user_id=?", uid);
