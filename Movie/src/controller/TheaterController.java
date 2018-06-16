@@ -19,7 +19,7 @@ import service.ShowingService;
 import service.TheaterService;
 
 public class TheaterController extends Controller{
-  SimpleDateFormat strDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //Date + Time
+  SimpleDateFormat strDateTime = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss"); //Date + Time
   
 	TheaterService theaterService = new TheaterService();
 	ShowingService showingService = new ShowingService();
