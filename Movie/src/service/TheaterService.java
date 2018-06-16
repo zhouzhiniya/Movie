@@ -111,4 +111,12 @@ public Record validateTheaterByPhone(String phone)
 	public List<Auditorium> getAuditorium(String theaterid){
 		return Auditorium.dao.find("select * from auditorium where theater_id = ?",Integer.parseInt(theaterid));
 	}
+	
+	public Theater getTheaterByAuditoriumId(int auditoriumId) {
+	  return Theater.dao.findFirst("select * from theater,auditorium where theater.theater_id = auditorium.theater_id AND auditorium.auditorium_id = ?", auditoriumId);
+	}
+	
+	public Auditorium getAuditoriumById(int auditoriumId) {
+	  return Auditorium.dao.findFirst("select * from auditorium where auditorium_id = ?",auditoriumId);
+	}
 }

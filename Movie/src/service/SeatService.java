@@ -82,4 +82,8 @@ public class SeatService {
     }
     return seats;
   }
+  
+  public Seat getSeat(int seatId) {
+    return Seat.dao.findById(seatId);
+  }
 }

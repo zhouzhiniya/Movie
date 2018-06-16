@@ -113,5 +113,9 @@ public class ShowingService {
 	  showing.save();
 	  return showing;
 	}
+	
+	public Showing getShowing(int showingId) {
+	  return Showing.dao.findById(showingId);
+	}
 
 }
