@@ -1,16 +1,25 @@
 package service;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import model.Movie;
 import model.Showing;
 import model.Theater;
 
 public class ShowingService {
+  
+  SimpleDateFormat strDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //Date + Time
+  
 	//根据时间获取所有的放映厅及放映时间
 	public List<Showing> getAllAuditoriums(String time,String city,String movie_id) {
 		String sql = "select theater.theater_id,theater,show_time,showing_id from showing,auditorium,theater where showing.auditorium_id = auditorium.auditorium_id and auditorium.theater_id = theater.theater_id and Date(show_time) = '"+time+"' and movie_id = "+Integer.parseInt(movie_id)+" and city = '"+city+"'";
@@ -62,22 +71,47 @@ public class ShowingService {
 	
 	
 	public boolean showTimeAvailable(String time, int auditoriumId) {
-	  if(Showing.dao.find("select * from showing where auditorium_id=? AND show_time <= ? AND end_time >= ?",auditoriumId, time, time) != null) {
+	  List<Showing> find = Showing.dao.find("select * from showing where auditorium_id=? AND show_time <= ? AND end_time >= ?",auditoriumId, time, time);
+	  if(find != null && !find.isEmpty()) {
+//	    System.out.println(Showing.dao.find("select * from showing where auditorium_id=? AND show_time <= ? AND end_time >= ?",auditoriumId, time, time));
 	    return false;
 	  }
 	  return true;
-	}  
+	}
 	
-  //新增排片
-  public boolean addShowing(String movie_id,String show_time,String auditorium_id,String price) {
-    if(!this.showTimeAvailable(show_time, Integer.parseInt(auditorium_id))) {
-      return false;
+	public Date calEndTime(int movie_id, String showTime) {
+	  try {
+      Date time = strDateTime.parse(showTime);
+      Movie movie = Movie.dao.findById(movie_id);
+      String duration = movie.getDuration();
+      String regex = "[^0-9]";
+      Matcher m = Pattern.compile(regex).matcher(duration);
+      duration = duration.replaceAll("\\D", "");
+      System.out.println(duration);
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(time);
+      cal.add(Calendar.MINUTE, Integer.parseInt(duration));
+      return cal.getTime();
+    } catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return null;
     }
-    Showing showing = new Showing();
-    showing.set("movie_id", Integer.parseInt(movie_id));
-    showing.set("show_time", show_time);
-    showing.set("auditorium_id", Integer.parseInt(auditorium_id));
-    showing.set("price", price);
-    return showing.save();
-  }
+	}
+	
+	//新增排片
+	public Showing addShowing(String movie_id,String show_time,String auditorium_id,String price) {
+	  if(!this.showTimeAvailable(show_time, Integer.parseInt(auditorium_id))) {
+	    return null;
+	  }
+	  Showing showing = new Showing();
+	  showing.set("movie_id", Integer.parseInt(movie_id));
+	  showing.set("show_time", show_time);
+	  showing.set("auditorium_id", Integer.parseInt(auditorium_id));
+	  showing.set("price", price);
+	  showing.setEndTime(this.calEndTime(Integer.parseInt(movie_id), show_time));
+	  showing.save();
+	  return showing;
+	}
+
 }

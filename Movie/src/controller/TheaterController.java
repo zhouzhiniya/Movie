@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,12 +14,16 @@ import kit.ResultCodeEnum;
 import model.Auditorium;
 import model.Showing;
 import model.Theater;
+import service.MovieService;
 import service.ShowingService;
 import service.TheaterService;
 
 public class TheaterController extends Controller{
+  SimpleDateFormat strDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //Date + Time
+  
 	TheaterService theaterService = new TheaterService();
 	ShowingService showingService = new ShowingService();
+	MovieService movieService = new MovieService();
 	
 	//新增影厅
 	public void addAuditorium()
@@ -60,47 +65,41 @@ public class TheaterController extends Controller{
 			}else {
 				String[] allMovies = movies.split(",");
 				ArrayList<Integer> conflicts = new ArrayList<>();
+				ArrayList<Showing> showings = new ArrayList<>();
 				for(int i=0; i<allMovies.length; i++) {
 					String[] info = allMovies[i].split("-");
 					String movie_id = info[0];
 					String auditorium_id = info[1];							
-					String show_time = info[2];
-					String price = info[3];
+					String show_date = info[2];        
+          String show_time = info[3];
+					String price = info[4];
 					
-					Calendar cal=Calendar.getInstance();  
+//					Calendar cal=Calendar.getInstance();  
 					
-					int year = cal.get(Calendar.YEAR);
-					int month = cal.get(Calendar.MONTH) + 1;
-					int today = cal.get(Calendar.DATE);
+//					int year = cal.get(Calendar.YEAR);
+//					int month = cal.get(Calendar.MONTH) + 1;
+//					int today = cal.get(Calendar.DATE);
 					
-					show_time = year + "-" + month + "-" + today + " " + show_time;
+					show_time = show_date + show_time;
 					System.out.println(show_time);
 					if(!showingService.showTimeAvailable(show_time, Integer.parseInt(auditorium_id))) {
 					  conflicts.add(i);
 					}
-//					showingService.addShowing(movie_id, show_time, auditorium_id, price);
+					Showing newShowing = showingService.addShowing(movie_id, show_time, auditorium_id, price);
+					if(newShowing!=null)
+					  showings.add(newShowing);
 				}
-				if(conflicts.isEmpty()) {
-	        for(int i=0; i<allMovies.length; i++) {
-	          String[] info = allMovies[i].split("-");
-	          String movie_id = info[0];
-	          String auditorium_id = info[1];             
-	          String show_time = info[2];
-	          String price = info[3];
-	          
-	          Calendar cal=Calendar.getInstance();  
-	          
-	          int year = cal.get(Calendar.YEAR);
-	          int month = cal.get(Calendar.MONTH) + 1;
-	          int today = cal.get(Calendar.DATE);
-	          
-	          show_time = year + "-" + month + "-" + today + " " + show_time;
-	          showingService.addShowing(movie_id, show_time, auditorium_id, price);
-	        }
-	        baseResponse.setResult(ResultCodeEnum.SUCCESS);
-				}else {
+				if(!conflicts.isEmpty()) {
+				  for (Showing showing : showings) {
+				    showing.delete();
+          }
 	        baseResponse.setResult(ResultCodeEnum.SHOWTIME_CONFLICT);
 	        baseResponse.setData(conflicts);
+				}else {
+				  for (Showing showing : showings) {
+				    movieService.setMovieDate(showing.getMovieId(), strDateTime.format(showing.getShowTime()));
+          }
+          baseResponse.setResult(ResultCodeEnum.SUCCESS);
 				}
 			}
 		} catch (Exception e) {

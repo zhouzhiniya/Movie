@@ -51,7 +51,7 @@ public class MovieService {
     Calendar cal = Calendar.getInstance();
     String today = strDate.format(cal.getTime());
     System.out.println(today);
-    List<Movie> movies = Movie.dao.find("select * from movie where date = ?", today);
+    List<Movie> movies = Movie.dao.find("select * from movie where date >= ?", today);
     return movies;
   }
   
@@ -59,7 +59,7 @@ public class MovieService {
   public List<Movie> getHigherGradeMovies() {
 	Calendar cal = Calendar.getInstance();
     String today = strDate.format(cal.getTime());
-    List<Movie> movies = Movie.dao.find("select * from movie where date = ? order by douban_rating desc", today);
+    List<Movie> movies = Movie.dao.find("select * from movie where date >= ? order by douban_rating desc", today);
     return movies;
   }
   
@@ -67,7 +67,7 @@ public class MovieService {
   public List<Movie> getRecentMovies() {
 	Calendar cal = Calendar.getInstance();
     String today = strDate.format(cal.getTime());
-    List<Movie> movies = Movie.dao.find("select * from movie where date = ? order by release_date desc", today);
+    List<Movie> movies = Movie.dao.find("select * from movie where date >= ? order by release_date desc", today);
     return movies;
   }
   
@@ -305,4 +305,11 @@ public class MovieService {
     }
     return newTags;
   }
+  
+  public boolean setMovieDate(int movieId, String date) {
+    Movie movie = Movie.dao.findById(movieId);
+    movie.set("date", date);
+    return movie.update();
+  }
+
 }
