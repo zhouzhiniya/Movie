@@ -69,18 +69,7 @@ $(document).ready(function(){
 	});//ajax end
 	
 	
-	
-	//没嵌代码的时候测试用的
-	var result = 0;
-
-	if(result == 0)
-	{
-		$('#do').hide();
-		$('#no-do').show();
-	}else{
-		$('#do').show();
-		$('#no-do').hide();				
-	}	
+		
 
 });
 var _url = '/Movie';
@@ -103,9 +92,11 @@ var allAuditoriumInfoId = new Array();
 		$('#room-setting-tab').hide(1000);
 		$('#do-it-tab').show(1000);	
 		$("#showings").html("");
+
+		$('#do-it-tab').find('.each-choose-movie').each(function(){
+			$(this).remove();
+		})
 		growing_id = 0;
-		allAuditoriumInfoName = new Array();
-		allAuditoriumInfoId = new Array();
 		
 		
 		//问今天排了没
@@ -118,46 +109,42 @@ var allAuditoriumInfoId = new Array();
 			{
 				if(resp.resultCode == "30000")
 				{
+					//清空数组
+					allAuditoriumInfoName = [];
+					allAuditoriumInfoId = [];
+
+					$.ajax({
+						type:"post",
+						url:_url + "/theater/getAuditorium",
+						data:{
+
+						},success:function(resp)
+						{
+							if(resp.resultCode == "30000")
+							{
+								for(var i = 0;i < resp.data.length;i++)
+								{
+									allAuditoriumInfoName.push(resp.data[i].auditorium);
+									allAuditoriumInfoId.push(resp.data[i].auditorium_id);
+								}	
+								
+							}else{
+								//layer.msg(resp.resultDesc);
+							}	
+						},error:function()
+						{
+							//layer.msg('服务器错误，请重试');
+						}
+					});
 					//如果今天没排片
 					if(resp.data.haveShowing == 0)
 					{
-						$('#do').hide();
-						$('#no-do').show();
-						
-
-						//清空数组
-						allAuditoriumInfoName = [];
-						allAuditoriumInfoId = [];
-
-						$.ajax({
-							type:"post",
-							url:_url + "/theater/getAuditorium",
-							data:{
-
-							},success:function(resp)
-							{
-								if(resp.resultCode == "30000")
-								{
-									for(var i = 0;i < resp.data.length;i++)
-									{
-										allAuditoriumInfoName.push(resp.data[i].auditorium);
-										allAuditoriumInfoId.push(resp.data[i].auditorium_id);
-									}	
-									
-								}else{
-									//layer.msg(resp.resultDesc);
-								}	
-							},error:function()
-							{
-								//layer.msg('服务器错误，请重试');
-							}
-						});//ajax end
+						$("#do").html("暂无排片");
+						$("#do").css("color","#fff").css("margin-left","40px");
+						//ajax end
 						
 					}else{//如果今天排了片子			
-						
-						$('#do').show();
-						//$('#no-do').hide();			
-						
+									
 						var result = resp.data.showinginfo;
 						$('#do').find('.el__data').children('.each-movie').html('');
 						
@@ -575,6 +562,14 @@ $('body').on('click','.delete-showing-icon',function(){
 
 $('#complete').click(function(){
 	var showdate = $("#showtime").val();
+	if($('#do-it-tab').find('.each-choose-movie').html()==undefined){
+		layer.msg("请选择排片电影！");
+		return;
+	}
+	if(growing_id == 0){
+		layer.msg("请添加场次！");
+		return;
+	}
 	layer.confirm(
 		'确定完成吗？',
 		{title:'操作确认'},
@@ -587,19 +582,19 @@ $('#complete').click(function(){
 			var empty = false;
 			$('#showings').find('.showing-each').each(function(){
 				if($(this).children('.showing-movie').val() == ''){
-				layer.msg('不能空！！！！！！！！！！');
+				layer.msg('请将信息填写完整！');
 				empty = true;
 				}
 		        if($(this).children('.showing-room').val() == ''){
-		          layer.msg('不能空！！！！！！！！！！');
+		          layer.msg('请将信息填写完整！');
 		          empty = true;
 		        }
 		        if($(this).children('.showing-time').val() == ''){
-		          layer.msg('不能空！！！！！！！！！！');
+		          layer.msg('请将信息填写完整！');
 		          empty = true;
 		        }
 		        if($(this).children('.showing-price').val() == ''){
-		          layer.msg('不能空！！！！！！！！！！');
+		          layer.msg('请将信息填写完整！');
 		          empty = true;
 		        }
 
@@ -629,7 +624,6 @@ $('#complete').click(function(){
 					{
 						layer.msg('已排完');
 						$('#do-it').click();
-						
 					}else{
 						layer.msg(resp.resultDesc);
 					}	
@@ -967,11 +961,12 @@ $('body').on('click','.each-rooms',function(){
 	});
 
 	$('#look-room-name').text($(this).text());
+	var roomid = $(this).attr("room-id");
 	$.ajax({
 		type:"post",
-		url:"",
+		url:_url + "/seat/getSeatsByAuditoriumId",
 		data:{
-			roomId:""
+			roomId:roomid
 		},success:function(resp){
 
 			var row = resp.data;
