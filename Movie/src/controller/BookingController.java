@@ -26,13 +26,8 @@ public class BookingController extends Controller{
 			}
 			else
 			{
-				String str = seat_id;
-				String[] seatid = str.split(",");
-				for(int i=0;i<seatid.length;i++) {
-					int bookId = bookingService.addBooking(user_id, showing_id, seatid[i]);
-					baseResponse.setData(bookId);
-				}
-			
+				int bookId = bookingService.addBooking(user_id, showing_id, seat_id);
+				baseResponse.setData(bookId);
 				baseResponse.setResult(ResultCodeEnum.SUCCESS);
 			}
 			System.out.println(baseResponse);
