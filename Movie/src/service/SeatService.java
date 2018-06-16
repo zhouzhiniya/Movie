@@ -30,6 +30,13 @@ public class SeatService {
 	
 	public Seat getSeatByNameAndShowing(String seatName, int showingId) {
 	  Seat result = Seat.dao.findFirst("select * from seat,showing where seat.auditorium_id = showing.auditorium_id AND showing.showing_id=? AND seat.seat=?", showingId, seatName);
+	  Seat avail = Seat.dao.findFirst("SELECT seat.seat_id,seat.auditorium_id,seat.seat FROM seat, auditorium, showing WHERE seat.seat_id not IN ( SELECT seat_id FROM booking WHERE booking.showing_id = ? ) AND seat.auditorium_id = auditorium.auditorium_id AND showing.auditorium_id = auditorium.auditorium_id AND showing.showing_id = ? AND seat.seat = ?",showingId, showingId, seatName);
+	  if(avail != null) {
+	    result.put("available", 0);
+	  }else {
+      result.put("available", 1);
+	  }
+	  
 	  return result;
 	}
 	
