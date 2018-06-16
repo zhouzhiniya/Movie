@@ -19,7 +19,7 @@ import service.ShowingService;
 import service.TheaterService;
 
 public class TheaterController extends Controller{
-  SimpleDateFormat strDateTime = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss"); //Date + Time
+  SimpleDateFormat strDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //Date + Time
   
 	TheaterService theaterService = new TheaterService();
 	ShowingService showingService = new ShowingService();
@@ -70,7 +70,7 @@ public class TheaterController extends Controller{
 					String[] info = allMovies[i].split("-");
 					String movie_id = info[0];
 					String auditorium_id = info[1];							
-					String show_date = info[2];        
+					String show_date = info[2].replace("/", "-");        
           String show_time = info[3];
 					String price = info[4];
 					
