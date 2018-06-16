@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class TheaterController extends Controller{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else {
 				String[] allMovies = movies.split(",");
+				ArrayList<Integer> conflicts = new ArrayList<>();
 				for(int i=0; i<allMovies.length; i++) {
 					String[] info = allMovies[i].split("-");
 					String movie_id = info[0];
@@ -73,10 +75,33 @@ public class TheaterController extends Controller{
 					
 					show_time = year + "-" + month + "-" + today + " " + show_time;
 					System.out.println(show_time);
-					
-					theaterService.addShowing(movie_id, show_time, auditorium_id, price);
+					if(!showingService.showTimeAvailable(show_time, Integer.parseInt(auditorium_id))) {
+					  conflicts.add(i);
+					}
+//					showingService.addShowing(movie_id, show_time, auditorium_id, price);
 				}
-				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+				if(conflicts.isEmpty()) {
+	        for(int i=0; i<allMovies.length; i++) {
+	          String[] info = allMovies[i].split("-");
+	          String movie_id = info[0];
+	          String auditorium_id = info[1];             
+	          String show_time = info[2];
+	          String price = info[3];
+	          
+	          Calendar cal=Calendar.getInstance();  
+	          
+	          int year = cal.get(Calendar.YEAR);
+	          int month = cal.get(Calendar.MONTH) + 1;
+	          int today = cal.get(Calendar.DATE);
+	          
+	          show_time = year + "-" + month + "-" + today + " " + show_time;
+	          showingService.addShowing(movie_id, show_time, auditorium_id, price);
+	        }
+	        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+				}else {
+	        baseResponse.setResult(ResultCodeEnum.SHOWTIME_CONFLICT);
+	        baseResponse.setData(conflicts);
+				}
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
