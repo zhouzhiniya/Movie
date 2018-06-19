@@ -34,7 +34,15 @@ $(document).ready(function(){
 				$("#actor").html(data.actors);
 				$("#moviecomment").html(data.comments_count);
 				$("#moviecontent").html(data.summary);
-				$("#movievideo").html('<video class="movie__media-item" controls="controls"><source src="'+data.video+'" type="video/mp4"></video>');
+				var forecast = data.forecast_rating;
+				if(forecast == null){
+					forecast = 0;
+				}else{
+					var str = forecast + "";
+					forecast = str.substring(0,str.indexOf('.') + 3);
+				}
+				$("#forecast").html(forecast);
+				$("#movievideo").html('<video class="movie__media-item" style="height:100%" controls="controls"><source src="'+data.video+'" type="video/mp4"></video>');
 				layer.close(layerindex);
 			}else{
 				layer.msg(resp.resultDesc);
@@ -162,22 +170,6 @@ $(document).ready(function(){
 		}
 	})
 
-	
-	
-	
-	function createRandomItemStyle() {
-    return {
-        normal: {
-            color: 'rgb(' + [
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160)
-            ].join(',') + ')'
-        }
-    };
-}
-	
-	
 	//文字云
 	$.ajax({
     url: _url + '/movie/tagsOfMovie',
@@ -189,11 +181,6 @@ $(document).ready(function(){
       if (resp.resultCode == "30000"){
         $("#movietags").html("");
         var data = resp.data;
-        
-        
-        
-        
-        
         var option = {
           tooltip: {//鼠标划入的提示框
             show: true
@@ -204,18 +191,16 @@ $(document).ready(function(){
             height:"100%",//所占整体高度
             gridSize: 15,//文字间距
             sizeRange: [20, 100],//文字大小[最小，最大]
-            rotationRange: [0,0],//旋转最大和最小角度
-            //rotationStep:30,//文字旋转单位，30表示30°的倍数
             shape: 'ellipse',//整体字符云展现的图形
-            textStyle: {//文字样式设置
-              normal: {
-                color: createRandomItemStyle() 
-                },
-              emphasis: {//鼠标划入样式
-                shadowBlur: 10,//文字阴影模糊度
-                shadowColor: '#333'//文字阴影颜色
-              }
-            },
+			textStyle: {
+			    normal: {
+			        fontFamily: '微软雅黑',
+			        color: function () {
+			            var colors = ['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+			            return colors[parseInt(Math.random() * 10)];
+			        }
+			    }
+			},
             data: data
           }]
         };
@@ -230,6 +215,20 @@ $(document).ready(function(){
 	//文字云嘿嘿
 	
 })
+
+
+	
+function createRandomItemStyle() {
+    return {
+        normal: {
+            color: 'rgb(' + [
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160)
+            ].join(',') + ')'
+        }
+    };
+}
 
 
 //根据城市和时间获取所有场次

@@ -129,9 +129,10 @@ public class ShowingController extends Controller{
     BaseResponse baseResponse  = new BaseResponse();
     String movieId = this.getPara("movie_id");
     String city = this.getPara("city");
+    String time = this.getPara("time");
     
     if(StrKit.notBlank(movieId) && StrKit.notBlank(city)) {
-      HashMap<String, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city);
+      HashMap<String, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city, time);
       if(result != null && !result.isEmpty()) {
         baseResponse.setData(result);
         baseResponse.setResult(ResultCodeEnum.SUCCESS);
