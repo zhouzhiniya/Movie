@@ -229,6 +229,10 @@ function getAllShowings(movie_id){
                         //data element init
                         showing_id = $(this).attr("id");
                     });
+                    $(".disabled-grey").unbind("click");
+                    $(".disabled-grey").click(function (){
+                         $('.choose-indector--time').find('.choosen-area').text("已停售");
+                    });
                 }else{
                     $("#allShowings").html("暂时没有排片哦~~~");
                 }
