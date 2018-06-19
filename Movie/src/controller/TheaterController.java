@@ -502,6 +502,21 @@ public class TheaterController extends Controller{
 		}
 	}
 	
+	public void deleteTheater()
+	{
+		try
+		{
+			String theaterid = this.getSessionAttr("theater_id");
+			theaterService.deleteTheaterById(Integer.parseInt(theaterid));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		exit();
+	}
+	
 	public void checkLogin() {
 		BaseResponse baseResponse = new BaseResponse();
 		try
