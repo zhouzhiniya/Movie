@@ -61,7 +61,7 @@
 
 
         <!-- Additional header buttons / Auth and direct link to booking-->
-        <div class="control-panel haslogin">
+        <div class="control-panel haslogin" style="display: none;">
           <div class="auth auth--home">
             <div class="auth__show">
               <span class="auth__image"> <img alt="" src="/Movie/views/images/31-31.png">
@@ -73,13 +73,12 @@
               <li><a href="/Movie/views/pages/orders/orders.html" class="auth__function-item">订单记录</a></li>
               <li><a href="/Movie/user/exit" class="auth__function-item">退出登录</a></li>
             </ul>
-
           </div>
+        	<!-- <a href="#" class="btn btn--sign">管理员登录</a> -->
           <a href="/Movie/views/pages/books/book1.html" class="btn btn-md btn--warning btn--book btn-control--home">购票</a>
         </div>
-
         <!-- Main website navigation-->
-        <nav id="navigation-box" class="nologin">
+        <nav id="navigation-box" class="nologin" style="display: none;">
           <!-- Toggle for mobile menu mode -->
           <a href="#" id="navigation-toggle">
             <span class="menu-icon"> <span class="icon-toggle" role="button" aria-label="Toggle Navigation"> <span class="lines"></span>
@@ -91,7 +90,8 @@
 
           <!-- Additional header buttons / Auth and direct link to booking-->
           <div class="control-panel">
-            <a href="#" class="btn btn--sign login-window">登录</a>
+            <a href="#" class="btn btn--sign login-window">用户登录</a>
+        	<a href="/Movie/views/pages/manager/manager.html" class="btn btn--sign">管理员登录</a>
             <a href="#" class="btn btn-md btn--warning btn--book login-window">购票</a>
           </div>
         </nav>

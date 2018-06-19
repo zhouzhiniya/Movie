@@ -40,6 +40,7 @@ $(document).ready(function(){
 				{
 					//未登录
 					$('#login-btn').show();
+					$("#user-login").show();
 					$('#already-login').hide();
 					
 					$('#no-login').show();
@@ -51,6 +52,7 @@ $(document).ready(function(){
 				}else{
 					//已登录
 					$('#login-btn').hide();
+					$("#user-login").hide();
 					$('#alreay-login').show();
 					$('#theater-name').text(resp.data.theaterName);
 					
@@ -200,7 +202,7 @@ var allAuditoriumInfoId = new Array();
 						$('#already-have-rooms').show();
 						for(var i = 0;i < resp.data.length;i++)
 						{
-							$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '">' + resp.data[i].auditorium + '</div>');
+							$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '">' + resp.data[i].auditorium + '<img onclick="deleteRoom('+resp.data[i].auditorium_id+')" src="/Movie/views/images/delete.png" style="width:25px;height:25px;position:absolute;right:-12px;top:-12px;cursor:pointer;z-index:1000"></div>');
 						}	
 						
 						$('#already-have-rooms').append('<div style="clear: both;"></div>');
