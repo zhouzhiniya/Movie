@@ -184,6 +184,7 @@ var allAuditoriumInfoId = new Array();
 		
 		//是否设置过影厅
 		$('#already-have-rooms').html('');
+		var layindex = layer.load();
 		$.ajax({
 			type:"post",
 			url:_url + "/theater/getAuditorium",
@@ -197,15 +198,17 @@ var allAuditoriumInfoId = new Array();
 					{
 						$('#have-no-rooms').show();
 						$('#already-have-rooms').hide();
+						layer.close(layindex);
 					}else{
 						$('#have-no-rooms').hide();
 						$('#already-have-rooms').show();
 						for(var i = 0;i < resp.data.length;i++)
 						{
-							$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '">' + resp.data[i].auditorium + '<img onclick="deleteRoom('+resp.data[i].auditorium_id+')" src="/Movie/views/images/delete.png" style="width:25px;height:25px;position:absolute;right:-12px;top:-12px;cursor:pointer;z-index:1000"></div>');
+							$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '"><span id="auditoriumname" onclick="showRoom('+resp.data[i].auditorium_id+')">' + resp.data[i].auditorium + '</span><img onclick="deleteRoom('+resp.data[i].auditorium_id+')" src="/Movie/views/images/delete.png" style="width:25px;height:25px;position:absolute;right:-12px;top:-12px;cursor:pointer;z-index:1000"></div>');
 						}	
 						
 						$('#already-have-rooms').append('<div style="clear: both;"></div>');
+						layer.close(layindex);
 					}
 					
 				}else{
@@ -219,6 +222,40 @@ var allAuditoriumInfoId = new Array();
 		
 		
 	});
+
+	function deleteRoom(roomid){
+		layer.confirm('确定删除该影厅吗？',function(index){
+			$.ajax({
+				url: _url + '/theater/deleteAuditorium',
+				type: 'post',
+				data: {
+					auditorium_id: roomid
+				},
+				success: function(resp){
+					if(resp.resultCode == "30000"){
+						layer.msg("删除成功！");
+						layer.close(index);
+						if(resp.data.length == 0)
+						{
+							$('#have-no-rooms').show();
+							$('#already-have-rooms').hide();
+							layer.close(layindex);
+						}else{
+							$('#have-no-rooms').hide();
+							$('#already-have-rooms').show();
+							$('#already-have-rooms').html("");
+							for(var i = 0;i < resp.data.length;i++)
+							{
+								$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '"><span id="auditoriumname" onclick="showRoom('+resp.data[i].auditorium_id+')">' + resp.data[i].auditorium + '</span><img onclick="deleteRoom('+resp.data[i].auditorium_id+')" src="/Movie/views/images/delete.png" style="width:25px;height:25px;position:absolute;right:-12px;top:-12px;cursor:pointer;z-index:1000"></div>');
+							}	
+							
+							$('#already-have-rooms').append('<div style="clear: both;"></div>');
+						}
+					}
+				}
+			})
+		})
+	}
 	
 	
 	//================================================== this-week ==============================================================
@@ -954,7 +991,7 @@ $('#confirm-add-room-btn').click(function(){
 
 //======================================= look room start ================================
 var look_room_layer;
-$('body').on('click','.each-rooms',function(){
+function showRoom(roomId){
 	look_room_layer = layer.open({
 		type:1,
 		title:'查看影厅信息',
@@ -963,7 +1000,7 @@ $('body').on('click','.each-rooms',function(){
 	});
 
 	$('#look-room-name').text($(this).text());
-	var roomid = $(this).attr("room-id");
+	var roomid = roomId;
 	$.ajax({
 		type:"post",
 		url:_url + "/seat/getSeatsByAuditoriumId",
@@ -1062,7 +1099,7 @@ $('body').on('click','.each-rooms',function(){
 		}
 	});
 
-});
+}
 
 // ======================================================== login in & register =================================================
 //显示注册框
