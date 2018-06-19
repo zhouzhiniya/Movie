@@ -119,4 +119,15 @@ public Record validateTheaterByPhone(String phone)
 	public Auditorium getAuditoriumById(int auditoriumId) {
 	  return Auditorium.dao.findFirst("select * from auditorium where auditorium_id = ?",auditoriumId);
 	}
+	
+	public boolean deleteTheaterById(int theater_id)
+	{
+		List<Auditorium> auList = Auditorium.dao.find("select * from auditorium where theater_id = ?",theater_id);
+		for (Auditorium au : auList) {
+			Db.update("delete from showing where auditorium_id = ?", au.getAuditoriumId());
+			Db.update("delete from seat where auditorium_id = ?", au.getAuditoriumId());
+		}
+		Db.update("delete from auditorium where theater_id = ?", theater_id);
+		return Theater.dao.deleteById(theater_id);
+	}
 }

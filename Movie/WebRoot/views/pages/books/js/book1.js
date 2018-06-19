@@ -178,6 +178,7 @@ function getAllShowings(movie_id){
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
+				var today = new Date();
                 $("#allShowings").html("");
 				if(data!=null){
                     for(var key in data){
@@ -189,8 +190,31 @@ function getAllShowings(movie_id){
                                                     '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
                                                     '</ul>'+
                                                   '</div>');
-                        for(var i=0; i<alltime.length; i++){
-                            $("#"+key).append('<li class="time-select__item disabled-gray" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                        for (var i=0; i<alltime.length-1; i++) {
+                        	for (var j=i+1; j<alltime.length; j++) {
+                        		var showtime1 = alltime[i].show_time;
+                            	showtime1 = showtime1.replace("/-/g", "/");
+                            	var date1 = new Date(showtime1);
+                            	var showtime2 = alltime[i+1].show_time;
+                            	showtime2 = showtime2.replace("/-/g", "/");
+                            	var date2 = new Date(showtime2);
+                        		if (date1>date2) {
+                        			var temp = alltime[i];
+                        			alltime[i] = alltime[i+1];
+                        			alltime[i+1] = temp;
+                        		}
+                        	}
+                        }
+                        for(var i=0; i<alltime.length; i++) {
+                        	var showtime = alltime[i].show_time;
+                        	showtime = showtime.replace("/-/g", "/");
+                        	var date1 = new Date(showtime);
+                        	var interval = (date1.getTime()-today.getTime())/1000;
+                        	if (interval<1800) {
+                        		$("#"+key).append('<li class="time-select__item disabled-grey" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                        	} else {
+                        		$("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                        	}
                         }
                     }
                     $('.time-select__item').click(function (){

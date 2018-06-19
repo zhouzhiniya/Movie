@@ -6097,8 +6097,12 @@ ul#navigation li.mega-menu__nav-item:hover:before {
   left: 23%;
 }
 
-.time-select .time-select__item .disabled-gray {
-	background-color: #ccc;
+.disabled-grey {
+	background-color: #666 !important;
+}
+
+.disabled-grey:hover {
+  background-color: #666 !important;
 }
 
 #cimenas-map {
