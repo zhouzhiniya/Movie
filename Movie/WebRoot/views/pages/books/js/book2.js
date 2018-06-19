@@ -14,7 +14,6 @@ $(document).ready(function(){
 				var data = resp.data;	//所有座位信息拼成的数组
 				layer.close(index);
 				var price = data[0].price;	//所有座位的价格相同
-				$.cookie("ticketprice",price);
 				$("#allprice").html(price);
 				//获取座位的所有行
 				var lines = new Array();
@@ -72,7 +71,7 @@ $(document).ready(function(){
 					var linename = lines[i];
 					for(var j=1; j<=longestrows; j++){
 						var flag = false;	//判断是否已经在该位置画过格子
-						for(var k=0; k<=allnum.length; k++){
+						for(var k=0; k<allnum.length; k++){
 							var onenum = allnum[k];
 							if(onenum == j){
 								//根据座位名称和showingid获取座位状态及id
@@ -88,7 +87,9 @@ $(document).ready(function(){
 									success: function(resp){
 										if(resp.resultCode == "30000"){
 											var seatid = resp.data.seat_id;
-											var state = resp.data.seat_state;
+											var state = resp.data.available;
+											var price = resp.data.price;
+											$.cookie("ticketprice",price);
 											if(state == 0){
 												$("#"+linename).append('<span class="sits__place sits-price--cheap" id="'+seatid+'" data-place="'+linename+onenum+'" data-price="'+price+'">'+linename+onenum+'</span>');
 											}else{
@@ -122,7 +123,7 @@ $(document).ready(function(){
 
                             $('.checked-place').prepend('<span class="choosen-place '+place+'">'+ place +'</span>');
                             seatids.push(seatid);
-                            sum += price;
+                            sum += parseInt(ticketPrice);
 
                             $('.checked-result').text('￥'+sum);
                         }
@@ -136,7 +137,7 @@ $(document).ready(function(){
                         }
                         $('.'+place+'').remove();
 
-                        sum -= price;
+                        sum -= parseInt(ticketPrice);
 
                         $('.checked-result').text('￥'+sum)
                     }

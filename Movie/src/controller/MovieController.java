@@ -130,7 +130,8 @@ public class MovieController extends Controller
 			String movieType = this.getPara("movie_type");
 			String actor = this.getPara("actor");
 			String director = this.getPara("director");
-			if(StrKit.isBlank(movieType) && StrKit.isBlank(actor) && StrKit.isBlank(director)) {
+			String title = this.getPara("title");
+			if(StrKit.isBlank(movieType) && StrKit.isBlank(actor) && StrKit.isBlank(director) && StrKit.isBlank(title)) {
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else {
 				List<Movie> movie = new ArrayList<Movie>();
@@ -143,6 +144,9 @@ public class MovieController extends Controller
 				}else if(!StrKit.isBlank(director)) {
 					//根据导演搜索
 					movie = movieService.searchMovie(director,"director");
+				}else if(!StrKit.isBlank(title)) {
+					//根据电影名搜索
+					movie = movieService.searchMovie(title, "title");
 				}
 				if(movie != null) {
 					baseResponse.setData(movie);

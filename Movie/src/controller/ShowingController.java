@@ -49,7 +49,7 @@ public class ShowingController extends Controller{
 				     Date imptimeBegin = cal.getTime();  
 				     System.out.println("所在周星期一的日期：" + imptimeBegin);
 				     cal.add(Calendar.DATE, Integer.parseInt(day)-1);
-				     System.out.println(cal.get(Calendar.MONTH + 1));
+				     System.out.println(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE));
 				     todayDate = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-" + cal.get(Calendar.DATE);
 				}
 			     
@@ -75,7 +75,7 @@ public class ShowingController extends Controller{
 		this.renderJson(baseResponse);
 	}
 	
-	//获取某部电影在某天的排片情况
+	//获取某部电影在某天的排片情况 
 	public void getShowingInfoByMovieId() {
 		BaseResponse baseResponse  = new BaseResponse();
 		String day = this.getPara("day");
@@ -129,9 +129,10 @@ public class ShowingController extends Controller{
     BaseResponse baseResponse  = new BaseResponse();
     String movieId = this.getPara("movie_id");
     String city = this.getPara("city");
+    String time = this.getPara("time");
     
     if(StrKit.notBlank(movieId) && StrKit.notBlank(city)) {
-      HashMap<String, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city);
+      HashMap<String, ArrayList<Showing>> result = showingService.getShowingsOfTheaters(Integer.parseInt(movieId), city, time);
       if(result != null && !result.isEmpty()) {
         baseResponse.setData(result);
         baseResponse.setResult(ResultCodeEnum.SUCCESS);

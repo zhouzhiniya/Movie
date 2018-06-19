@@ -1,6 +1,12 @@
 var _url = '/Movie'
 
 $(document).ready(function(){
+	var today = new Date();
+	var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+	laydate.render({
+	  elem: '#birthday' ,//指定元素
+	  max: val
+	});
 	//判断是否登录
 	var layerindex = layer.load();
 	$("#login-form").show();
@@ -224,16 +230,10 @@ $(document).ready(function(){
 			                    '<div class="post post--preview post--preview--wide">'+
 			                        '<div class="post__image">'+
 			                            '<img alt="" src="'+data[i].image+'">'+
-			                            '<div class="social social--position social--hide">'+
-			                                '<span class="social__name">Share:</span>'+
-			                                '<a href="#" class="social__variant social--first fa fa-facebook"></a>'+
-			                                '<a href="#" class="social__variant social--second fa fa-twitter"></a>'+
-			                                '<a href="#" class="social__variant social--third fa fa-vk"></a>'+
-			                            '</div>'+
 			                        '</div>'+
 			                        '<p class="post__date">'+data[i].release_date+'</p>'+
-			                        '<a href="/Movie/views/pages/moviemessage/single-page-left.html" class="post__title">'+data[i].title+'</a>'+
-			                        '<a href="/Movie/views/pages/moviemessage/single-page-left.html" class="btn read-more post--btn">read more</a>'+
+			                        '<a onclick="moreMovie('+data[i].movie_id+')" class="post__title">'+data[i].title+'</a>'+
+			                        '<a onclick="moreMovie('+data[i].movie_id+')" class="btn read-more post--btn">read more</a>'+
 			                    '</div>'+
 			                '</div>')
 							}
@@ -275,7 +275,79 @@ function moreRecommendMovie(movieid){
 function searchMovie(key){
 	var keywords = $(".select__field").val();
 	if(keywords == ""){
-		layer.msg("请填写搜索条件！");
+		//获取所有电影
+		$.ajax({
+			url: _url + '/movie/getAllMovies',
+			type: 'post',
+			success: function(resp){
+				if(resp.resultCode == "30000"){
+					var data = resp.data;
+					$("#allMovies").html("");
+					for(var i=0; i<data.length; i++){
+						var type = data[i].type.split(",");
+						var movietype = "";
+						for(var j=0; j<type.length; j++){
+							if(j == type.length-1){
+								movietype += type[j];
+							}else{
+								movietype += type[j] + " | ";
+							}
+						}
+						var forecast = data[i].forecast_rating;
+						if(forecast == null){
+							forecast = 0;
+						}else{
+							var str = forecast + "";
+							forecast = str.substring(0,str.indexOf('.') + 3);
+						}
+						if((i%4) == 0 || ((i-1)%4) == 0){
+							$("#allMovies").append('<div class="movie movie--test movie--test--light movie--test--left">'+
+	                                '<div class="movie__images">'+
+	                                    '<a class="movie-beta__link" onclick="moreMovie('+data[i].movie_id+')">'+
+	                                    '<img alt="" src="'+data[i].image+'">'+
+	                                    '</a>'+
+	                                '</div>'+
+	                                '<div class="movie__info">'+
+	                                    '<a class="movie__title" onclick="moreMovie('+data[i].movie_id+')">'+data[i].title+'</a>'+
+										'<p class="movie__time">'+data[i].duration+'</p>'+
+	                                    '<p class="movie__option">'+movietype+'</p>'+ 
+	                                    '<div class="movie__rate">'+
+	                                        '<div class="score"></div>'+
+	                                        '<span style="position: absolute;right: 30px;top: -30px;font-size: 14px;color: #ffd564;">豆瓣评分</span>'+
+	                                        '<span class="movie__rating" style="top:-8px">'+data[i].douban_rating+'</span>'+
+	                                        '<span style="position: absolute;top: -50px;font-size: 18px;color: #fe505a;">AI 预测评分</span>'+
+	                                        '<span class="movie__rating" style="right: unset;width: 60px;height: 60px;border-radius: 50%;top: -20px;line-height: 35px;background: #fe505a;color: #fff;">'+forecast+'</span>'+
+	                                    '</div>'+               
+	                                '</div>'+
+	                            '</div>');
+						}else if(((i-2)%4) == 0 || ((i-3)%4) == 0){
+							$("#allMovies").append('<div class="movie movie--test movie--test--dark movie--test--right">'+
+	                                '<div class="movie__images">'+
+	                                    '<a onclick="moreMovie('+data[i].movie_id+')" class="movie-beta__link">'+
+	                                    '<img alt="" src="'+data[i].image+'">'+
+	                                    '</a>'+
+	                                '</div>'+
+	                                '<div class="movie__info">'+
+	                                    '<a onclick="moreMovie('+data[i].movie_id+')" class="movie__title">'+data[i].title+'</a>'+
+										'<p class="movie__time">'+data[i].duration+'</p>'+
+	                                    '<p class="movie__option">'+movietype+'</p>'+ 
+	                                    '<div class="movie__rate">'+
+	                                        '<div class="score"></div>'+
+	                                        '<span style="position: absolute;right: 30px;top: -30px;font-size: 14px;color: #ffd564;">豆瓣评分</span>'+
+	                                        '<span class="movie__rating" style="top:-8px">'+data[i].douban_rating+'</span>'+
+	                                        '<span style="position: absolute;top: -50px;font-size: 18px;color: #fe505a;">AI 预测评分</span>'+
+	                                        '<span class="movie__rating" style="right: unset;width: 60px;height: 60px;border-radius: 50%;top: -20px;line-height: 35px;background: #fe505a;color: #fff;">'+forecast+'</span>'+
+	                                    '</div>'+               
+	                                '</div>'+
+	                            '</div>');
+						}
+						
+					}
+				}else{
+					layer.msg(resp.resultDesc);
+				}
+			}
+		})
 		return;
 	}
 	var data = null;
@@ -290,6 +362,10 @@ function searchMovie(key){
 	}else if(key == "director"){
 		data = {
 			director: keywords
+		}
+	}else if(key == "title"){
+		data = {
+			title: keywords
 		}
 	}
 	var layerindex = layer.load();

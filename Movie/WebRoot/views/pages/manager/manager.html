@@ -42,6 +42,19 @@
         <script src="/Movie/views/js/external/modernizr.custom.js"></script>
     <style type="text/css">
     	body .demo-class .layui-layer-title{background:rgba(46, 41, 46, 0.8); color:#fff; border: none;height: 55px;line-height: 55px}
+
+      .sits__not{
+        position: relative;
+        margin: 5px;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        line-height: 30px;
+        font-size: 10px;
+        color: #ffffff;
+        z-index: 13;
+        text-indent: -9999px;
+      }
     </style>
 </head>
 <body>
@@ -50,7 +63,7 @@
         <header class="header-wrapper header-wrapper--home">
             <div class="container">
                 <!-- Logo link-->
-                <a href='index.html' class="logo">
+                <a href='/Movie/views/index.html' class="logo">
                     <img alt='logo' src="/Movie/views/images/logo.png">
                 </a>
 
@@ -409,7 +422,6 @@
                         <aside class="sits__line">
 
                         </aside>
-
                         <footer class="sits__number">
 
                         </footer>
@@ -450,6 +462,7 @@
                         <aside class="sits__line">
 
                         </aside>
+                        <div id="allseats"></div>
 
                         <footer class="sits__number">
 
@@ -538,6 +551,7 @@
                         <div class="login__control" style="margin-top: 20px">
                             <button class="btn btn-md btn--warning btn--wider" onclick="login()">登录</button>
                             <a href="#" class="login__tracker form__tracker" onclick="gotoregister()">还没账号？去注册</span></a>
+                            <a href="/Movie/views/index.html" class="login__tracker form__tracker" onclick="gotologin()" style="margin:10px 0 0 0">用户登录</span></a>
                         </div>
                     </div>
                     <div id="register-form" class="login" method='get' style='display: none;'>

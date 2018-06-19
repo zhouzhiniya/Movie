@@ -131,7 +131,6 @@
               Two-time Academy Award winner Ron Howard, teams once again with fellow two-time Academy<br> Award nominee, writer Peter Morgan , on Rush, a spectacular big-screen re-creation of the merciless<br> 1970s rivalry between James Hunt and Niki Lauda.
             </div>
             <div class="caption margin-slider skewfromright customout " data-x="right" data-y="324" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="400" data-start="3300" data-easing="Power4.easeOut" data-endspeed="300" data-end="7700" data-endeasing="Power4.easeOut">
-              <a href="#" class="slide__link">check out cinemas &amp; time</a>
             </div></li>
 
           <li data-transition="fade" data-slotamount="7" class="slide fading-slide" data-slide='Travel worldwide.
@@ -162,7 +161,6 @@ Create trip film.'><img alt='' src="/Movie/views/images/b2.jpg">
             <div class="caption slide__date position-center postion-place--four lfb ltb" data-x="left" data-y="242" data-speed="500" data-start="2800" data-easing="Power4.easeOut" data-endspeed="400" data-endeasing="Back.easeIn">May 01</div>
 
             <div class="caption lfb slider-wrap-btn ltb" data-x="left" data-y="310" data-speed="400" data-start="3300" data-easing="Power4.easeOut" data-endspeed="500" data-endeasing="Power4.easeOut">
-              <a href="#" class="btn btn-md btn--danger btn--wide slider--btn">learn more</a>
             </div></li>
 
           <li data-transition="fade" data-slotamount="7" class="slide" data-slide='Stop wishing. 
@@ -174,7 +172,6 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
             <div class="caption slide__descript customin customout" data-x="left" data-y="240" data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="700" data-start="2000" data-endspeed="500" data-end="8400" data-endeasing="Back.easeIn">find your best match movie with A.MOVIE</div>
 
             <div class="caption lfb customout slider-wrap-btn" data-x="left" data-y="310" data-speed="500" data-start="2800" data-easing="Power4.easeOut" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-endspeed="400" data-end="8000" data-endeasing="Power4.easeOut">
-              <a href="#" class="btn btn-md btn--danger slider--btn">check out movies</a>
             </div></li>
 
         </ul>
@@ -274,15 +271,10 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
       <div class="col-sm-12">
         <div class="mega-select-present mega-select-top mega-select--full">
           <div class="mega-select-marker">
-            <div class="marker-indecator location">
-              <p class="select-marker">
-                <span>看电影</span> <br>就在你的城市
-              </p>
-            </div>
 
-            <div class="marker-indecator cinema">
+            <div class="marker-indecator location title">
               <p class="select-marker">
-                <span>寻找想要的</span> <br>电影院
+                <span>寻找想要的</span> <br>电影
               </p>
             </div>
 
@@ -309,18 +301,26 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
           <div class="mega-select pull-right">
             <span class="mega-select__point">搜索</span>
             <ul class="mega-select__sort">
-              <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='film-category'>电影类型</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='title'>电影名</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='film-category'>电影类型</a></li>
               <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='actors'>演员</a></li>
+              <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='director'>导演</a></li>
             </ul>
 
             <input name="search-input" type='text' class="select__field">
 
             <div class="select__btn">
+              <a class="btn btn-md btn--danger title" onclick="searchMovie('title')">
+                搜索<span class="hidden-exrtasm">电影名</span>
+              </a>
               <a class="btn btn-md btn--danger film-category" onclick="searchMovie('movie_type')">
                 搜索<span class="hidden-exrtasm">类型</span>
               </a>
               <a class="btn btn-md btn--danger actors" onclick="searchMovie('actor')">
                 搜索<span class="hidden-exrtasm">演员</span>
+              </a>
+              <a class="btn btn-md btn--danger director" onclick="searchMovie('director')">
+                搜索<span class="hidden-exrtasm">导演</span>
               </a>
             </div>
 
@@ -682,6 +682,9 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
             <a href="#" class="login__tracker form__tracker" onclick="gotoregister()">
               还没账号？去注册</span>
             </a>
+            <a href="/Movie/views/pages/manager/manager.html" class="login__tracker form__tracker">
+              管理员登录</span>
+            </a>
           </div>
         </div>
         <div id="register-form" class="login" method='get' style='display: none;'>
@@ -739,6 +742,7 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
   <script src="/Movie/views/js/external/form-element.js"></script>
   <!-- Form validation -->
   <script src="/Movie/views/js/form.js"></script>
+  <script src="/Movie/views/assetes/layDate/laydate/laydate.js"></script>
 
   <!-- Twitter feed -->
   <script src="/Movie/views/js/external/twitterfeed.js"></script>

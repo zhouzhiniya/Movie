@@ -34,7 +34,7 @@ public class ShowingService {
 	}
 	
 	public List<Showing> getShowingInfoByMovieId(String date,String movie_id,String theaterid){
-		String sql = ("select * from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+theaterid+" and movie.movie_id = "+movie_id);
+		String sql = ("select * from showing,movie,auditorium where showing.movie_id = movie.movie_id and auditorium.auditorium_id = showing.auditorium_id and DATE(show_time) = '"+date+"' and theater_id = "+Integer.parseInt(theaterid)+" and movie.movie_id = "+Integer.parseInt(movie_id));
 		return Showing.dao.find(sql);
 	}
 	
@@ -43,10 +43,10 @@ public class ShowingService {
 	  return theater.getTheaterId();
 	}
 	
-	public HashMap<String, ArrayList<Showing>> getShowingsOfTheaters(int movieId, String city){
+	public HashMap<String, ArrayList<Showing>> getShowingsOfTheaters(int movieId, String city, String time){
 	  HashMap<Integer, ArrayList<Showing>> map = new HashMap<>();
 //	  sql_theater = "select theater, theater.theater_id from showing,auditorium,movie,theater where showing.movie_id = movie.movie_id   AND showing.auditorium_id = auditorium.auditorium_id   AND auditorium.theater_id = theater.theater_id   AND theater.city = ?   AND showing.movie_id = ?";
-	  ArrayList<Showing> showings = (ArrayList<Showing>)Showing.dao.find("select showing.showing_id,movie.title,showing.show_time from showing,movie,auditorium,theater where showing.movie_id = movie.movie_id   AND showing.auditorium_id = auditorium.auditorium_id   AND auditorium.theater_id = theater.theater_id   AND showing.movie_id = ?   AND theater.city = ?", movieId, city);;
+	  ArrayList<Showing> showings = (ArrayList<Showing>)Showing.dao.find("select showing.showing_id,movie.title,showing.show_time from showing,movie,auditorium,theater where showing.movie_id = movie.movie_id   AND showing.auditorium_id = auditorium.auditorium_id   AND auditorium.theater_id = theater.theater_id   AND showing.movie_id = ?   AND theater.city = ? AND DATE(show_time) = ?", movieId, city,time);;
 	  for (Showing showing : showings) {
       int theaterId = this.getTheaterIdByShowingId(showing.getShowingId());
       if(!map.containsKey(theaterId)) {
