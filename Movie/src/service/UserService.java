@@ -21,7 +21,7 @@ public class UserService {
 	
 	public Record validateUserByUsername(String username)
 	{
-		return Db.findFirst("select user_id,username,name,password from user_info where email=?", username);
+		return Db.findFirst("select user_id,username,name,password from user_info where username=?", username);
 	}
 	
 	public boolean addUser(String username,String password,String mobile,String email,String gender,Date birthday)

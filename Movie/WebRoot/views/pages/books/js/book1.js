@@ -190,7 +190,7 @@ function getAllShowings(movie_id){
                                                     '</ul>'+
                                                   '</div>');
                         for(var i=0; i<alltime.length; i++){
-                            $("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                            $("#"+key).append('<li class="time-select__item disabled-gray" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
                         }
                     }
                     $('.time-select__item').click(function (){
