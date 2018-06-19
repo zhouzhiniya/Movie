@@ -112,8 +112,14 @@ public Record validateTheaterByPhone(String phone)
 		return Auditorium.dao.find("select * from auditorium where theater_id = ?",Integer.parseInt(theaterid));
 	}
 	
-	public boolean deleteAuditoriumById(String theaterid){
-		return Auditorium.dao.deleteById(theaterid);
+	public boolean deleteAuditoriumById(String auditoriumid){
+		List<Showing> shows = Showing.dao.find("select * from showing where auditorium_id = ?", auditoriumid);
+		for (Showing show : shows) {
+			Db.update("delete from booking where showing_id = ?", show.getShowingId());
+		}
+		Db.update("delete from showing where auditorium_id = ?", auditoriumid);
+		Db.update("delete from seat where auditorium_id = ?", auditoriumid);
+		return Auditorium.dao.deleteById(auditoriumid);
 	}
 	
 	public Theater getTheaterByAuditoriumId(int auditoriumId) {
@@ -128,6 +134,10 @@ public Record validateTheaterByPhone(String phone)
 	{
 		List<Auditorium> auList = Auditorium.dao.find("select * from auditorium where theater_id = ?",theater_id);
 		for (Auditorium au : auList) {
+			List<Showing> shows = Showing.dao.find("select * from showing where auditorium_id = ?", au.getAuditoriumId());
+			for (Showing show : shows) {
+				Db.update("delete from booking where showing_id = ?", show.getShowingId());
+			}
 			Db.update("delete from showing where auditorium_id = ?", au.getAuditoriumId());
 			Db.update("delete from seat where auditorium_id = ?", au.getAuditoriumId());
 		}
