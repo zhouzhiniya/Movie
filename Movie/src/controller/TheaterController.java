@@ -502,8 +502,7 @@ public class TheaterController extends Controller{
 		}
 	}
 	
-	public void deleteTheater()
-	{
+	public void deleteTheater() {
 		try
 		{
 			String theaterid = this.getSessionAttr("theater_id");
@@ -515,6 +514,20 @@ public class TheaterController extends Controller{
 		}
 		
 		exit();
+	}
+	
+	public void deleteAuditorium() {
+		try
+		{
+			String auditoriumid = this.getPara("auditorium_id");
+			theaterService.deleteAuditoriumById(auditoriumid);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		getAuditorium();
 	}
 	
 	public void checkLogin() {
