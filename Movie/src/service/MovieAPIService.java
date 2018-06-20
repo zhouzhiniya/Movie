@@ -498,22 +498,5 @@ public class MovieAPIService {
     }
     return true;
   }
-  
-  public List<MovieTop250> suggestWord(List<MovieTop250> orgList ,String target) {
-	  Suggester suggester = new Suggester();
-	  List<MovieTop250> result = new ArrayList<MovieTop250>();
-      for (MovieTop250 movie : orgList) {
-          suggester.addSentence(movie.getSummary());
-      }
-      List<String> suggestList = suggester.suggest(target, orgList.size());
-      for (String word : suggestList) {
-    	  for (MovieTop250 movie : orgList) {
-    		  if (movie.getSummary().equals(word)) {
-    			  result.add(movie);
-    			  break;
-    		  }
-    	  }
-      }
-      return result;
-  }
+
 }

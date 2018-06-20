@@ -77,7 +77,7 @@ public class SeatController extends Controller{
 	public void getSeat() {
     BaseResponse baseResponse = new BaseResponse();
     String seat_id = this.getPara("seat_id");
-    if(StrKit.isBlank(seat_id)) {
+    if(StrKit.notBlank(seat_id)) {
       Seat result = seatService.getSeat(Integer.parseInt(seat_id));   
       if(result != null) {
         baseResponse.setData(result);
