@@ -7,10 +7,6 @@ $(document).ready(function(){
 	  elem: '#birthday' ,//指定元素
 	  max: val
 	});
-	laydate.render({
-	  elem: '#editbirthday' ,//指定元素
-	  max: val
-	});
 	//判断是否登录
 	var layerindex = layer.load();
 	$("#login-form").show();
@@ -472,7 +468,59 @@ function editShow(){
 				$("#editmobile").val(data.mobile);
 				$("#editemail").val(data.email);
 				$("#editgender").val(data.gender);
-				$("#editbirthday").val(data.birthday);
+				var today = new Date();
+				var val = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+				laydate.render({
+				  elem: '#editbirthday' ,//指定元素
+				  value: data.birthday,
+				  max: val
+				});
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
+}
+
+//编辑信息
+function editUser(){
+	var username = $("#editusername").val();
+	var password = $("#editpassword").val();
+	var mobile = $("#editmobile").val();
+	var email = $("#editemail").val();
+	var gender = $("#editgender").val();
+	var birthday = $("#editbirthday").val();
+
+	if(username == ""  || password == "" || passwordagain == "" || mobile == "" || email == "" || gender == ""){
+		layer.msg("用户名、密码、手机号、邮箱及性别不能为空！");
+		return;
+	}
+	var regEmail = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+	var regPhone = new RegExp("^1[34578][0-9]{9}$");
+	if (!regEmail.test(email)) {
+		layer.msg("邮箱格式不正确！");
+		return;
+	}
+	if (!regPhone.test(mobile)) {
+		layer.msg("电话格式不正确！");
+		return;
+	}
+
+	$.ajax({
+		url: _url + "/user/changeUserInfo",
+		data: {
+			name: username,
+			password: password,
+			mobile: mobile,
+			email: email,
+			gender: gender,
+			birthday: birthday
+		},
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				layer.msg("修改成功！");
+        		$('.overlay').removeClass('open').addClass('close');
 			}else{
 				layer.msg(resp.resultDesc);
 			}
@@ -521,6 +569,16 @@ function register(){
 	}
 	if(password != passwordagain){
 		layer.msg("两次输入的密码不同！");
+		return;
+	}
+	var regEmail = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+	var regPhone = new RegExp("^1[34578][0-9]{9}$");
+	if (!regEmail.test(email)) {
+		layer.msg("邮箱格式不正确！");
+		return;
+	}
+	if (!regPhone.test(mobile)) {
+		layer.msg("电话格式不正确！");
 		return;
 	}
 
