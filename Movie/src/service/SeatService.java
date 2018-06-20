@@ -38,12 +38,13 @@ public class SeatService {
 //	  }else {
 //      result.put("available", 1);
 //	  }
-	  List<Seat> notAvail = this.notAvailableSeats(showingId);
+	  ArrayList<Seat> notAvail = this.notAvailableSeats(showingId);
 	  result.put("available", 0);
 	  for (Seat notAvailSeat : notAvail) {
-      if(notAvailSeat.getSeat().equals(seatName)) {
+      if(notAvailSeat.getSeat().equals(result.getSeat())) {
         result.remove("available");
         result.put("available", 1);
+        break;
       }
     }
 	  
@@ -83,26 +84,32 @@ public class SeatService {
    * @param showingId
    * @return
    */
-  public List<Seat> notAvailableSeats(int showingId){
+  public ArrayList<Seat> notAvailableSeats(int showingId){
     List<Booking> bookings = Booking.dao.find("select * from booking where showing_id = ?", showingId);
     ArrayList<String> seats = new ArrayList<>();
     for (Booking booking : bookings) {
+//      seats_str += seats_str.equals("") ? booking.getSeatId() : ("," + booking.getSeatId());
       String[] seats_id = booking.getSeatId().split(",");
       for (String string : seats_id) {
         seats.add(string);
       }
     }
-    String seats_str ="";
+//    String seats_str ="";
+    ArrayList<Seat> result = new ArrayList<>();
     for (String seat : seats) {
-      seats_str += seats_str.equals("") ? seat : ("," + seat);
-    }
-    if(seats_str.equals("")) {
-      seats_str = "0";
-    }
+//      seats_str += seats_str.equals("") ? seat : ("," + seat);
       String sql = "SELECT seat.seat_id,seat.auditorium_id,seat.seat FROM seat, auditorium, showing WHERE seat.seat_id IN ( ? ) AND seat.auditorium_id = auditorium.auditorium_id AND showing.auditorium_id = auditorium.auditorium_id AND showing.showing_id = ?";
-      List<Seat> result = Seat.dao.find(sql, seats_str, showingId);
+      Seat foundSeat = Seat.dao.findFirst(sql, seat, showingId);
+      result.add(foundSeat);
+    }
+//    if(seats_str.equals("")) {
+//      seats_str = "0";
+//    }
     
-    
+//    for (Seat seat : result) {
+//      System.out.println(seat);
+//    }
+//    System.out.println("========");
     return result;
   }
   
