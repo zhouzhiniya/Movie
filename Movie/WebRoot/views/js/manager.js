@@ -1019,99 +1019,90 @@ function showRoom(roomId){
 
 	$('#look-room-name').text($(this).text());
 	var roomid = roomId;
+	var layindex = layer.load();
 	$.ajax({
 		type:"post",
 		url:_url + "/seat/getSeatsByAuditoriumId",
 		data:{
 			roomId:roomid
 		},success:function(resp){
-			// var seats = resp.data;
-			// var row = new Array();
-			// var column = new Array();
-			// for(var i=0; i<data.length; i++){
-
-			// }
-
-			// var row = resp.data;
-			// var column = resp.data;
-
-			// $('#look-row').text(row);
-			// $('#look-column').text(column);
-
-			// showDrawSits(3,3,$('#look-sit-pic'));
-			var data = resp.data;
-			//获取座位的所有行
-			var lines = new Array();
-			var lineslength = 0;
-			for(var i=0; i<data.length; i++){
-				var seat = data[i].seat;
-				var line = seat.split("-")[0];	//行的标志，A、B、C...
-				if(i == 0){
-					lines.push(line);
-				}else{
-					if(lines[lineslength] != line){
+			if(resp.resultCode == "30000"){
+				var data = resp.data;
+				//获取座位的所有行
+				var lines = new Array();
+				var lineslength = 0;
+				for(var i=0; i<data.length; i++){
+					var seat = data[i].seat;
+					var line = seat.split("-")[0];	//行的标志，A、B、C...
+					if(i == 0){
 						lines.push(line);
-						lineslength ++ ;
-					}
-				}
-			}
-			$(".sits__line").html("");
-			for(var i=0; i<lines.length; i++){
-				$(".sits__line").append('<span class="sits__indecator">'+lines[i]+'</span> ');
-			}
-			//获取所有行中最长有几列及每行对应的数字
-			var allrows = new Array();
-			var linesnumbers = {};
-			for(var i=0; i<lines.length; i++){
-				var linename = lines[i];
-				var linenumber = new Array();
-				for(var j=0; j<data.length; j++){
-					var seat = data[j].seat;
-					var line = seat.split("-")[0];
-					var row = seat.split("-")[1];
-					if(line == linename){
-						linenumber.push(row);
-					}
-				}
-				allrows.push(linenumber[linenumber.length-1]);
-				linesnumbers[linename]=linenumber;
-			}
-			console.log(allrows);
-			var longestrows = allrows[0];
-			for(var i=1; i<allrows.length; i++){
-				if(allrows[i]>longestrows){
-					longestrows = allrows[i];
-				}
-			}
-			console.log(longestrows);
-			$(".sits__number").html("");
-			for(var i=1; i<=longestrows; i++){
-				$(".sits__number").append('<span class="sits__indecator">'+i+'</span> ');
-			}
-			//填充所有座位
-			$("#allseats").html("");
-			for(var i=0; i<lines.length; i++){
-				$("#allseats").append('<div class="sits__row" id="'+lines[i]+'"></div>');
-				var allnum = linesnumbers[lines[i]];
-				var linename = lines[i];
-				for(var j=1; j<=longestrows; j++){
-					var flag = false;	//判断是否已经在该位置画过格子
-					for(var k=0; k<allnum.length; k++){
-						var onenum = allnum[k];
-						if(onenum == j){
-							//根据座位名称和showingid获取座位状态及id
-							flag = true;
-							$("#"+linename).append('<span class="sits__place sits-state--not">1</span>');
+					}else{
+						if(lines[lineslength] != line){
+							lines.push(line);
+							lineslength ++ ;
 						}
 					}
-					//循环完判断flag决定是否画空白格子
-					if(!flag){
-						$("#"+linename).append('<span class="sits__not">1</span>');
+				}
+				$(".sits__line").html("");
+				for(var i=0; i<lines.length; i++){
+					$(".sits__line").append('<span class="sits__indecator">'+lines[i]+'</span> ');
+				}
+				//获取所有行中最长有几列及每行对应的数字
+				var allrows = new Array();
+				var linesnumbers = {};
+				for(var i=0; i<lines.length; i++){
+					var linename = lines[i];
+					var linenumber = new Array();
+					for(var j=0; j<data.length; j++){
+						var seat = data[j].seat;
+						var line = seat.split("-")[0];
+						var row = seat.split("-")[1];
+						if(line == linename){
+							linenumber.push(row);
+						}
+					}
+					allrows.push(linenumber[linenumber.length-1]);
+					linesnumbers[linename]=linenumber;
+				}
+				console.log(allrows);
+				var longestrows = allrows[0];
+				for(var i=1; i<allrows.length; i++){
+					if(allrows[i]>longestrows){
+						longestrows = allrows[i];
 					}
 				}
+				console.log(longestrows);
+				$(".sits__number").html("");
+				for(var i=1; i<=longestrows; i++){
+					$(".sits__number").append('<span class="sits__indecator">'+i+'</span> ');
+				}
+				//填充所有座位
+				$("#allseats").html("");
+				for(var i=0; i<lines.length; i++){
+					$("#allseats").append('<div class="sits__row" id="'+lines[i]+'"></div>');
+					var allnum = linesnumbers[lines[i]];
+					var linename = lines[i];
+					for(var j=1; j<=longestrows; j++){
+						var flag = false;	//判断是否已经在该位置画过格子
+						for(var k=0; k<allnum.length; k++){
+							var onenum = allnum[k];
+							if(onenum == j){
+								//根据座位名称和showingid获取座位状态及id
+								flag = true;
+								$("#"+linename).append('<span class="sits__place sits-state--not">1</span>');
+							}
+						}
+						//循环完判断flag决定是否画空白格子
+						if(!flag){
+							$("#"+linename).append('<span class="sits__not">1</span>');
+						}
+					}
+				}
+				layer.close(layindex);
+			}else{
+				layer.msg(resp.resultDesc);
+				layer.closeAll();
 			}
-
-
 		},error:function(){
 			layer.msg('服务器错误，请重试');
 		}
