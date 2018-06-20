@@ -23,6 +23,7 @@ function generateListHtml(img, movie, show_time, theater, auditorium, seat, purc
 
 var _url = '/Movie';
 
+var layindex = layer.load();
 $.ajax({
   url: _url + "/booking/allBookings",
   type: 'post',
@@ -43,5 +44,6 @@ $.ajax({
     }else{
       layer.msg(resp.resultDesc);
     } 
+    layer.close(layindex);
   }
 });//ajax end

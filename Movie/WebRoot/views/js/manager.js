@@ -162,7 +162,6 @@ var allAuditoriumInfoId = new Array();
 							$('#do').find('.el__data').children('.each-movie').append(
 				            	'<div class="movie-base" movie-id="' + result[i].movie_id + '" movie-day="0">' + 
 				        			'<span class="movie-name">' + result[i].title + '</span>'+
-//				        			'<span class="movie-duration">' + result[i].show_time + '</span>'+
 				        		'</div>	'
 							);
 						}	
@@ -340,6 +339,7 @@ var allAuditoriumInfoId = new Array();
 				            	'<span class="movie-session">'+
 			            			'<span class="session-time">开场时间：' + resp.data[k].show_time + '</span> '+
 			            			'<span class="session-place">影厅：' + resp.data[k].auditorium + '</span>'+
+				        			'<span class="movie-duration"><img src="/Movie/views/images/delete.png" style="width:20px;cursor:pointer" onclick="deleteShow('+resp.data[k].showing_id+')"></span>'+
 			            		'</span>'			
 						);	
 					}	
@@ -355,6 +355,28 @@ var allAuditoriumInfoId = new Array();
 		});
 		
 	});
+
+	function deleteShow(showing_id){
+		layer.confirm('确定删除该排片？',function(){
+			$.ajax({
+				url: _url + '/showing/deleteShowing',
+				type: 'post',
+				data: {
+					showing_id: showing_id
+				},
+				success: function(resp){
+					if(resp.resultCode == "30000"){
+						layer.msg("删除成功！");
+						layer.closeAll();
+						$("#do-it").click();
+					}else{
+						layer.msg(resp.resultDesc);
+						layer.closeAll();
+					}
+				}
+			})
+		})
+	}
 	
 	//==================================================== today-do ====================================================
 	var confirm_layer;
@@ -369,6 +391,7 @@ var allAuditoriumInfoId = new Array();
 		
 		//打开之后要请求所有电影列表
 		$('#add-movie-div').children('.choose-movie-list').html('');
+		var layindex = layer.load();
 		
 		$.ajax({
 			type:"post",
@@ -405,6 +428,7 @@ var allAuditoriumInfoId = new Array();
 				//layer.msg('服务器错误，请重试');
 			}
 		});//ajax end
+		layer.close(layindex);
 	
 		//刷新选中状态
 		$('#add-movie-div').find('.each-choose-movie').each(function(){
