@@ -38,9 +38,12 @@ public class TheaterController extends Controller{
 			if(StrKit.isBlank(name) || StrKit.isBlank(seats)) {
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}else {
-				if(theaterService.addAuditorium(name,seats,theaterid)) {
+				int judge = theaterService.addAuditorium(name,seats,theaterid);
+				if(judge==0) {
 					baseResponse.setResult(ResultCodeEnum.SUCCESS);
-				}else {
+				}else if (judge==2) {
+					baseResponse.setResult(ResultCodeEnum.NAME_EXIST);
+				} else {
 					baseResponse.setResult(ResultCodeEnum.FAILED);
 				}
 			}

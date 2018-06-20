@@ -73,8 +73,11 @@ public Record validateTheaterByPhone(String phone)
 		return aTheater.update();
 	}
 	//新增影厅
-	public boolean addAuditorium(String name,String seats,String theaterid) {
+	public int addAuditorium(String name,String seats,String theaterid) {
 		Auditorium auditorium = new Auditorium();
+		if(Auditorium.dao.findFirst("select * from auditorium where auditorium = ?", name)!=null) {
+			return 2;
+		}
 		auditorium.set("auditorium", name);
 		auditorium.set("theater_id", theaterid);
 		boolean ifAddAuditorium = auditorium.save();
@@ -88,12 +91,12 @@ public Record validateTheaterByPhone(String phone)
 
 				boolean setSeat = seat.save();
 				if(!setSeat) {
-					return false;
+					return 1;
 				}
 			}
-			return true;
+			return 0;
 		}else {
-			return ifAddAuditorium;
+			return 1;
 		}
 	}
 
