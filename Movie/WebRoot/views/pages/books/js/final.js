@@ -34,6 +34,8 @@ $(document).ready(function(){
 						}
 					})
 				}
+				var content = toUtf8("取票号:"+data.token+"电影名称:"+data.title+"放映时间:"+data.show_time);
+				$("#code").qrcode(content);
 				layer.close(layindex);
 			}else{
 				layer.msg(resp.resultDesc);
@@ -41,3 +43,23 @@ $(document).ready(function(){
 		}
 	})
 })
+
+function toUtf8(str) {    
+    var out, i, len, c;    
+    out = "";    
+    len = str.length;    
+    for(i = 0; i < len; i++) {    
+        c = str.charCodeAt(i);    
+        if ((c >= 0x0001) && (c <= 0x007F)) {    
+            out += str.charAt(i);    
+        } else if (c > 0x07FF) {    
+            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));    
+            out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));    
+            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+        } else {    
+            out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));    
+            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+        }    
+    }    
+    return out;    
+}
