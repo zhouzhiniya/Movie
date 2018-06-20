@@ -41,11 +41,10 @@ public class UserService {
 		return UserInfo.dao.findFirst("select * from user_info where user_id=?", uid);
 	}
 	
-	public boolean changeUserInfo(String name,String mobile,String email,Date birthday,String gender,String uid)
+	public boolean changeUserInfo(String mobile,String email,Date birthday,String gender,String uid)
 	{
 		UserInfo user=UserInfo.dao.findById(Integer.parseInt(uid));
-		if(!name.equals(""))
-			user.setName(name);
+		
 		if(!mobile.equals(""))
 			user.setMobile(mobile);
 		if(!email.equals(""))

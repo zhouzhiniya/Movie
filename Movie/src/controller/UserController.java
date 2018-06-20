@@ -202,14 +202,13 @@ public class UserController extends Controller{
 		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
-			String name = this.getPara("name");
 			String email = this.getPara("email");
 			String mobile = this.getPara("mobile");
 			String gender = this.getPara("gender");
 			Date birthday = (Date) this.getParaToDate("birthday");
 			String user_id = this.getSessionAttr("user_id");
 
-			if (StrKit.isBlank(name) && StrKit.isBlank(email) && StrKit.isBlank(mobile) && StrKit.isBlank(gender) && StrKit.isBlank(birthday.toString()))
+			if ( StrKit.isBlank(email) && StrKit.isBlank(mobile) && StrKit.isBlank(gender) && StrKit.isBlank(birthday.toString()))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
@@ -221,7 +220,7 @@ public class UserController extends Controller{
 					result = userService.validateUserByMail(email);
 					if(result == null)
 					{
-						boolean ifChange = userService.changeUserInfo(name, mobile, email,birthday, gender, user_id);
+						boolean ifChange = userService.changeUserInfo( mobile, email,birthday, gender, user_id);
 						if(ifChange)
 						{
 							baseResponse.setResult(ResultCodeEnum.SUCCESS);
