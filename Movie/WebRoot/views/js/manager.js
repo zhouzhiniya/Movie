@@ -235,22 +235,10 @@ var allAuditoriumInfoId = new Array();
 					if(resp.resultCode == "30000"){
 						layer.msg("删除成功！");
 						layer.close(index);
-						if(resp.data.length == 0)
-						{
-							$('#have-no-rooms').show();
-							$('#already-have-rooms').hide();
-							layer.close(layindex);
-						}else{
-							$('#have-no-rooms').hide();
-							$('#already-have-rooms').show();
-							$('#already-have-rooms').html("");
-							for(var i = 0;i < resp.data.length;i++)
-							{
-								$('#already-have-rooms').append('<div class="each-rooms" room-id="' + resp.data[i].auditorium_id + '"><span id="auditoriumname" onclick="showRoom('+resp.data[i].auditorium_id+')">' + resp.data[i].auditorium + '</span><img onclick="deleteRoom('+resp.data[i].auditorium_id+')" src="/Movie/views/images/delete.png" style="width:25px;height:25px;position:absolute;right:-12px;top:-12px;cursor:pointer;z-index:1000"></div>');
-							}	
-							
-							$('#already-have-rooms').append('<div style="clear: both;"></div>');
-						}
+						$('#room-setting').click();
+					}else{
+						layer.msg(resp.resultDesc);
+						$('#room-setting').click();
 					}
 				}
 			})
