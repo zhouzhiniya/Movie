@@ -56,6 +56,7 @@ public class SeatService {
 	 * @param showingId
 	 * @return
 	 */
+	//TODO 我改了方法，反正只用了notAvailable，这里暂时用不到，我懒得改了
 	public List<Seat> availableSeats(int showingId){
 	  List<Booking> bookings = Booking.dao.find("select * from booking where showing_id = ?", showingId);
 	  ArrayList<String> seats = new ArrayList<>();
