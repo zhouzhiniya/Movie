@@ -517,10 +517,14 @@ public class TheaterController extends Controller{
 	}
 	
 	public void deleteAuditorium() {
+		BaseResponse baseResponse = new BaseResponse();
 		try
 		{
 			String auditoriumid = this.getPara("auditorium_id");
-			theaterService.deleteAuditoriumById(auditoriumid);
+			boolean deleteType = theaterService.deleteAuditoriumById(auditoriumid);
+			if(deleteType){
+				baseResponse.setResult(ResultCodeEnum.BOOK_EXIST);
+			}
 		}
 		catch (Exception e)
 		{

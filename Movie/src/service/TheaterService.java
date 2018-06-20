@@ -5,6 +5,7 @@ import java.util.List;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
+import kit.ResultCodeEnum;
 import model.Auditorium;
 import model.Seat;
 import model.Showing;
@@ -115,11 +116,14 @@ public Record validateTheaterByPhone(String phone)
 	public boolean deleteAuditoriumById(String auditoriumid){
 		List<Showing> shows = Showing.dao.find("select * from showing where auditorium_id = ?", auditoriumid);
 		for (Showing show : shows) {
-			Db.update("delete from booking where showing_id = ?", show.getShowingId());
+			if (Db.findFirst("select * from booking where showing_id = ?", show.getShowingId())==null) {
+				return false;
+			}
 		}
 		Db.update("delete from showing where auditorium_id = ?", auditoriumid);
 		Db.update("delete from seat where auditorium_id = ?", auditoriumid);
-		return Auditorium.dao.deleteById(auditoriumid);
+		Auditorium.dao.deleteById(auditoriumid);
+		return true;
 	}
 	
 	public Theater getTheaterByAuditoriumId(int auditoriumId) {
@@ -130,18 +134,19 @@ public Record validateTheaterByPhone(String phone)
 	  return Auditorium.dao.findFirst("select * from auditorium where auditorium_id = ?",auditoriumId);
 	}
 	
-	public boolean deleteTheaterById(int theater_id)
-	{
+	public int deleteTheaterById(int theater_id) {
+		int flag = 0;
 		List<Auditorium> auList = Auditorium.dao.find("select * from auditorium where theater_id = ?",theater_id);
 		for (Auditorium au : auList) {
 			List<Showing> shows = Showing.dao.find("select * from showing where auditorium_id = ?", au.getAuditoriumId());
 			for (Showing show : shows) {
-				Db.update("delete from booking where showing_id = ?", show.getShowingId());
+				Db.update("select * from booking where showing_id = ?", show.getShowingId());
 			}
 			Db.update("delete from showing where auditorium_id = ?", au.getAuditoriumId());
 			Db.update("delete from seat where auditorium_id = ?", au.getAuditoriumId());
 		}
 		Db.update("delete from auditorium where theater_id = ?", theater_id);
-		return Theater.dao.deleteById(theater_id);
+		Theater.dao.deleteById(theater_id);
+		return flag;
 	}
 }
