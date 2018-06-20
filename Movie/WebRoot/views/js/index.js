@@ -7,10 +7,15 @@ $(document).ready(function(){
 	  elem: '#birthday' ,//指定元素
 	  max: val
 	});
+	laydate.render({
+	  elem: '#editbirthday' ,//指定元素
+	  max: val
+	});
 	//判断是否登录
 	var layerindex = layer.load();
 	$("#login-form").show();
 	$("#register-form").hide();
+	$("#edit-form").hide();
 	$.ajax({
 		url: _url + "/user/checkLogin",
 		type: 'post',
@@ -441,12 +446,38 @@ function searchMovie(key){
 function gotoregister(){
 	$("#login-form").hide();
 	$("#register-form").show();
+	$("#edit-form").hide();
 }
 
 //显示登录框
 function gotologin(){
 	$("#login-form").show();
 	$("#register-form").hide();
+	$("#edit-form").hide();
+}
+
+//显示编辑框
+function editShow(){
+	$("#login-form").hide();
+	$("#register-form").hide();
+	$("#edit-form").show();
+	$.ajax({
+		url: _url + "/user/getUserInfo",
+		type: 'post',
+		success: function(resp){
+			if(resp.resultCode == "30000"){
+				var data = resp.data;
+				$("#editusername").val(data.username);
+				$("#editpassword").val(data.password);
+				$("#editmobile").val(data.mobile);
+				$("#editemail").val(data.email);
+				$("#editgender").val(data.gender);
+				$("#editbirthday").val(data.birthday);
+			}else{
+				layer.msg(resp.resultDesc);
+			}
+		}
+	})
 }
 
 //登录
