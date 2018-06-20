@@ -203,6 +203,11 @@ public class MovieService {
   }
 
 
+  private List<Booking> getUserBookingInfos(Integer uid) 
+  {
+    return Booking.dao.find("select * from booking where user_id=?", uid);
+  }
+  
   public List<MovieTop250> getAllMatchesMovie(int userId){
     String sql = "select * from movie_top250 where   (SUBSTRING_INDEX(type, ',', 1) in (select SUBSTRING_INDEX(type, ',', 1) AS type1 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1)   or   SUBSTRING_INDEX(type, ',', 1) in (select SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) AS type2 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1))     AND    (SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) in (select SUBSTRING_INDEX(type, ',', 1) AS type1 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1)   OR   SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) in (select SUBSTRING_INDEX(SUBSTRING_INDEX(type, ',', 2), ',', -1) AS type2 from booking,showing,movie where booking.showing_id = showing.showing_id AND showing.movie_id = movie.movie_id AND booking.user_id = 1))";
     List<MovieTop250> matches = MovieTop250.dao.find(sql);
@@ -233,9 +238,8 @@ public class MovieService {
     for (Recommendation recommendation : records) {
       recommendation.delete();
     }
-    List<MovieTop250> result = this.getAllMatchesMovie(userId);
-//    suggestWord()
-    for (MovieTop250 movie : result) {
+    List<MovieTop250> matches = this.getAllMatchesMovie(userId);
+    for (MovieTop250 movie : matches) {
       Recommendation newRecomm = new Recommendation();
       newRecomm.setUserId(userId);
       newRecomm.setTop250Id(movie.getId());
@@ -243,6 +247,27 @@ public class MovieService {
     }
     return true;
   }
+  
+  public Booking getBookingInfoById(int bookingId) {
+    return Booking.dao.findFirst("select * from booking,showing,movie,seat,theater,auditorium where booking.showing_id = showing.showing_id and showing.movie_id = movie.movie_id and auditorium.auditorium_id = seat.auditorium_id and auditorium.theater_id = theater.theater_id and booking.booking_id=?", bookingId);
+  }
+  
+//  public boolean generateRecommendation2(int userId) {
+//    List<Recommendation> records = Recommendation.dao.find("select * from recommendation where user_id=?", userId);
+//    for (Recommendation recommendation : records) {
+//      recommendation.delete();
+//    }
+//    List<Booking> bookings = this.getUserBookingInfos(userId);
+//    List<MovieTop250> matches = this.getAllMatchesMovie(userId);
+//    List<MovieTop250> recommend = this.suggestWord(matches);
+//    for (MovieTop250 movie : matches) {
+//      Recommendation newRecomm = new Recommendation();
+//      newRecomm.setUserId(userId);
+//      newRecomm.setTop250Id(movie.getId());
+//      newRecomm.save();
+//    }
+//    return true;
+//  }
   
   /**
    * 计算一个ArrayList中所有文本两两之间的相似度2。

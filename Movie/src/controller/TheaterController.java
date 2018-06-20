@@ -531,7 +531,23 @@ public class TheaterController extends Controller{
 			e.printStackTrace();
 		}
 		
-		getAuditorium();
+		String theaterid = this.getSessionAttr("theater_id");
+		
+		try {
+			List<Auditorium> allAuditoriums = theaterService.getAuditorium(theaterid);
+			if(allAuditoriums != null) {
+				baseResponse.setData(allAuditoriums);
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+			}else {
+				baseResponse.setResult(ResultCodeEnum.FAILED);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			baseResponse.setResult(ResultCodeEnum.FAILED);
+		}
+		
+		this.renderJson(baseResponse);
 	}
 	
 	public void checkLogin() {

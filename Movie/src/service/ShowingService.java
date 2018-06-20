@@ -12,6 +12,8 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jfinal.plugin.activerecord.Db;
+
 import model.Movie;
 import model.Showing;
 import model.Theater;
@@ -118,4 +120,11 @@ public class ShowingService {
 	  return Showing.dao.findById(showingId);
 	}
 
+	public boolean deleteShowing(String showingId) {
+		if (Db.findFirst("select * from booking where showing_id = ?", showingId)==null) {
+			return Showing.dao.deleteById(showingId);
+		} else {
+			return false;
+		}
+	}
 }
