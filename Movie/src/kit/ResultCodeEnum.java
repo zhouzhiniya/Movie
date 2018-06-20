@@ -30,6 +30,7 @@ public enum ResultCodeEnum
 	
 	DELETE_THEATER("40001","删除影厅失败"),
 	BOOK_EXIST("40002","存在订单"),
+	SHOW_EXIST("40003","存在排片"),
   
 	SHOWTIME_CONFLICT("60000", "放映时间冲突");
 	

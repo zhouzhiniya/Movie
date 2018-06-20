@@ -521,30 +521,18 @@ public class TheaterController extends Controller{
 		try
 		{
 			String auditoriumid = this.getPara("auditorium_id");
-			boolean deleteType = theaterService.deleteAuditoriumById(auditoriumid);
-			if(!deleteType){
+			int deleteType = theaterService.deleteAuditoriumById(auditoriumid);
+			if (deleteType==1) {
 				baseResponse.setResult(ResultCodeEnum.DELETE_THEATER);
+			} else if (deleteType==2) {
+				baseResponse.setResult(ResultCodeEnum.SHOW_EXIST);
+			} else {
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
 			}
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		}
-		
-		String theaterid = this.getSessionAttr("theater_id");
-		
-		try {
-			List<Auditorium> allAuditoriums = theaterService.getAuditorium(theaterid);
-			if(allAuditoriums != null) {
-				baseResponse.setData(allAuditoriums);
-				baseResponse.setResult(ResultCodeEnum.SUCCESS);
-			}else {
-				baseResponse.setResult(ResultCodeEnum.FAILED);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			baseResponse.setResult(ResultCodeEnum.FAILED);
 		}
 		
 		this.renderJson(baseResponse);
