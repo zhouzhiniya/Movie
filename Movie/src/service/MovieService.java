@@ -31,6 +31,7 @@ import com.hankcs.hanlp.corpus.io.IOUtil;
 import com.hankcs.hanlp.mining.word2vec.DocVectorModel;
 import com.hankcs.hanlp.mining.word2vec.Word2VecTrainer;
 import com.hankcs.hanlp.mining.word2vec.WordVectorModel;
+import com.hankcs.hanlp.suggest.Suggester;
 
 /**
  * 这个类是用来【从数据库里】获取电影信息的，Movie表会每天自动更新，一般情况下电影数据只需从此类中获取
@@ -233,6 +234,7 @@ public class MovieService {
       recommendation.delete();
     }
     List<MovieTop250> result = this.getAllMatchesMovie(userId);
+//    suggestWord()
     for (MovieTop250 movie : result) {
       Recommendation newRecomm = new Recommendation();
       newRecomm.setUserId(userId);
@@ -242,9 +244,30 @@ public class MovieService {
     return true;
   }
   
-  
   /**
-   * 计算一个ArrayList中所有文本两两之间的相似度。
+   * 计算一个ArrayList中所有文本两两之间的相似度2。
+   * @param movieTags
+   * @return HashMap<String,ArrayList<Float>>
+   */
+  public List<MovieTop250> suggestWord(List<MovieTop250> orgList ,String target) {
+    Suggester suggester = new Suggester();
+    List<MovieTop250> result = new ArrayList<MovieTop250>();
+      for (MovieTop250 movie : orgList) {
+          suggester.addSentence(movie.getSummary());
+      }
+      List<String> suggestList = suggester.suggest(target, orgList.size());
+      for (String word : suggestList) {
+        for (MovieTop250 movie : orgList) {
+          if (movie.getSummary().equals(word)) {
+            result.add(movie);
+            break;
+          }
+        }
+      }
+      return result;
+  }
+  /**
+   * 计算一个ArrayList中所有文本两两之间的相似度1。
    * @param movieTags
    * @return HashMap<String,ArrayList<Float>>
    */
