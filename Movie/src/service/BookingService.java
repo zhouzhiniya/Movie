@@ -45,6 +45,6 @@ public class BookingService {
    * @return
    */
   public Booking getBookingInfoById(int bookingId) {
-    return Booking.dao.findFirst("select * from booking,showing,movie,seat,theater,auditorium where booking.showing_id = showing.showing_id and showing.movie_id = movie.movie_id and auditorium.auditorium_id = seat.auditorium_id and auditorium.theater_id = theater.theater_id and booking.booking_id=?", bookingId);
+    return Booking.dao.findFirst("SELECT token, show_time, theater, auditorium, title, booking.seat_id FROM booking, showing, auditorium, theater, movie WHERE booking.booking_id = ? AND booking.showing_id = showing.showing_id AND auditorium.auditorium_id = showing.auditorium_id AND auditorium.theater_id = theater.theater_id AND showing.movie_id = movie.movie_id", bookingId);
   }
 }
