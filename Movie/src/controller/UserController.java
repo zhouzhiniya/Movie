@@ -2,7 +2,9 @@ package controller;
 
 import com.jfinal.core.Controller;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Record;
 
@@ -12,7 +14,10 @@ import model.UserInfo;
 import service.UserService;
 
 public class UserController extends Controller{
+  
 	UserService userService = new UserService();
+  SimpleDateFormat strDate_dashed = new SimpleDateFormat("yyyy-MM-dd"); //eg：2017-02-10
+  
 	public void login()   
 	{
 		BaseResponse baseResponse = new BaseResponse();
@@ -205,7 +210,7 @@ public class UserController extends Controller{
 			String email = this.getPara("email");
 			String mobile = this.getPara("mobile");
 			String gender = this.getPara("gender");
-			Date birthday = (Date) this.getParaToDate("birthday");
+			Date birthday = strDate_dashed.parse(this.getPara("birthday"));
 			String user_id = this.getSessionAttr("user_id");
 
 			if ( StrKit.isBlank(email) && StrKit.isBlank(mobile) && StrKit.isBlank(gender))
@@ -214,10 +219,10 @@ public class UserController extends Controller{
 			}
 			else
 			{
-				Record result = userService.validateUserByPhone(mobile);
+				Record result = null;
 				if (result == null)
 				{
-					result = userService.validateUserByMail(email);
+					result = null;
 					if(result == null)
 					{
 						boolean ifChange = userService.changeUserInfo(mobile, email,birthday, gender, user_id);
