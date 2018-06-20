@@ -141,6 +141,7 @@ $(document).ready(function(){
 			                    });
 			                    $(".disabled-grey").unbind("click");
 			                    $(".disabled-grey").click(function (){
+			                    	showing_id = "";
 			                    	$('.time-select__item').removeClass('active');
 			                        $('.choose-indector--time').find('.choosen-area').text("已停售");
 			                    });
@@ -333,6 +334,7 @@ function addcomment(){
 				layer.msg("评论成功！");
 				window.location.reload();
 			}else{
+				layer.close(index);
 				layer.msg(resp.resultDesc);
 			}
 		}

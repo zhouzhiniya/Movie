@@ -5933,10 +5933,9 @@ ul#navigation li.mega-menu__nav-item:hover:before {
 .movie .movie__media {
   padding: 20px 5px;
   position: relative;
-  width: 100%;
-  height: 162px;
+  width: 55%;
+  height: 324px;
   background-image: url(../images/components/bg-movie.png);
-  background-repeat: repeat-x;
 }
 
 .movie .movie__media .swiper-container {

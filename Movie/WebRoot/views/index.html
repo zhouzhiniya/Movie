@@ -69,7 +69,7 @@
             </div>
             <a href="#" class="btn btn--sign btn--singin"> 我的 </a>
             <ul class="auth__function">
-              <li><a href="#" class="auth__function-item">观看清单</a></li>
+              <li><a onclick="editShow()" class="auth__function-item login-window">个人信息</a></li>
               <li><a href="/Movie/views/pages/orders/orders.html" class="auth__function-item">订单记录</a></li>
               <li><a href="/Movie/user/exit" class="auth__function-item">退出登录</a></li>
             </ul>
@@ -698,8 +698,8 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
           <div class="field-wrap">
             <input type='text' placeholder='用户名' class="login__input" id="username"> <input type='password' placeholder='密码' class="login__input" value="" id="registerpassword"> <input type='password' placeholder='确认密码' class="login__input" id="passwordagain"> <input type='telephone' placeholder='手机号' class="login__input" id="mobile"> <input type='email' placeholder='邮箱' class="login__input" id="email"> <select class="login__input" id="gender">
               <option value="-1" selected="selected">---请选择性别---</option>
-              <option value="0">男</option>
-              <option value="1">女</option>
+              <option value="0">女</option>
+              <option value="1">男</option>
             </select> <input type='text' placeholder='出生日期' class="login__input" id="birthday">
           </div>
 
@@ -708,6 +708,26 @@ Start doing.'><img alt='' src="/Movie/views/images/b3.jpg">
             <a href="#" class="login__tracker form__tracker" onclick="gotologin()" style="margin: 10px 0 0 0">
               已有账号？去登录</span>
             </a>
+          </div>
+        </div>
+        <div id="edit-form" class="login" method='get' style='display: none;'>
+          <p class="login__title">
+            个人信息 <br>
+            <br>
+            <span class="login-edition">欢迎来到&nbsp;&nbsp;&nbsp;A.Movie</span>
+          </p>
+
+
+          <div class="field-wrap">
+            <input type='text' placeholder='用户名' class="login__input" id="editusername"> <input type='password' placeholder='密码' class="login__input" value="" id="editpassword">  <input type='telephone' placeholder='手机号' class="login__input" id="editmobile"> <input type='email' placeholder='邮箱' class="login__input" id="editemail"> <select class="login__input" id="editgender">
+              <option value="-1" selected="selected">---请选择性别---</option>
+              <option value="0">女</option>
+              <option value="1">男</option>
+            </select> <input type='text' placeholder='出生日期' class="login__input" id="editbirthday">
+          </div>
+
+          <div class="login__control">
+            <button class="btn btn-md btn--warning btn--wider" onclick="editUser()">修改</button>
           </div>
         </div>
       </div>

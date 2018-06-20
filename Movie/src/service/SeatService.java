@@ -13,7 +13,7 @@ public class SeatService {
   
 	//根据showing_id获取放映厅的座位
 	public List<Seat> getSeatsByShowingId(String showingid) {
-		String sql = "select * from seat,showing where seat.auditorium_id = showing.auditorium_id and showing_id = " + showingid;
+		String sql = "select * from seat,showing where seat.auditorium_id = showing.auditorium_id and showing_id = " + Integer.parseInt(showingid);
 		System.out.print(sql);
 		return Seat.dao.find(sql);
 	}
