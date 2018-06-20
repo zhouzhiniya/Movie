@@ -28,7 +28,7 @@ public enum ResultCodeEnum
 	
 	RECO_ERROR("50004","人脸识别失败"),
 	
-	BOOK_EXIST("40001","存在订座"),
+	DELETE_THEATER("40001","删除影厅失败"),
   
 	SHOWTIME_CONFLICT("60000", "放映时间冲突");
 	

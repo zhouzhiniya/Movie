@@ -73,5 +73,23 @@ public class SeatController extends Controller{
 		}
 		this.renderJson(baseResponse);
 	}
+	
+	public void getSeat() {
+    BaseResponse baseResponse = new BaseResponse();
+    String seat_id = this.getPara("seat_id");
+    if(StrKit.isBlank(seat_id)) {
+      Seat result = seatService.getSeat(Integer.parseInt(seat_id));   
+      if(result != null) {
+        baseResponse.setData(result);
+        baseResponse.setResult(ResultCodeEnum.SUCCESS);
+      }else {
+        baseResponse.setResult(ResultCodeEnum.FAILED);
+      }
+    }else {
+      baseResponse.setResult(ResultCodeEnum.MISS_PARA);
+    }
+    
+    this.renderJson(baseResponse);
+	}
 
 }
