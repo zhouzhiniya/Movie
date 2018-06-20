@@ -522,8 +522,8 @@ public class TheaterController extends Controller{
 		{
 			String auditoriumid = this.getPara("auditorium_id");
 			boolean deleteType = theaterService.deleteAuditoriumById(auditoriumid);
-			if(deleteType){
-				baseResponse.setResult(ResultCodeEnum.BOOK_EXIST);
+			if(!deleteType){
+				baseResponse.setResult(ResultCodeEnum.DELETE_THEATER);
 			}
 		}
 		catch (Exception e)
