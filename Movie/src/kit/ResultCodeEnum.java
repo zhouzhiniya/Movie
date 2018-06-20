@@ -27,7 +27,8 @@ public enum ResultCodeEnum
 	IMG_URL_ERROR("50003","文件不存在"),
 	
 	RECO_ERROR("50004","人脸识别失败"),
-  
+	
+	BOOK_EXIST("40001","存在订座"),
   
 	SHOWTIME_CONFLICT("60000", "放映时间冲突");
 	
