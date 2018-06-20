@@ -506,6 +506,14 @@ public class MovieAPIService {
           suggester.addSentence(movie.getSummary());
       }
       List<String> suggestList = suggester.suggest(target, orgList.size());
+      for (String word : suggestList) {
+    	  for (MovieTop250 movie : orgList) {
+    		  if (movie.getSummary().equals(word)) {
+    			  result.add(movie);
+    			  break;
+    		  }
+    	  }
+      }
       return result;
   }
 }
