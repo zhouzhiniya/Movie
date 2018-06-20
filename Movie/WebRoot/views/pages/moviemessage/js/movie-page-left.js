@@ -76,93 +76,107 @@ $(document).ready(function(){
 				for(var i=0; i<data.length; i++){
 					$("#select-sort").append("<option value='"+data[i].city+"'>"+data[i].city+"</option>");
 				}
-				//根据城市和时间获取所有场次
-				$.ajax({
-					url: _url + "/showing/showingsOfTheaters",
-					type: 'post',
-					data: {
-						movie_id: $.cookie("movie_id"),
-						city: data[0].city,
-						time: val
-					},
-					success: function(resp){
-						if(resp.resultCode == "30000"){
-							var data = resp.data;
-							var today = new Date();
-			                $("#allShowings").html("");
-							if(data!=null){
-			                    for(var key in data){
-			                        var alltime = data[key];
-			                        $("#allShowings").append('<div class="time-select__group group--first">'+
-			                                                    '<div class="col-sm-3">'+
-			                                                      '<p class="time-select__place">'+key+'</p>'+
-			                                                    '</div>'+
-			                                                    '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
-			                                                    '</ul>'+
-			                                                  '</div>');
-			                        for (var i=0; i<alltime.length-1; i++) {
-			                        	for (var j=i+1; j<alltime.length; j++) {
-			                        		var showtime1 = alltime[i].show_time;
-			                            	showtime1 = showtime1.replace("/-/g", "/");
-			                            	var date1 = new Date(showtime1);
-			                            	var showtime2 = alltime[i+1].show_time;
-			                            	showtime2 = showtime2.replace("/-/g", "/");
-			                            	var date2 = new Date(showtime2);
-			                        		if (date1>date2) {
-			                        			var temp = alltime[i];
-			                        			alltime[i] = alltime[i+1];
-			                        			alltime[i+1] = temp;
-			                        		}
-			                        	}
-			                        }
-			                        for(var i=0; i<alltime.length; i++) {
-			                        	var showtime = alltime[i].show_time;
-			                        	showtime = showtime.replace("/-/g", "/");
-			                        	var date1 = new Date(showtime);
-			                        	var interval = (date1.getTime()-today.getTime())/1000;
-			                        	if (interval<1800) {
-			                        		$("#"+key).append('<li class="time-select__item disabled-grey" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
-			                        	} else {
-			                        		$("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
-			                        	}
-			                        }
-			                    }
-			                    $('.time-select__item').click(function (){
-			                        //visual iteractive for choose
-			                        $('.time-select__item').removeClass('active');
-			                        $(this).addClass('active');
+				if(data.length != 0){
+					//根据城市和时间获取所有场次
+					$.ajax({
+						url: _url + "/showing/showingsOfTheaters",
+						type: 'post',
+						data: {
+							movie_id: $.cookie("movie_id"),
+							city: data[0].city,
+							time: val
+						},
+						success: function(resp){
+							if(resp.resultCode == "30000"){
+								var data = resp.data;
+								var today = new Date();
+				                $("#allShowings").html("");
+								if(data!=null){
+				                    for(var key in data){
+				                        var alltime = data[key];
+				                        $("#allShowings").append('<div class="time-select__group group--first">'+
+				                                                    '<div class="col-sm-3">'+
+				                                                      '<p class="time-select__place">'+key+'</p>'+
+				                                                    '</div>'+
+				                                                    '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
+				                                                    '</ul>'+
+				                                                  '</div>');
+				                        for (var i=0; i<alltime.length-1; i++) {
+				                        	for (var j=i+1; j<alltime.length; j++) {
+				                        		var showtime1 = alltime[i].show_time;
+				                            	showtime1 = showtime1.replace("/-/g", "/");
+				                            	var date1 = new Date(showtime1);
+				                            	var showtime2 = alltime[i+1].show_time;
+				                            	showtime2 = showtime2.replace("/-/g", "/");
+				                            	var date2 = new Date(showtime2);
+				                        		if (date1>date2) {
+				                        			var temp = alltime[i];
+				                        			alltime[i] = alltime[i+1];
+				                        			alltime[i+1] = temp;
+				                        		}
+				                        	}
+				                        }
+				                        for(var i=0; i<alltime.length; i++) {
+				                        	var showtime = alltime[i].show_time;
+				                        	showtime = showtime.replace("/-/g", "/");
+				                        	var date1 = new Date(showtime);
+				                        	var interval = (date1.getTime()-today.getTime())/1000;
+				                        	if (interval<1800) {
+				                        		$("#"+key).append('<li class="time-select__item disabled-grey" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+				                        	} else {
+				                        		$("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+				                        	}
+				                        }
+				                    }
+				                    $('.time-select__item').click(function (){
+				                        //visual iteractive for choose
+				                        $('.time-select__item').removeClass('active');
+				                        $(this).addClass('active');
 
-			                        //data element init
-			                        var chooseTime = $(this).attr('data-time');
-			                         $('.choose-indector--time').find('.choosen-area').text(chooseTime);
+				                        //data element init
+				                        var chooseTime = $(this).attr('data-time');
+				                         $('.choose-indector--time').find('.choosen-area').text(chooseTime);
 
-			                        //data element init
-			                        showing_id = $(this).attr("id");
-			                    });
-			                    $(".disabled-grey").unbind("click");
-			                    $(".disabled-grey").click(function (){
-			                    	showing_id = "";
-			                    	$('.time-select__item').removeClass('active');
-			                        $('.choose-indector--time').find('.choosen-area').text("已停售");
-			                    });
-			                }else{
-			                    $("#allShowings").html("暂时没有排片哦~~~");
-			                }
-						}else{
-							layer.msg(resp.resultDesc);
+				                        //data element init
+				                        showing_id = $(this).attr("id");
+				                    });
+				                    $(".disabled-grey").unbind("click");
+				                    $(".disabled-grey").click(function (){
+				                    	showing_id = "";
+				                    	$('.time-select__item').removeClass('active');
+				                        $('.choose-indector--time').find('.choosen-area').text("已停售");
+				                    });
+				                }else{
+				                    $("#allShowings").html("暂时没有排片哦~~~");
+				                }
+							}else{
+								layer.msg(resp.resultDesc);
+							}
 						}
-					}
-				})
-				$("#select-sort").selectbox({
-                    onChange: function (val, inst) {
-                        $(inst.input[0]).children().each(function(item){
-                            $(this).removeAttr('selected');
-                        })
-                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
-                    	getAllShowings();
-                    }
+					})
+					$("#select-sort").selectbox({
+	                    onChange: function (val, inst) {
+	                        $(inst.input[0]).children().each(function(item){
+	                            $(this).removeAttr('selected');
+	                        })
+	                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+	                    	getAllShowings();
+	                    }
 
-                });
+	                });
+				}else{
+					$("#allShowings").html("暂时没有排片哦~~~");
+					$("#select-sort").selectbox({
+	                    onChange: function (val, inst) {
+	                        $(inst.input[0]).children().each(function(item){
+	                            $(this).removeAttr('selected');
+	                        })
+	                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+	                    	getAllShowings();
+	                    }
+
+	                });
+				}
 			}else{
 				layer.msg(resp.resultDesc);
 			}
@@ -301,11 +315,76 @@ function getAllShowings(){
 		success: function(resp){
 			if(resp.resultCode == "30000"){
 				var data = resp.data;
-				if(data.length == 0 || data==null){
-					$("#allShowings").html("暂时没有排片哦~~~");
-				}else{
+				var today = new Date();
+                $("#allShowings").html("");
+				if(data!=null){
+                    for(var key in data){
+                        var alltime = data[key];
+                        $("#allShowings").append('<div class="time-select__group group--first">'+
+                                                    '<div class="col-sm-3">'+
+                                                      '<p class="time-select__place">'+key+'</p>'+
+                                                    '</div>'+
+                                                    '<ul class="col-sm-6 items-wrap" id="'+key+'">'+
+                                                    '</ul>'+
+                                                  '</div>');
+                        for (var i=0; i<alltime.length-1; i++) {
+                        	for (var j=i+1; j<alltime.length; j++) {
+                        		var showtime1 = alltime[i].show_time;
+                            	showtime1 = showtime1.replace("/-/g", "/");
+                            	var date1 = new Date(showtime1);
+                            	var showtime2 = alltime[i+1].show_time;
+                            	showtime2 = showtime2.replace("/-/g", "/");
+                            	var date2 = new Date(showtime2);
+                        		if (date1>date2) {
+                        			var temp = alltime[i];
+                        			alltime[i] = alltime[i+1];
+                        			alltime[i+1] = temp;
+                        		}
+                        	}
+                        }
+                        for(var i=0; i<alltime.length; i++) {
+                        	var showtime = alltime[i].show_time;
+                        	showtime = showtime.replace("/-/g", "/");
+                        	var date1 = new Date(showtime);
+                        	var interval = (date1.getTime()-today.getTime())/1000;
+                        	if (interval<1800) {
+                        		$("#"+key).append('<li class="time-select__item disabled-grey" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                        	} else {
+                        		$("#"+key).append('<li class="time-select__item" id="'+alltime[i].showing_id+'" data-time="'+alltime[i].show_time.split(" ")[1]+'">'+alltime[i].show_time.split(" ")[1]+'</li>');
+                        	}
+                        }
+                    }
+                    $('.time-select__item').click(function (){
+                        //visual iteractive for choose
+                        $('.time-select__item').removeClass('active');
+                        $(this).addClass('active');
 
-				}
+                        //data element init
+                        var chooseTime = $(this).attr('data-time');
+                         $('.choose-indector--time').find('.choosen-area').text(chooseTime);
+
+                        //data element init
+                        showing_id = $(this).attr("id");
+                    });
+                    $(".disabled-grey").unbind("click");
+                    $(".disabled-grey").click(function (){
+                    	showing_id = "";
+                    	$('.time-select__item').removeClass('active');
+                        $('.choose-indector--time').find('.choosen-area').text("已停售");
+                    });
+                }else{
+                    $("#allShowings").html("暂时没有排片哦~~~");
+                    $("#select-sort").selectbox({
+	                    onChange: function (val, inst) {
+	                        $(inst.input[0]).children().each(function(item){
+	                            $(this).removeAttr('selected');
+	                        })
+	                        $(inst.input[0]).find('[value="'+val+'"]').attr('selected','selected');
+	                    	getAllShowings();
+	                    }
+
+	                });
+                }
 			}else{
 				layer.msg(resp.resultDesc);
 			}

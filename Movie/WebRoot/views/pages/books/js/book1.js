@@ -136,10 +136,10 @@ $(document).ready(function(){
                     getAllShowings(movie_id);
                   }
                 });
-				for(var i=0; i<data.length; i++){
-					$("#select-sort").append('<option value="'+data[i].city+'">'+data[i].city+'</option>');
-				}
-				$("#select-sort").selectbox({
+        				for(var i=0; i<data.length; i++){
+        					$("#select-sort").append('<option value="'+data[i].city+'">'+data[i].city+'</option>');
+        				}
+        				$("#select-sort").selectbox({
                     onChange: function (val, inst) {
 
                         $(inst.input[0]).children().each(function(item){
@@ -163,10 +163,14 @@ $(document).ready(function(){
 
 //根据城市和时间获取所有场次
 function getAllShowings(movie_id){
-    if(movie_id == ""){
-        layer.msg("请选择电影！");
-        return;
-    }
+  if(movie_id == ""){
+      layer.msg("请选择电影！");
+      return;
+  }
+  if($("#select-sort").val() == "" || $("#select-sort").val() == null){
+    layer.msg("请选择城市！");
+    return;
+  }
 	$.ajax({
 		url: _url + "/showing/showingsOfTheaters",
 		type: 'post',
