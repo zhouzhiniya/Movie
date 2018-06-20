@@ -257,7 +257,7 @@ public class MovieService {
 //    for (Recommendation recommendation : records) {
 //      recommendation.delete();
 //    }
-//    List<Booking> bookings = this.getUserBookingInfos(userId);
+//    List<Movie> sawMovie = this.getUserBookingInfos(userId);
 //    List<MovieTop250> matches = this.getAllMatchesMovie(userId);
 //    List<MovieTop250> recommend = this.suggestWord(matches);
 //    for (MovieTop250 movie : matches) {
