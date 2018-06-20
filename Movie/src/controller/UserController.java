@@ -219,13 +219,13 @@ public class UserController extends Controller{
 			}
 			else
 			{
-				Record result = userService.validateUserByPhone(mobile);
+				Record result = null;
 				if (result == null)
 				{
-					result = userService.validateUserByMail(email);
+					result = null;
 					if(result == null)
 					{
-						boolean ifChange = userService.changeUserInfo( mobile, email,birthday, gender, user_id);
+						boolean ifChange = userService.changeUserInfo(mobile, email,birthday, gender, user_id);
 						if(ifChange)
 						{
 							baseResponse.setResult(ResultCodeEnum.SUCCESS);
