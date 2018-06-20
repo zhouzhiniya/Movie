@@ -208,7 +208,7 @@ public class UserController extends Controller{
 			Date birthday = (Date) this.getParaToDate("birthday");
 			String user_id = this.getSessionAttr("user_id");
 
-			if ( StrKit.isBlank(email) && StrKit.isBlank(mobile) && StrKit.isBlank(gender) && StrKit.isBlank(birthday.toString()))
+			if ( StrKit.isBlank(email) && StrKit.isBlank(mobile) && StrKit.isBlank(gender))
 			{
 				baseResponse.setResult(ResultCodeEnum.MISS_PARA);
 			}
