@@ -141,6 +141,7 @@ $(document).ready(function(){
 			                    });
 			                    $(".disabled-grey").unbind("click");
 			                    $(".disabled-grey").click(function (){
+			                    	showing_id = "";
 			                    	$('.time-select__item').removeClass('active');
 			                        $('.choose-indector--time').find('.choosen-area').text("已停售");
 			                    });
