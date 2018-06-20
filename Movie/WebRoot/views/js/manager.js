@@ -141,7 +141,7 @@ var allAuditoriumInfoId = new Array();
 					//如果今天没排片
 					if(resp.data.haveShowing == 0)
 					{
-						$("#do").html("暂无排片");
+						$("#do").html("今天暂无排片");
 						$("#do").css("color","#fff").css("margin-left","40px");
 						//ajax end
 						
@@ -149,10 +149,11 @@ var allAuditoriumInfoId = new Array();
 									
 						var result = resp.data.showinginfo;
 						$('#do').find('.el__data').children('.each-movie').html('');
+						$('.each-movie-session').html("");
 						
 						if(result.length == 0)
 						{
-							$(this).find('.el__data').children('.each-movie').text('该天暂无排片');
+							$(this).find('.el__data').children('.each-movie').text('今天暂无排片');
 						}
 									
 						//循环添加电影
@@ -273,8 +274,29 @@ var allAuditoriumInfoId = new Array();
 			{
 				if(resp.resultCode == "30000")
 				{
-					result = resp.data.showinginfo;	
-					
+					if(resp.data.haveShowing == "0"){
+						$(".s--active").find('.el__data').children('.each-movie').text('该天暂无排片');
+						$('.each-movie-session').html("");
+					}else{
+						result = resp.data.showinginfo;	
+						$('.each-movie-session').html('');
+						$(".s--active").find('.el__data').children('.each-movie').html('');
+						$('.each-movie-session').html("");
+						if(result.length == 0)
+						{
+							$(".s--active").find('.el__data').children('.each-movie').text('该天暂无排片');
+						}
+						
+						//循环添加电影
+						for(var i = 0;i < result.length;i++)
+						{
+							$(".s--active").find('.el__data').children('.each-movie').append(
+				            	'<div class="movie-base" movie-id="' + result[i].movie_id + '" movie-day="' + day + '">' + 
+				        			'<span class="movie-name">' + result[i].title + '</span>'+
+				        		'</div>	'
+							);
+						}
+					}
 				}else{
 					layer.msg(resp.resultDesc);
 				}	
@@ -285,23 +307,7 @@ var allAuditoriumInfoId = new Array();
 		});
 
 		
-		$('.each-movie-session').html('');
-		$(this).find('.el__data').children('.each-movie').html('');
-		if(result.length == 0)
-		{
-			$(this).find('.el__data').children('.each-movie').text('该天暂无排片');
-		}
-		
-		//循环添加电影
-		for(var i = 0;i < result.length;i++)
-		{
-			$(this).find('.el__data').children('.each-movie').append(
-            	'<div class="movie-base" movie-id="' + result[i].movie_id + '" movie-day="' + day + '">' + 
-        			'<span class="movie-name">' + result[i].title + '</span>'+
-//        			'<span class="movie-duration">' + result[i].show_time + '</span>'+
-        		'</div>	'
-			);
-		}	
+			
 	});
 	
 
@@ -327,13 +333,13 @@ var allAuditoriumInfoId = new Array();
 				if(resp.resultCode == "30000")
 				{
 					//请求成功
+					$('.each-movie-session').html("");
 					for(var k = 0;k < resp.data.length;k++)
 					{
 						$('.each-movie-session').append(
 				            	'<span class="movie-session">'+
 			            			'<span class="session-time">开场时间：' + resp.data[k].show_time + '</span> '+
 			            			'<span class="session-place">影厅：' + resp.data[k].auditorium + '</span>'+
-			            			'<span class="session-att-rate">上座率： ' + '未知' + '</span>'+
 			            		'</span>'			
 						);	
 					}	
