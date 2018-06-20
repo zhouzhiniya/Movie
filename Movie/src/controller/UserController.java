@@ -220,7 +220,7 @@ public class UserController extends Controller{
 					result = userService.validateUserByMail(email);
 					if(result == null)
 					{
-						boolean ifChange = userService.changeUserInfo( mobile, email,birthday, gender, user_id);
+						boolean ifChange = userService.changeUserInfo(mobile, email,birthday, gender, user_id);
 						if(ifChange)
 						{
 							baseResponse.setResult(ResultCodeEnum.SUCCESS);
