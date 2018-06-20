@@ -71,33 +71,76 @@ $(document).ready(function(){
 					success: function(resp){
 						if (resp.resultCode == "30000"){
 							var data = resp.data;
-							$("#firsttitle").html("推&nbsp;荐&nbsp;电&nbsp;影");
-							$("#gradeMovie").html("");
-							for(var i=0; i<data.length; i++){
-								var type = data[i].type.split(",");
-								var movietype = "";
-								for(var j=0; j<type.length; j++){
-									if(j == type.length-1){
-										movietype += type[j];
-									}else{
-										movietype += type[j] + " | ";
+							if(data.length == 0 || data == null){
+								//获取评分前6的电影信息
+								$.ajax({
+									url: _url + '/movie/getHigherGradeMovies',
+									type: 'post',
+									success: function(resp){
+										if(resp.resultCode == '30000'){
+											var data = resp.data;
+											$("#firsttitle").html("今&nbsp;日&nbsp;最&nbsp;佳");
+											$("#gradeMovie").html("");
+											for(var i=0; i<data.length; i++){
+												var type = data[i].type.split(",");
+												var movietype = "";
+												for(var j=0; j<type.length; j++){
+													if(j == type.length-1){
+														movietype += type[j];
+													}else{
+														movietype += type[j] + " | ";
+													}
+												}
+												$("#gradeMovie").append('<div class="movie-beta__item second--item">'+
+							                         '<img alt="" src="'+data[i].image+'">'+
+							                         '<span class="best-rate">'+data[i].douban_rating+'</span>'+
+													 '<ul class="movie-beta__info">'+
+							                             '<li><span class="best-voted">今日'+data[i].collect_count+'人已观看</span></li>'+
+							                             '<li>'+
+							                                '<p class="movie__time">'+data[i].duration+'</p>'+
+							                                '<p>'+movietype+'</p>'+
+							                                '<p>'+data[i].comments_count+' 条评论</p>'+
+							                             '</li>'+
+							                             '<li class="last-block">'+
+							                                 '<a class="slide__link" onclick="moreMovie('+data[i].movie_id+')">更多</a>'+
+							                             '</li>'+
+							                         '</ul>'+
+							                     '</div>');
+											}
+										}else{
+											layer.msg(resp.resultDesc);
+										}
 									}
+								})
+							}else{
+								$("#firsttitle").html("推&nbsp;荐&nbsp;电&nbsp;影");
+								$("#gradeMovie").html("");
+								for(var i=0; i<data.length; i++){
+									var type = data[i].type.split(",");
+									var movietype = "";
+									for(var j=0; j<type.length; j++){
+										if(j == type.length-1){
+											movietype += type[j];
+										}else{
+											movietype += type[j] + " | ";
+										}
+									}
+									$("#gradeMovie").append('<div class="movie-beta__item second--item">'+
+				                         '<img alt="" src="'+data[i].image+'">'+
+				                         '<span class="best-rate">'+data[i].douban_rating+'</span>'+
+										 '<ul class="movie-beta__info">'+
+				                             '<li><span class="best-voted">今日'+data[i].collect_count+'人已观看</span></li>'+
+				                             '<li>'+
+				                                '<p class="movie__time">'+data[i].duration+'</p>'+
+				                                '<p>'+movietype+'</p>'+
+				                                '<p>'+data[i].comments_count+' 条评论</p>'+
+				                             '</li>'+
+				                             '<li class="last-block">'+
+				                                 '<a class="slide__link" onclick="moreRecommendMovie('+data[i].id+')">更多</a>'+
+				                             '</li>'+
+				                         '</ul>'+
+				                     '</div>');
 								}
-								$("#gradeMovie").append('<div class="movie-beta__item second--item">'+
-			                         '<img alt="" src="'+data[i].image+'">'+
-			                         '<span class="best-rate">'+data[i].douban_rating+'</span>'+
-									 '<ul class="movie-beta__info">'+
-			                             '<li><span class="best-voted">今日'+data[i].collect_count+'人已观看</span></li>'+
-			                             '<li>'+
-			                                '<p class="movie__time">'+data[i].duration+'</p>'+
-			                                '<p>'+movietype+'</p>'+
-			                                '<p>'+data[i].comments_count+' 条评论</p>'+
-			                             '</li>'+
-			                             '<li class="last-block">'+
-			                                 '<a class="slide__link" onclick="moreRecommendMovie('+data[i].id+')">更多</a>'+
-			                             '</li>'+
-			                         '</ul>'+
-			                     '</div>');
 							}
 						}else{
 							//获取评分前6的电影信息
