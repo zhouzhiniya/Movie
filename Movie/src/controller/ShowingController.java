@@ -147,9 +147,15 @@ public class ShowingController extends Controller{
 	}
 	
 	public void deleteShowing() {
-		String showId = this.getPara("showing_id");
-		if (StrKit.notBlank(showId)) {
-			
+		BaseResponse baseResponse  = new BaseResponse();
+		String showingId = this.getPara("showing_id");
+		if (StrKit.notBlank(showingId)) {
+			if (!showingService.deleteShowing(showingId)) {
+				baseResponse.setResult(ResultCodeEnum.BOOK_EXIST);
+			} else {
+				baseResponse.setResult(ResultCodeEnum.SUCCESS);
+			}
 		}
+		this.renderJson(baseResponse);
 	}
 }

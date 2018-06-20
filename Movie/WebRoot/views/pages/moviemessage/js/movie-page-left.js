@@ -243,7 +243,9 @@ $(document).ready(function(){
             type: 'wordCloud', //绘图类型为字符云
             width:"100%",//所占整体宽度
             height:"100%",//所占整体高度
-            gridSize: 15,//文字间距
+            gridSize: 30,//文字间距
+            rotationRange: [0, 0],
+            rotationStep: 45,
             sizeRange: [20, 100],//文字大小[最小，最大]
             shape: 'ellipse',//整体字符云展现的图形
 			textStyle: {
