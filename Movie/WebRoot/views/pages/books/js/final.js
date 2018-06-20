@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	var layindex = layer.load();
 	$.ajax({
 		url : "/Movie/booking/getBookingInfoByBookid",
 		type: 'post',
@@ -24,15 +25,16 @@ $(document).ready(function(){
 							seat_id: seats[i]
 						},
 						success: function(resp){
-							if(resultCode.resultCode == "30000"){
+							if(resp.resultCode == "30000"){
 								allseat += resp.data.seat + ",";
+								$(".ticket__place").html(allseat);
 							}else{
 								layer.msg(resp.resultDesc);
 							}
 						}
 					})
 				}
-				$(".ticket__place").html(allseat);
+				layer.close(layindex);
 			}else{
 				layer.msg(resp.resultDesc);
 			}

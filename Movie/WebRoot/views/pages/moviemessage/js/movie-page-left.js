@@ -331,6 +331,7 @@ function addcomment(){
 				layer.msg("评论成功！");
 				window.location.reload();
 			}else{
+				layer.close(index);
 				layer.msg(resp.resultDesc);
 			}
 		}
