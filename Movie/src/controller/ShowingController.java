@@ -145,4 +145,11 @@ public class ShowingController extends Controller{
     }
     this.renderJson(baseResponse);
 	}
+	
+	public void deleteShowing() {
+		String showId = this.getPara("showing_id");
+		if (StrKit.notBlank(showId)) {
+			
+		}
+	}
 }
